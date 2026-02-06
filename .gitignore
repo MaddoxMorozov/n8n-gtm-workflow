@@ -1,0 +1,12 @@
+node_modules/
+.env
+.DS_Store
+*.log
+npm-debug.log*
+.idea/
+.vscode/
+# SSH Keys (Safety first!)
+*.pem
+*.key
+id_rsa
+id_ed25519
