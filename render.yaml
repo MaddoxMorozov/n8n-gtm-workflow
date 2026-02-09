@@ -1,0 +1,19 @@
+services:
+  - type: worker
+    name: mysql-ssh-tunnel
+    runtime: node
+    buildCommand: npm install
+    startCommand: node start_tunnel.js
+    envVars:
+      - key: SSH_HOST
+        value: 173.212.247.135
+      - key: SSH_PORT
+        value: 22
+      - key: SSH_USERNAME
+        value: root
+      - key: SSH_PRIVATE_KEY
+        sync: false # Set this manually in Render dashboard (base64 encoded)
+      - key: REMOTE_HOST
+        value: 127.0.0.1
+      - key: REMOTE_PORT
+        value: 3306
