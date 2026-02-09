@@ -1,5 +1,11 @@
-# Use standard Node.js image (has proper node/npm paths)
-FROM node:18-alpine
+# Use Debian-based Node.js for better n8n compatibility
+FROM node:20-bullseye-slim
+
+# Install required system dependencies
+RUN apt-get update && apt-get install -y \
+    python3 \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install n8n globally
 RUN npm install -g n8n
