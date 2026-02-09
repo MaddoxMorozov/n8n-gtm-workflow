@@ -1,5 +1,5 @@
 // start_combined.js - Starts both SSH tunnel and n8n
-const { spawn, fork } = require('child_process');
+const { spawn, fork, execSync } = require('child_process');
 const path = require('path');
 
 console.log('[Combined] Starting SSH tunnel...');
@@ -15,10 +15,11 @@ const tunnel = fork(tunnelPath, [], {
 setTimeout(() => {
   console.log('[Combined] Starting n8n...');
   
-  // Start n8n
-  const n8n = spawn('n8n', ['start'], {
-    env: process.env,
-    stdio: 'inherit'
+  // Start n8n using npx which handles path resolution better
+  const n8n = spawn('npx', ['n8n'], {
+    env: { ...process.env, N8N_PORT: process.env.N8N_PORT || '5678' },
+    stdio: 'inherit',
+    shell: true
   });
 
   n8n.on('error', (err) => {
@@ -33,6 +34,7 @@ setTimeout(() => {
   });
 
 }, 5000); // Wait 5 seconds for tunnel
+
 
 // Handle process termination
 process.on('SIGTERM', () => {
