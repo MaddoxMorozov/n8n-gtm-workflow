@@ -1,4 +1,4 @@
-# Base image: n8n (Debian-based)
+# Base image: n8n
 FROM n8nio/n8n:latest
 
 # Switch to root to install dependencies
@@ -15,14 +15,12 @@ COPY start_combined.js ./
 # Install tunnel dependencies
 RUN npm install
 
-# Switch back to node user for security
-USER node
-
 # Set working directory back to n8n
 WORKDIR /home/node
 
 # Expose n8n port
 EXPOSE 5678
 
-# Start both tunnel and n8n using Node.js
-CMD ["node", "/tunnel/start_combined.js"]
+# Stay as root to have proper PATH - n8n will switch user internally if needed
+# Use full path to node
+CMD ["/usr/local/bin/node", "/tunnel/start_combined.js"]
