@@ -10,13 +10,10 @@ WORKDIR /tunnel
 # Copy tunnel files
 COPY package.json ./
 COPY start_tunnel.js ./
-COPY start.sh ./
+COPY start_combined.js ./
 
 # Install tunnel dependencies
 RUN npm install
-
-# Make start script executable
-RUN chmod +x start.sh
 
 # Switch back to node user for security
 USER node
@@ -27,5 +24,5 @@ WORKDIR /home/node
 # Expose n8n port
 EXPOSE 5678
 
-# Start both tunnel and n8n
-CMD ["/bin/sh", "/tunnel/start.sh"]
+# Start both tunnel and n8n using Node.js
+CMD ["node", "/tunnel/start_combined.js"]
