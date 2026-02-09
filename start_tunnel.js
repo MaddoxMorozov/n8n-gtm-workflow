@@ -34,7 +34,7 @@ const SSH_CONFIG = {
     readyTimeout: 20000,
 };
 
-const LOCAL_PORT = parseInt(process.env.PORT || process.env.LOCAL_PORT || '3307');
+const LOCAL_PORT = parseInt(process.env.LOCAL_PORT || '3307');
 const REMOTE_HOST = process.env.REMOTE_HOST || '127.0.0.1';
 const REMOTE_PORT = parseInt(process.env.REMOTE_PORT || '3306');
 
