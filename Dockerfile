@@ -1,11 +1,8 @@
-# Base image: n8n
+# Base image: n8n (Debian-based)
 FROM n8nio/n8n:latest
 
 # Switch to root to install dependencies
 USER root
-
-# Install Node.js dependencies for the SSH tunnel
-RUN apk add --no-cache openssh-client
 
 # Create app directory for tunnel
 WORKDIR /tunnel
@@ -31,4 +28,4 @@ WORKDIR /home/node
 EXPOSE 5678
 
 # Start both tunnel and n8n
-CMD ["/tunnel/start.sh"]
+CMD ["/bin/sh", "/tunnel/start.sh"]
