@@ -10,3 +10,8 @@ npm-debug.log*
 *.key
 id_rsa
 id_ed25519
+
+# Credentials (DO NOT COMMIT)
+db_creds.txt
+id_rsa_mysql.txt
+test_db_connection.js
