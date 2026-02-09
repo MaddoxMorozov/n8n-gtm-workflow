@@ -336,16 +336,12 @@
             }
           ]
         },
-        "sendHeaders": true,
+        "authentication": "headerAuth",
         "headerParameters": {
           "parameters": [
             {
               "name": "x-rapidapi-host",
               "value": "jsearch.p.rapidapi.com"
-            },
-            {
-              "name": "x-rapidapi-key",
-              "value": "4cc7a21f4fmsh7416f2f11d8633bp16232bjsn565d34b1a86c"
             }
           ]
         },
@@ -359,6 +355,12 @@
       ],
       "id": "51ae8fa0-24c1-4d04-8133-3c0eb54ae663",
       "name": "Job Scraper2",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "rapidapi-key-id",
+          "name": "RapidAPI JSearch Key"
+        }
+      },
       "retryOnFail": true,
       "waitBetweenTries": 5000,
       "maxTries": 3,
