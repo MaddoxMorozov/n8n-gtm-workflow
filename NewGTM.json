@@ -9,10 +9,10 @@
       "type": "n8n-nodes-base.mySql",
       "typeVersion": 2,
       "position": [
-        -4688,
-        6272
+        -2416,
+        7472
       ],
-      "id": "158023a9-ffab-4018-ad42-5ca8ee8f82ff",
+      "id": "e406d085-5b6a-48d0-9e50-7f5a7a04c2c0",
       "name": "MySQL Insert",
       "credentials": {
         "mySql": {
@@ -26,10 +26,10 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -5904,
-        6240
+        -3632,
+        7440
       ],
-      "id": "5c35883d-4f54-47ee-90e6-2b16d157903d",
+      "id": "ed5fee2f-2c8a-4e63-8a75-8a9e0a6ff08a",
       "name": "When clicking ‘Execute workflow’"
     },
     {
@@ -41,10 +41,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
       "position": [
-        -4688,
-        5648
+        -2416,
+        6848
       ],
-      "id": "6c486114-0e58-4591-83f2-8351f87f5a07",
+      "id": "26a4a60e-4fb5-4270-b877-2d7ef1ddce69",
       "name": "Jobs UI (GET)",
       "webhookId": "7ca4db1d-6e14-4652-8a72-bcbbebbc6aa6"
     },
@@ -57,10 +57,10 @@
       "type": "n8n-nodes-base.mySql",
       "typeVersion": 2,
       "position": [
-        -4112,
-        5648
+        -1840,
+        6848
       ],
-      "id": "9483292b-ea5c-4b7b-96f1-8828f933517b",
+      "id": "c14a22ae-82b6-44b0-9060-62ff62bcc6ee",
       "name": "Fetch Jobs for UI (MySQL)",
       "credentials": {
         "mySql": {
@@ -76,10 +76,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -4384,
-        5872
+        -2112,
+        7072
       ],
-      "id": "77cf7358-a904-4a09-8ceb-35e80d69ee8f",
+      "id": "7c654c6a-1752-43f7-8e20-ec3c269757af",
       "name": "Build Jobs UI HTML (Server)"
     },
     {
@@ -91,10 +91,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
       "position": [
-        -4688,
-        5856
+        -2416,
+        7056
       ],
-      "id": "3104af72-9d31-4149-83a0-53a3e79788b0",
+      "id": "16ba9991-3bc6-43db-9e9a-622861195eea",
       "name": "Jobs UI Data (GET)",
       "webhookId": "739b31a2-c257-4254-bf0a-4dd3872095e6"
     },
@@ -105,10 +105,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -4272,
-        6144
+        -2000,
+        7344
       ],
-      "id": "67c83e74-ffc8-4dff-9558-03a509cdb641",
+      "id": "7b01a9ff-a39e-4790-91b6-8385cdb8ffa8",
       "name": "Build Jobs Data Query"
     },
     {
@@ -120,10 +120,10 @@
       "type": "n8n-nodes-base.mySql",
       "typeVersion": 2,
       "position": [
-        -4032,
-        6144
+        -1760,
+        7344
       ],
-      "id": "da2b4a3b-e4d3-4bc6-8f98-faf218e906ba",
+      "id": "ef2136eb-5a23-491c-b653-2ecdef4827a2",
       "name": "Fetch Jobs Data (MySQL)",
       "credentials": {
         "mySql": {
@@ -139,10 +139,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -3792,
-        6144
+        -1520,
+        7344
       ],
-      "id": "059ce373-a486-4fb5-ac6a-cffb4209599f",
+      "id": "7b1ae07c-7a31-47b7-893e-f427dc75141f",
       "name": "Build Jobs Data Response"
     },
     {
@@ -164,10 +164,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.2,
       "position": [
-        -3552,
-        6144
+        -1280,
+        7344
       ],
-      "id": "3719b74d-f6a3-423f-9513-5a5b47698f97",
+      "id": "372c472a-cc84-4a77-82f1-0c4afda26bef",
       "name": "Jobs Data Response"
     },
     {
@@ -189,10 +189,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.2,
       "position": [
-        -3792,
-        5936
+        -1520,
+        7136
       ],
-      "id": "c32e7b01-ec5c-41b5-ac62-bdd38109ed32",
+      "id": "265a8ebf-6da6-4d56-a240-5a7d7cdd3cf0",
       "name": "Jobs UI Response"
     },
     {
@@ -205,10 +205,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
       "position": [
-        -4480,
-        6592
+        -2208,
+        7792
       ],
-      "id": "a7125c17-c458-45b5-827a-6d7655016e29",
+      "id": "43a7d1bc-f5f2-4b65-967f-c3b2d1ebcda1",
       "name": "Jobs UI Submit (POST)",
       "webhookId": "b229f389-b6e5-483d-987b-c21047af9039"
     },
@@ -219,10 +219,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -4272,
-        6320
+        -2000,
+        7520
       ],
-      "id": "8ff90230-ff33-493b-a37a-5fe94f8afe3e",
+      "id": "60141dd4-66b4-41b3-a71f-b9861201c317",
       "name": "Build Submit Query"
     },
     {
@@ -234,10 +234,10 @@
       "type": "n8n-nodes-base.mySql",
       "typeVersion": 2,
       "position": [
-        -4032,
-        6320
+        -1760,
+        7520
       ],
-      "id": "ee149bb4-7cb0-409d-a661-528e35615843",
+      "id": "9f0842de-8ec7-4957-9171-7390d533c48f",
       "name": "Fetch Selected Jobs (MySQL)",
       "credentials": {
         "mySql": {
@@ -253,10 +253,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -3792,
-        6320
+        -1520,
+        7520
       ],
-      "id": "7f3e9a92-e428-4ff8-a481-32fff01cacf6",
+      "id": "5a804ed8-6b62-4154-993e-272f40dc8b5a",
       "name": "Filter Selected Jobs (Submit)"
     },
     {
@@ -278,10 +278,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.2,
       "position": [
-        -3520,
-        6464
+        -1248,
+        7664
       ],
-      "id": "f0f6bd20-abc6-46a2-9834-28ba35cf3982",
+      "id": "7e18fb8d-a8e0-484f-a3f6-249131fb19bd",
       "name": "Selection Response"
     },
     {
@@ -298,21 +298,23 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -5904,
-        6496
+        -3632,
+        7696
       ],
-      "id": "04635b43-8a03-4297-bb8c-964e21eb5082",
+      "id": "18d718fd-2c3d-45b9-98dd-6b923fb24386",
       "name": "Daily Schedule (9AM EST)2"
     },
     {
       "parameters": {
         "url": "https://jsearch.p.rapidapi.com/search",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
         "sendQuery": true,
         "queryParameters": {
           "parameters": [
             {
               "name": "query",
-              "value": "Clay & GTM Engineer & Go-to-market jobs in UK"
+              "value": "Clay GTM Engineer Go-to-market jobs in UK"
             },
             {
               "name": "page",
@@ -328,7 +330,7 @@
             },
             {
               "name": "date_posted",
-              "value": "week"
+              "value": "month"
             },
             {
               "name": "employment_types",
@@ -336,12 +338,16 @@
             }
           ]
         },
-        "authentication": "headerAuth",
+        "sendHeaders": true,
         "headerParameters": {
           "parameters": [
             {
               "name": "x-rapidapi-host",
               "value": "jsearch.p.rapidapi.com"
+            },
+            {
+              "name": "x-rapidapi-key",
+              "value": "4cc7a21f4fmsh7416f2f11d8633bp16232bjsn565d34b1a86c"
             }
           ]
         },
@@ -350,20 +356,20 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -5536,
-        6336
+        -3264,
+        7536
       ],
-      "id": "51ae8fa0-24c1-4d04-8133-3c0eb54ae663",
+      "id": "f4d380bc-c659-41ea-ab98-d775584ea5f4",
       "name": "Job Scraper2",
-      "credentials": {
-        "httpHeaderAuth": {
-          "id": "rapidapi-key-id",
-          "name": "RapidAPI JSearch Key"
-        }
-      },
       "retryOnFail": true,
       "waitBetweenTries": 5000,
       "maxTries": 3,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "cMvU3IrfuYisILxD",
+          "name": "RapidAPI JSearch"
+        }
+      },
       "onError": "continueErrorOutput",
       "notes": "⚠️ SECURITY: Move x-rapidapi-key to n8n Credentials!\n\nRapidAPI JSearch - Fetches GTM/Clay jobs from the past week."
     },
@@ -375,10 +381,10 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        -5120,
-        6464
+        -2848,
+        7664
       ],
-      "id": "9ef1e795-6b65-470c-9e26-6e0821bec7a0",
+      "id": "148f0264-084d-4a57-bdc8-a65bd207b86e",
       "name": "Split Out2"
     },
     {
@@ -388,10 +394,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -4912,
-        6464
+        -2640,
+        7664
       ],
-      "id": "931d89b1-4da9-4693-b032-9883c1e22140",
+      "id": "182509a8-6a15-402a-bb27-169aa25be6e7",
       "name": "Prepare Job Data"
     },
     {
@@ -405,10 +411,10 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.2,
       "position": [
-        -5136,
-        6160
+        -2864,
+        7360
       ],
-      "id": "0d66310b-4398-4700-a6e7-2e2158efe607",
+      "id": "b86370d1-4c00-4ccd-8054-f836564971d7",
       "name": "Error Alert - Job Scraper",
       "webhookId": "2ad56aa9-1932-4aa6-8bad-cc3305fd7db8",
       "credentials": {
@@ -589,32 +595,6 @@
         },
         "pairedItem": {
           "item": 9
-        }
-      }
-    ],
-    "Job Scraper2": [
-      {
-        "json": {
-          "status": "OK",
-          "request_id": "3a23edcc-7811-4537-bf1c-c245c468dc92",
-          "parameters": {
-            "query": "Clay & GTM Engineer & Go-to-market jobs in UK",
-            "page": 1,
-            "num_pages": 1,
-            "date_posted": "week",
-            "employment_types": [
-              "FULLTIME",
-              "CONTRACTOR",
-              "PARTTIME",
-              "INTERN"
-            ],
-            "country": "us",
-            "language": "en"
-          },
-          "data": []
-        },
-        "pairedItem": {
-          "item": 0
         }
       }
     ]
@@ -809,7 +789,7 @@
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "f9db3a3b-60bd-4866-8e50-acdfbbd40757",
+  "versionId": "92655ac7-1501-4e3a-83b7-cd57310b40e9",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "238e209ef863af056f51ef319ce60e54301f4959b4ddfd37a8126b18abdcba6f"
