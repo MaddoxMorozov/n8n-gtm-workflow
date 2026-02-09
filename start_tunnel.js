@@ -67,7 +67,15 @@ function connect() {
                     }
                     socket.pipe(stream);
                     stream.pipe(socket);
-                    
+
+                    socket.on('error', (err) => {
+                        console.error(`[${new Date().toISOString()}] Socket error:`, err.message);
+                        stream.destroy();
+                    });
+                    stream.on('error', (err) => {
+                        console.error(`[${new Date().toISOString()}] Stream error:`, err.message);
+                        socket.destroy();
+                    });
                     stream.on('close', () => socket.destroy());
                     socket.on('close', () => stream.destroy());
                 }
