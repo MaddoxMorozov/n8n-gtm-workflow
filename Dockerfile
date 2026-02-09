@@ -1,8 +1,8 @@
-# Base image: n8n
-FROM n8nio/n8n:latest
+# Use standard Node.js image (has proper node/npm paths)
+FROM node:18-alpine
 
-# Switch to root to install dependencies
-USER root
+# Install n8n globally
+RUN npm install -g n8n
 
 # Create app directory for tunnel
 WORKDIR /tunnel
@@ -15,12 +15,11 @@ COPY start_combined.js ./
 # Install tunnel dependencies
 RUN npm install
 
-# Set working directory back to n8n
+# Set working directory
 WORKDIR /home/node
 
 # Expose n8n port
 EXPOSE 5678
 
-# Stay as root to have proper PATH - n8n will switch user internally if needed
-# Use full path to node
-CMD ["/usr/local/bin/node", "/tunnel/start_combined.js"]
+# Start both tunnel and n8n
+CMD ["node", "/tunnel/start_combined.js"]
