@@ -3,16 +3,22 @@
   "nodes": [
     {
       "parameters": {
+        "operation": "upsert",
         "table": "jobs",
+        "columnToMatchOn": "job_id",
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "matchingColumns": []
+        },
         "options": {}
       },
       "type": "n8n-nodes-base.mySql",
       "typeVersion": 2,
       "position": [
-        -2416,
-        7472
+        -352,
+        7552
       ],
-      "id": "e406d085-5b6a-48d0-9e50-7f5a7a04c2c0",
+      "id": "167d43aa-d4cd-4b24-bd0f-903f85c1fedb",
       "name": "MySQL Insert",
       "credentials": {
         "mySql": {
@@ -26,10 +32,10 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -3632,
-        7440
+        -1808,
+        7456
       ],
-      "id": "ed5fee2f-2c8a-4e63-8a75-8a9e0a6ff08a",
+      "id": "f1b3e731-aa8e-4ba2-a578-f0277ede8b20",
       "name": "When clicking ‘Execute workflow’"
     },
     {
@@ -41,10 +47,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
       "position": [
-        -2416,
-        6848
+        -432,
+        6960
       ],
-      "id": "26a4a60e-4fb5-4270-b877-2d7ef1ddce69",
+      "id": "2fd8b4d4-83b9-4157-ab5e-964f020d434a",
       "name": "Jobs UI (GET)",
       "webhookId": "7ca4db1d-6e14-4652-8a72-bcbbebbc6aa6"
     },
@@ -57,10 +63,10 @@
       "type": "n8n-nodes-base.mySql",
       "typeVersion": 2,
       "position": [
-        -1840,
-        6848
+        144,
+        6960
       ],
-      "id": "c14a22ae-82b6-44b0-9060-62ff62bcc6ee",
+      "id": "dde96da5-59ec-4d34-aea2-64a1880a73b4",
       "name": "Fetch Jobs for UI (MySQL)",
       "credentials": {
         "mySql": {
@@ -76,10 +82,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -2112,
-        7072
+        -128,
+        7184
       ],
-      "id": "7c654c6a-1752-43f7-8e20-ec3c269757af",
+      "id": "071cdaf5-161c-4a5d-bcdd-e32f68fa6c6d",
       "name": "Build Jobs UI HTML (Server)"
     },
     {
@@ -91,10 +97,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
       "position": [
-        -2416,
-        7056
+        -432,
+        7168
       ],
-      "id": "16ba9991-3bc6-43db-9e9a-622861195eea",
+      "id": "a222afd2-d252-469a-8851-94694055b3b5",
       "name": "Jobs UI Data (GET)",
       "webhookId": "739b31a2-c257-4254-bf0a-4dd3872095e6"
     },
@@ -105,10 +111,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -2000,
-        7344
+        -16,
+        7456
       ],
-      "id": "7b01a9ff-a39e-4790-91b6-8385cdb8ffa8",
+      "id": "f789f55e-07ed-4c79-8019-f62f223bd822",
       "name": "Build Jobs Data Query"
     },
     {
@@ -120,10 +126,10 @@
       "type": "n8n-nodes-base.mySql",
       "typeVersion": 2,
       "position": [
-        -1760,
-        7344
+        224,
+        7456
       ],
-      "id": "ef2136eb-5a23-491c-b653-2ecdef4827a2",
+      "id": "9c317f3b-c16f-473d-a2bd-04c66371a01b",
       "name": "Fetch Jobs Data (MySQL)",
       "credentials": {
         "mySql": {
@@ -139,10 +145,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1520,
-        7344
+        464,
+        7456
       ],
-      "id": "7b1ae07c-7a31-47b7-893e-f427dc75141f",
+      "id": "791359fe-14ab-48e9-86d0-43747e8b1e56",
       "name": "Build Jobs Data Response"
     },
     {
@@ -164,10 +170,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.2,
       "position": [
-        -1280,
-        7344
+        704,
+        7456
       ],
-      "id": "372c472a-cc84-4a77-82f1-0c4afda26bef",
+      "id": "1d7c7983-b57a-457f-9182-743009b83023",
       "name": "Jobs Data Response"
     },
     {
@@ -189,10 +195,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.2,
       "position": [
-        -1520,
-        7136
+        464,
+        7248
       ],
-      "id": "265a8ebf-6da6-4d56-a240-5a7d7cdd3cf0",
+      "id": "4a35eefa-f43a-48e4-bfb8-a00265ee1bd6",
       "name": "Jobs UI Response"
     },
     {
@@ -205,10 +211,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
       "position": [
-        -2208,
-        7792
+        -224,
+        7904
       ],
-      "id": "43a7d1bc-f5f2-4b65-967f-c3b2d1ebcda1",
+      "id": "bc581f2f-b67c-4927-895b-d35cb3b62b88",
       "name": "Jobs UI Submit (POST)",
       "webhookId": "b229f389-b6e5-483d-987b-c21047af9039"
     },
@@ -219,10 +225,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -2000,
-        7520
+        -16,
+        7632
       ],
-      "id": "60141dd4-66b4-41b3-a71f-b9861201c317",
+      "id": "ade4a0e6-d0d2-46ef-9b89-efc0f717593a",
       "name": "Build Submit Query"
     },
     {
@@ -234,10 +240,10 @@
       "type": "n8n-nodes-base.mySql",
       "typeVersion": 2,
       "position": [
-        -1760,
-        7520
+        224,
+        7632
       ],
-      "id": "9f0842de-8ec7-4957-9171-7390d533c48f",
+      "id": "217bbfe7-3585-4a15-9dad-e04a9af04172",
       "name": "Fetch Selected Jobs (MySQL)",
       "credentials": {
         "mySql": {
@@ -253,10 +259,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1520,
-        7520
+        464,
+        7632
       ],
-      "id": "5a804ed8-6b62-4154-993e-272f40dc8b5a",
+      "id": "2cbe0a30-88be-40b9-b5cb-bca7abbf2b7c",
       "name": "Filter Selected Jobs (Submit)"
     },
     {
@@ -278,10 +284,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.2,
       "position": [
-        -1248,
-        7664
+        736,
+        7776
       ],
-      "id": "7e18fb8d-a8e0-484f-a3f6-249131fb19bd",
+      "id": "7372f504-6282-4f83-994d-41e04cfe217e",
       "name": "Selection Response"
     },
     {
@@ -298,10 +304,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -3632,
+        -1824,
         7696
       ],
-      "id": "18d718fd-2c3d-45b9-98dd-6b923fb24386",
+      "id": "14c55ae3-7d3a-4631-a493-81c865388072",
       "name": "Daily Schedule (9AM EST)2"
     },
     {
@@ -314,7 +320,7 @@
           "parameters": [
             {
               "name": "query",
-              "value": "Clay GTM Engineer Go-to-market jobs in UK"
+              "value": "= {{ $json.keyword }} jobs in UK"
             },
             {
               "name": "page",
@@ -344,26 +350,30 @@
             {
               "name": "x-rapidapi-host",
               "value": "jsearch.p.rapidapi.com"
-            },
-            {
-              "name": "x-rapidapi-key",
-              "value": "4cc7a21f4fmsh7416f2f11d8633bp16232bjsn565d34b1a86c"
             }
           ]
         },
-        "options": {}
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 10000
+            }
+          },
+          "timeout": 60000
+        }
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -3264,
-        7536
+        -1072,
+        7616
       ],
-      "id": "f4d380bc-c659-41ea-ab98-d775584ea5f4",
+      "id": "85d94544-16ef-42a5-b362-569b426d8af9",
       "name": "Job Scraper2",
       "retryOnFail": true,
-      "waitBetweenTries": 5000,
-      "maxTries": 3,
+      "waitBetweenTries": 15000,
+      "maxTries": 5,
       "credentials": {
         "httpHeaderAuth": {
           "id": "cMvU3IrfuYisILxD",
@@ -381,10 +391,10 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        -2848,
-        7664
+        -816,
+        7792
       ],
-      "id": "148f0264-084d-4a57-bdc8-a65bd207b86e",
+      "id": "692be2b4-945f-4b79-ab59-3c1ecb4ec73c",
       "name": "Split Out2"
     },
     {
@@ -394,10 +404,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -2640,
-        7664
+        -608,
+        7792
       ],
-      "id": "182509a8-6a15-402a-bb27-169aa25be6e7",
+      "id": "16438955-e639-405a-b89f-36aebecec422",
       "name": "Prepare Job Data"
     },
     {
@@ -411,10 +421,10 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.2,
       "position": [
-        -2864,
-        7360
+        -736,
+        7264
       ],
-      "id": "b86370d1-4c00-4ccd-8054-f836564971d7",
+      "id": "229e62d7-9d13-42cf-b6c1-e250683bbef8",
       "name": "Error Alert - Job Scraper",
       "webhookId": "2ad56aa9-1932-4aa6-8bad-cc3305fd7db8",
       "credentials": {
@@ -423,22 +433,40 @@
           "name": "Gmail account"
         }
       }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  { json: { keyword: \"GTM Engineer\" } },\n  { json: { keyword: \"Go To Market Engineer\" } },\n  { json: { keyword: \"Clay GTM\" } }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1488,
+        7616
+      ],
+      "id": "c9f6aa43-f793-4bf0-bc9f-6e1061a0d921",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1280,
+        7616
+      ],
+      "id": "58c9a063-d2b4-4b1f-9f62-eef3b78069b9",
+      "name": "Wait",
+      "webhookId": "d50aa357-6071-4fdb-961c-053e3dee6d1f"
     }
   ],
   "pinData": {
-    "Prepare Job Data": [
+    "Code in JavaScript": [
       {
         "json": {
-          "job_id": "wTbpSo_At_d0wgYGAAAAAA==",
-          "job_title": "GTME (Sales) Enablement",
-          "employer_name": "Clay Labs",
-          "job_location": "New York, NY",
-          "job_country": "US",
-          "job_employment_type": "Full-time",
-          "job_is_remote": 0,
-          "job_posted_at_datetime_utc": "2026-01-26 09:00:00",
-          "job_apply_link": "https://www.ziprecruiter.com/c/Clay-Labs/Job/GTME-(Sales)-Enablement/-in-New-York,NY?jid=02e519a4d514bda6&utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
-          "job_google_link": "https://www.google.com/search?q=jobs&gl=us&hl=en&udm=8#vhid=vt%3D20/docid%3DwTbpSo_At_d0wgYGAAAAAA%3D%3D&vssid=jobs-detail-viewer"
+          "keyword": "GTM Engineer"
         },
         "pairedItem": {
           "item": 0
@@ -446,16 +474,33 @@
       },
       {
         "json": {
-          "job_id": "R830A5nxXHHXtE6lAAAAAA==",
-          "job_title": "GTM Engineer (GTM Ops)",
-          "employer_name": "Clay Labs",
-          "job_location": "New York, NY",
-          "job_country": "US",
-          "job_employment_type": "Full-time",
-          "job_is_remote": 0,
-          "job_posted_at_datetime_utc": "2026-01-24 00:00:00",
-          "job_apply_link": "https://www.ziprecruiter.com/c/Clay-Labs/Job/GTM-Engineer-(GTM-Ops)/-in-New-York,NY?jid=95336d9ae6c631e7&utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
-          "job_google_link": "https://www.google.com/search?q=jobs&gl=us&hl=en&udm=8#vhid=vt%3D20/docid%3DR830A5nxXHHXtE6lAAAAAA%3D%3D&vssid=jobs-detail-viewer"
+          "keyword": "Go To Market"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "keyword": "Clay"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ],
+    "Wait": [
+      {
+        "json": {
+          "keyword": "GTM Engineer"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "keyword": "Go To Market"
         },
         "pairedItem": {
           "item": 1
@@ -463,16 +508,1119 @@
       },
       {
         "json": {
-          "job_id": "V-1A-W97ae8w9UaqAAAAAA==",
-          "job_title": "GTM Engineer (Go-to-Market Systems & Automations)",
-          "employer_name": "Atmosphere TV",
-          "job_location": "Austin, TX",
-          "job_country": "US",
-          "job_employment_type": "Full-time",
+          "keyword": "Clay"
+        },
+        "pairedItem": {
+          "item": 2
+        }
+      }
+    ],
+    "Job Scraper2": [
+      {
+        "json": {
+          "status": "OK",
+          "request_id": "88eb84f5-8354-4cef-a1a9-2eadf42d4b1b",
+          "parameters": {
+            "query": "GTM Engineer jobs in UK",
+            "page": 1,
+            "num_pages": 1,
+            "date_posted": "month",
+            "employment_types": [
+              "FULLTIME",
+              "CONTRACTOR",
+              "PARTTIME",
+              "INTERN"
+            ],
+            "country": "gb",
+            "language": "en"
+          },
+          "data": [
+            {
+              "job_id": "XXlyfWyz22heud8MAAAAAA==",
+              "job_title": "Go-To-Market (GTM) Engineer",
+              "employer_name": "Push Gaming Limited",
+              "employer_logo": null,
+              "employer_website": "https://www.pushgaming.com",
+              "job_publisher": "Totaljobs",
+              "job_employment_type": "Contractor",
+              "job_employment_types": [
+                "CONTRACTOR"
+              ],
+              "job_apply_link": "https://www.totaljobs.com/job/go-to-market-gtm-engineer/push-gaming-limited-job106653144?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "job_apply_is_direct": true,
+              "apply_options": [
+                {
+                  "publisher": "Totaljobs",
+                  "apply_link": "https://www.totaljobs.com/job/go-to-market-gtm-engineer/push-gaming-limited-job106653144?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+                  "is_direct": true
+                },
+                {
+                  "publisher": "Jobs By Workable",
+                  "apply_link": "https://apply.workable.com/cadmus-io/j/4C7265044B?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+                  "is_direct": true
+                },
+                {
+                  "publisher": "LinkedIn",
+                  "apply_link": "https://uk.linkedin.com/jobs/view/go-to-market-gtm-engineer-at-cadmus-4368874035?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+                  "is_direct": false
+                },
+                {
+                  "publisher": "Talents By StudySmarter",
+                  "apply_link": "https://talents.studysmarter.co.uk/companies/hernshead-recruitment-ltd/european-sales-engineer-hybrid-servo-hydraulic-20024291/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+                  "is_direct": false
+                },
+                {
+                  "publisher": "Quality Contracts",
+                  "apply_link": "https://qualitycontracts.co.uk/contract-jobs/go-to-market-gtm-engineer-in-united-kingdom-1770092894?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+                  "is_direct": false
+                },
+                {
+                  "publisher": "BeBee GB",
+                  "apply_link": "https://gb.bebee.com/job/dbc407a51753db8d373da321aa2a3d5e?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+                  "is_direct": false
+                },
+                {
+                  "publisher": "Trabajo.org",
+                  "apply_link": "https://gb.trabajo.org/job-3812-5ac94ec717aaa18e0925ce187420cdf7?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+                  "is_direct": false
+                },
+                {
+                  "publisher": "Jobrapido",
+                  "apply_link": "https://uk.jobrapido.com/jobpreview/5089481280916029440?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+                  "is_direct": false
+                }
+              ],
+              "job_description": "Go-To-Market (GTM) Engineer\n\nPush Gaming is an award-winning and innovative B2B iGaming development studio that specialises in creating top-quality, mobile-optimised online casino games. With a passion for gaming and a commitment to pushing boundaries, we are dedicated to delivering exceptional experiences to players worldwide.\n\nWe are looking for a highly technical and strategic Go-To-Market Engineer to architect, optimise, and scale our lead generation and sales machinery. You will be the \"engine room\" behind PrizeFlex and our broader games portfolio, ensuring our sales team has a steady stream of high-quality leads and the technical infrastructure to close them.\n\nThis is a critical role responsible for bridging the gap between our product roadmap and our commercial goals.\n\nPlease note this is a contract position. We think 6 weeks or project based - to be discussed at interview.\n\nWhat you will be doing:\n• Be the primary architect for HubSpot, managing complex workflows, data hygiene, and integration with our product suite.\n• Design and execute automated lead generation funnels across all PrizeFlex products and upcoming game launches.\n• Optimise LinkedIn Sales Navigator use and integration to ensure the BD team is targeting the right stakeholders with precision.\n• Build the GTM technical framework for new roadmap launches, ensuring seamless transitions from \"product ready\" to \"market active\".\n• Develop dashboards to track conversion rates, pipeline velocity, and the ROI of GTM experiments.\n• Maintain and improve the connectivity between our CRM, prospecting tools, and internal product data.\n\nWhat you’ll bring:\n• Deep expertise in HubSpot (Marketing & Sales Hubs) is essential. You should be comfortable with advanced automation and AI.\n• Proven experience using LinkedIn Sales Navigator for outbound at scale, including Smart Links and CRM sync. Heyreach experience is also beneficial.\n• You understand the \"Lead Gen\" ecosystem, from cold outreach and sequencing to inbound lead scoring.\n• Ability to work with APIs, webhooks, and data enrichment tools.\n• Experience managing GTM timelines for multi-product portfolios or software roadmap releases.\n\nYou Are the Perfect Fit If...\n• You enjoy building systems more than just running reports.\n• You can translate a \"roadmap launch\" into a technical outbound sequence.\n• You are data-obsessed and hate \"leaky\" sales funnels.",
+              "job_is_remote": false,
+              "job_posted_at": "6 days ago",
+              "job_posted_at_timestamp": 1770076800,
+              "job_posted_at_datetime_utc": "2026-02-03T00:00:00.000Z",
+              "job_location": "United Kingdom",
+              "job_city": null,
+              "job_state": null,
+              "job_country": "GB",
+              "job_latitude": 55.378051,
+              "job_longitude": -3.4359729999999997,
+              "job_benefits": null,
+              "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3DXXlyfWyz22heud8MAAAAAA%3D%3D&vssid=jobs-detail-viewer",
+              "job_salary": null,
+              "job_min_salary": null,
+              "job_max_salary": null,
+              "job_salary_period": null,
+              "job_highlights": {},
+              "job_onet_soc": "41903100",
+              "job_onet_job_zone": "4"
+            },
+            {
+              "job_id": "9RsJygEJ-aoUaXirAAAAAA==",
+              "job_title": "Go-to-Market (GTM) Engineer",
+              "employer_name": "Cadmus",
+              "employer_logo": null,
+              "employer_website": "https://cadmusgroup.com",
+              "job_publisher": "British Jobs",
+              "job_employment_type": "Full–time",
+              "job_employment_types": [
+                "FULLTIME"
+              ],
+              "job_apply_link": "https://www.britishjobs.co.uk/job/1277000000000212087/Go-to-Market-GTM-Engineer?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "job_apply_is_direct": false,
+              "apply_options": [
+                {
+                  "publisher": "British Jobs",
+                  "apply_link": "https://www.britishjobs.co.uk/job/1277000000000212087/Go-to-Market-GTM-Engineer?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+                  "is_direct": false
+                }
+              ],
+              "job_description": "Meet Cadmus!\n\nAt Cadmus, we believe every student should have equal opportunity to achieve academic excellence; that’s why we’re changing how the world learns! Cadmus is a global EdTech company purposefully built for the higher education sector to break down global learning barriers by providing educators and diverse student cohorts with access to high-quality learning and assessment through one powerful platform. Built on rich, student-centric values, Cadmus empowers individuals to achieve their highest potential and graduate with the critical skills and knowledge to profoundly impact our workforces, communities, and evolving world.\n\nA Bold Plan for Global Impact\n\nAt Cadmus, we’re working hard in pursuit of an ambitious, world-shaping goal: to provide 1 billion students with access to high-quality education by 2050.\n\nThat’s why we need an ambitious Go-to-Market (GTM) Engineer to drive effective execution of the company's sales and marketing strategy; ensuring our offering is clearly articulated, competitively positioned, and effectively delivered to the market.\n\nRequirements\n\nRole Overview\n\nReporting directly to the Chief Revenue Officer, the Go-to-Market (GTM) Engineer will be responsible for execution of the comprehensive GTM strategy - creating and developing a pipeline for existing and new products, features, and market segments. This role is critical in ensuring Cadmus successfully launches, scales, and achieves aggressive revenue and adoption targets by working at the intersection of Product, Marketing, Sales, and Customer Success efforts.\n\nThis role would suit a hands-on and results-orientated practitioner, adept at utilising cutting-edge AI-driven GTM tools, techniques and best practices. Experience with Account-based Marketing highly advantageous, as is exposure to working in a high-growth SaaS environment. EdTech exposure preferable but non-essential.\n\nRole Responsibilities\n• Execution, execution, execution: First and foremost, bring together target segments, messaging and available channels to develop consistent and high-quality pipeline.\n• GTM Strategy Optimisation: Utilise data, market feedback and cross-functional alignment to continually identify and implement process improvements. Be empowered to drive innovation and change.\n• Cross-Functional Alignment: Serve as the primary internal GTM liaison, ensuring seamless collaboration and alignment across Product, Product Marketing, Sales, Marketing, and Customer Success teams to guarantee market readiness and consistent attainment of the GTM goals.\n• Sales Enablement: Collaborate with the CRO in developing and delivering high-impact sales tools, training, and collateral (e.g., pitch decks, competitive battle cards, demo scripts) that empower the sales team to effectively articulate the product's value proposition and close deals.\n• Market Intelligence & Competitive Analysis: Act as the internal expert on market trends, customer needs, and the competitive landscape. Use insights to refine GTM strategies, identify potential threats, and pinpoint new growth opportunities.\n\nProfessional Skills and Requirements\n• You have worked in higher education, EdTech, a Saas provider, or similar industry.\n• Your background is in Business Development, Go-to-Market, Revenue Operations, or Performance Marketing.\n• High attention to detail, with the desire to create market-leading work that propels Cadmus forward and sets us apart from competitors.\n• Inspired by, not afraid of, a data and results-driven environment.\n• Self-starting, solution-orientated individual who can problem solve and take initiative in a flat-structured environment.\n• Comfortable sitting at the elbow of the companies Founders, CRO and ELT in driving through initiatives.\n• Team player who enjoys assisting their teammates and collaborating across departmental projects.\n\nBenefits\n• This role is open to candidates across the UK and can expect a hybrid working arrangement.\n• Learning allowances; because we don’t just have words on a website, we genuinely do what we say and provide educational opportunities to all (including the Cadmus team).\n• A diverse and inclusive workplace where there are no barriers to anyone succeeding.\n• A surrounding team of mission-driven individuals who genuinely love what they do.\n\nInclusivity:\n\nAt Cadmus, we hire great people from diverse backgrounds making our company stronger. We never discriminate based on race, religion, national origin, gender identity or expression, sexual orientation, age, marital, or disability status. If you share our values and our enthusiasm for education, you will find a home at Cadmus.\n\nIf you need assistance or accommodations made due to a disability, please let us know.\n\nHow to apply:\n\nPlease apply below by the link with your resume, and instead of a cover letter, we would prefer for you to answer a few questions.",
+              "job_is_remote": false,
+              "job_posted_at": "5 days ago",
+              "job_posted_at_timestamp": 1770163200,
+              "job_posted_at_datetime_utc": "2026-02-04T00:00:00.000Z",
+              "job_location": null,
+              "job_city": null,
+              "job_state": null,
+              "job_country": null,
+              "job_latitude": null,
+              "job_longitude": null,
+              "job_benefits": null,
+              "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3D9RsJygEJ-aoUaXirAAAAAA%3D%3D&vssid=jobs-detail-viewer",
+              "job_salary": null,
+              "job_min_salary": null,
+              "job_max_salary": null,
+              "job_salary_period": null,
+              "job_highlights": {},
+              "job_onet_soc": "41903100",
+              "job_onet_job_zone": "4"
+            },
+            {
+              "job_id": "ACWqCx_gWaG91gekAAAAAA==",
+              "job_title": "GTM Engineer – AI Powered Revenue Engine Architect",
+              "employer_name": "Gravitee Topco Limited.",
+              "employer_logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLuQJTJ4AVLgwQgCcXTnHmeTDXfm7V1jyMJZuS&s=0",
+              "employer_website": "https://www.gravitee.io",
+              "job_publisher": "Talents By StudySmarter",
+              "job_employment_type": "Full–time",
+              "job_employment_types": [
+                "FULLTIME"
+              ],
+              "job_apply_link": "https://talents.studysmarter.co.uk/companies/gravitee-topco-limited/london/gtm-engineer-ai-powered-revenue-engine-architect-26239875/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "job_apply_is_direct": false,
+              "apply_options": [
+                {
+                  "publisher": "Talents By StudySmarter",
+                  "apply_link": "https://talents.studysmarter.co.uk/companies/gravitee-topco-limited/london/gtm-engineer-ai-powered-revenue-engine-architect-26239875/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+                  "is_direct": false
+                },
+                {
+                  "publisher": "Talent.com",
+                  "apply_link": "https://uk.talent.com/view?id=a790b30ded8d&utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+                  "is_direct": false
+                },
+                {
+                  "publisher": "Learn4Good",
+                  "apply_link": "https://www.learn4good.com/jobs/london/uk/info_technology/4843416188/e/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+                  "is_direct": false
+                }
+              ],
+              "job_description": "A leading technology company in London is hiring a GTM Engineer to optimize their systems for revenue generation. This role, blending technical execution with commercial strategy, is essential for supporting the customer journey and leveraging AI-driven efficiencies. Candidates should have a strong background in SaaS, data proficiency, and experience with tools like HubSpot and Clay. Join them to drive innovation and growth in a dynamic team environment.\n#J-18808-Ljbffr",
+              "job_is_remote": false,
+              "job_posted_at": "3 days ago",
+              "job_posted_at_timestamp": 1770336000,
+              "job_posted_at_datetime_utc": "2026-02-06T00:00:00.000Z",
+              "job_location": "London",
+              "job_city": "London",
+              "job_state": null,
+              "job_country": "GB",
+              "job_latitude": 51.5072178,
+              "job_longitude": -0.12758619999999998,
+              "job_benefits": null,
+              "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3DACWqCx_gWaG91gekAAAAAA%3D%3D&vssid=jobs-detail-viewer",
+              "job_min_salary": null,
+              "job_max_salary": null,
+              "job_salary_period": "YEAR",
+              "job_highlights": {},
+              "job_onet_soc": "15119900",
+              "job_onet_job_zone": "4"
+            },
+            {
+              "job_id": "PQMMNUENzNn-VkWoAAAAAA==",
+              "job_title": "GTM Engineer | London, UK",
+              "employer_name": "ComplyAdvantage",
+              "employer_logo": null,
+              "employer_website": "https://complyadvantage.com",
+              "job_publisher": "EFinancialCareers",
+              "job_employment_type": "Full–time",
+              "job_employment_types": [
+                "FULLTIME"
+              ],
+              "job_apply_link": "https://www.efinancialcareers.co.uk/jobs-UK-London-GTM_Engineer.id23670015?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "job_apply_is_direct": true,
+              "apply_options": [
+                {
+                  "publisher": "EFinancialCareers",
+                  "apply_link": "https://www.efinancialcareers.co.uk/jobs-UK-London-GTM_Engineer.id23670015?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+                  "is_direct": true
+                }
+              ],
+              "job_description": "GTM Engineer\n\nWe are looking for a GTM Systems Engineer to be the architect of our revenue engine. This is a critical mid-level role focused on blending technical expertise with go-to-market strategy to drive scalable and efficient growth.\n\nThe role is a hybrid operator who designs, builds, and maintains the systems that power Sales, Marketing, and Customer Success. You won't just run campaigns; you will design the automated infrastructure that ensures our data is clean, our outreach is hyper-targeted, and our revenue teams are enabled to close deals faster.\n\nYou will be the bridge between technical platforms and commercial outcomes, translating complex product capabilities into business value and ensuring a seamless, data-driven customer journey.\nWhat you will be doing:\n\nYour primary responsibility will be to build, optimize, and scale the technology backbone of our Go-To-Market efforts:\n\n• Revenue Engine Architecture: Design, build, and optimize automated workflows (lead qualification, nurturing, omnichannel campaigns) to convert leads into closed deals efficiently.\n• Tech Stack Ownership: Own the integration and operation of our GTM technology stack (CRM, Marketing Automation, Outreach Tools, Data Enrichment, Analytics) using APIs, no-code/low-code tools, and custom scripting to ensure flawless data flow.\n• Data & Intelligence: Build and manage data pipelines for lead enrichment (firmographics, intent data, technographics) to ensure our data is clean, consistent, and actionable across all GTM teams.\n• Sales Process Automation: Create automated systems that provide real-time sales support, pre-call intelligence, and personalized messaging to help the sales team engage leads better and accelerate the sales cycle.\n• Optimization & Analysis: Monitor key funnel metrics and conversion rates. Conduct root-cause analysis of bottlenecks and systematically test and iterate on GTM processes to drive continuous improvement.\n• Cross-Functional Alignment: Work closely with Revenue Operations, Customer Experience and Sales to define requirements, gather feedback, and ensure the GTM systems support company-wide growth goals. What you'll bring:\n\n• Experience: 2-4 years of experience in a highly technical GTM role (e.g., GTM Engineer, RevOps Specialist, Sales/Marketing Automation Architect, or Solutions Engineer).\n• Technical Proficiency: Strong hands-on experience integrating and managing GTM platforms (e.g., Salesforce, HubSpot, Marketo, Outreach, Clay) and comfort with technical concepts like AI, APIs and JSON.\n• Systems Thinking: The ability to see the GTM process as a full, interconnected system and design scalable, repeatable workflows.\n• Artificial Intelligence: Understanding of the AI market place specifically the GTM Vertical tools.\n• Data Fluency: Proficiency in data analysis, data modeling, and reporting (e.g., SQL, Google Sheets/Docs, or BI tools) to define and track performance.\n• Communication: Excellent ability to translate complex technical architectures into simple business outcomes for non-technical stakeholders.\n• Mindset: You thrive in ambiguous, fast-paced environments and possess an exceptional ability to learn new tools and technologies quickly. What's in it for you?\n\n• Equity as we want you to have a part of what we are building\n• Private medical insurance designed to keep you ensuring peace of mind while you excel in your career\n• Unlimited Time Off Policy- A work-life balance and focus on our well-being are critical to keeping us performing at our best\n• We embrace a hybrid approach that requires employees to be in the office for two days a week. We strongly believe that this approach fosters collaboration and enables the building of meaningful relationships\n• You will also get a new starter budget to kit out your home office\n• Opportunity to work on innovative projects with smart-minded people keen to share their knowledge and continuously improve\nAbout us:\n\nOur mission is to empower every business to eliminate financial crime.\n\nBy harnessing AI, a unified platform, and an extensive partner ecosystem, we help customers turn compliance into a catalyst for growth, operational resilience, and enduring regulatory trust.\n\nMore than 3,000 enterprises across 75 countries rely on our end-to-end platform and the world's most comprehensive financial crime risk intelligence. With full-stack agentic automation, we help organizations automate up to 95% of KYC, AML, and sanctions reviews, cut onboarding times by 50%, reduce false positives by 70%, and handle 7x more work with the same staff.\n\nComplyAdvantage is headquartered in London and has global hubs in New York, Lisbon, Singapore, and Cluj-Napoca. It is backed by Balderton Capital, Index Ventures, Ontario Teachers' Pension Plan, Goldman Sachs, and Andreessen Horowitz. Learn more about compliance re-engineered for the age of AI at complyadvantage.com.",
+              "job_is_remote": false,
+              "job_posted_at": "28 days ago",
+              "job_posted_at_timestamp": 1768176000,
+              "job_posted_at_datetime_utc": "2026-01-12T00:00:00.000Z",
+              "job_location": "London",
+              "job_city": "London",
+              "job_state": null,
+              "job_country": "GB",
+              "job_latitude": 51.5072178,
+              "job_longitude": -0.12758619999999998,
+              "job_benefits": null,
+              "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3DPQMMNUENzNn-VkWoAAAAAA%3D%3D&vssid=jobs-detail-viewer",
+              "job_salary": null,
+              "job_min_salary": null,
+              "job_max_salary": null,
+              "job_salary_period": null,
+              "job_highlights": {},
+              "job_onet_soc": "41903100",
+              "job_onet_job_zone": "4"
+            },
+            {
+              "job_id": "wlGODbnOR2Gx1Jn5AAAAAA==",
+              "job_title": "GTM Engineer & Growth Architect, EMEA (Hybrid London)",
+              "employer_name": "Apollo.io",
+              "employer_logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRa0FcBw1fSfjTeFm7bnx7IYEOd3TdLrCykkZE4&s=0",
+              "employer_website": "https://www.apollo.io",
+              "job_publisher": "Talents By StudySmarter",
+              "job_employment_type": "Full–time",
+              "job_employment_types": [
+                "FULLTIME"
+              ],
+              "job_apply_link": "https://talents.studysmarter.co.uk/companies/apollo-io/london/gtm-engineer-growth-architect-emea-hybrid-london-25773166/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "job_apply_is_direct": false,
+              "apply_options": [
+                {
+                  "publisher": "Talents By StudySmarter",
+                  "apply_link": "https://talents.studysmarter.co.uk/companies/apollo-io/london/gtm-engineer-growth-architect-emea-hybrid-london-25773166/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+                  "is_direct": false
+                }
+              ],
+              "job_description": "A leading technology company in London seeks a Go-To-Market Engineer to drive customer success through effective GTM strategies. In this hybrid role, you will optimize product usage and generate revenue pipelines utilizing advanced data analysis and AI tools. Ideal candidates will have 5+ years in relevant fields, possess strong data-driven skills, and be customer-obsessed. You will work collaboratively within a dynamic team to refine customer strategies and enhance performance.#J-18808-Ljbffr",
+              "job_is_remote": false,
+              "job_posted_at": "6 days ago",
+              "job_posted_at_timestamp": 1770076800,
+              "job_posted_at_datetime_utc": "2026-02-03T00:00:00.000Z",
+              "job_location": "London",
+              "job_city": "London",
+              "job_state": null,
+              "job_country": "GB",
+              "job_latitude": 51.5072178,
+              "job_longitude": -0.12758619999999998,
+              "job_benefits": null,
+              "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3DwlGODbnOR2Gx1Jn5AAAAAA%3D%3D&vssid=jobs-detail-viewer",
+              "job_min_salary": null,
+              "job_max_salary": null,
+              "job_salary_period": "YEAR",
+              "job_highlights": {},
+              "job_onet_soc": "15119900",
+              "job_onet_job_zone": "4"
+            },
+            {
+              "job_id": "NFPi8b3n9Gjn-OPhAAAAAA==",
+              "job_title": "Sales Engineer (GTM) Tax Software",
+              "employer_name": "Ryan",
+              "employer_logo": null,
+              "employer_website": "https://ryan.com",
+              "job_publisher": "Talent.com",
+              "job_employment_type": "Full–time",
+              "job_employment_types": [
+                "FULLTIME"
+              ],
+              "job_apply_link": "https://uk.talent.com/view?id=03cb7a837bd9&utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "job_apply_is_direct": false,
+              "apply_options": [
+                {
+                  "publisher": "Talent.com",
+                  "apply_link": "https://uk.talent.com/view?id=03cb7a837bd9&utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+                  "is_direct": false
+                },
+                {
+                  "publisher": "Jooble",
+                  "apply_link": "https://uk.jooble.org/jdp/-5450121988132453404?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+                  "is_direct": false
+                }
+              ],
+              "job_description": "Why Ryan\n\nCompetitive Compensation and Benefits\n\nHome Office Stipend\n\nBusiness Connectivity Reimbursement (Phone / Internet)\n\nGym Membership or Equipment Reimbursement\n\nLinkedIn Learning Subscription\n\nFlexible Work Environment\n\nTuition Reimbursement After One Year of Service\n\nAccelerated Career Path\n\nAward-Winning Culture & Community Outreach\n\nWe are seeking a dynamic and results-driven Sales Engineer to join our this role you will be responsible for supporting and promoting our products to clients. Your primary objective will be to understand the clients technical requirements propose solutions secure sales and develop new business growth in this specified market. The Sales Engineer will play a key role in leading product demos and educating customers (everyone from sales reps to sales enablement to executives) on the best way to implement Revenue intelligence in .\n\nYou will have the opportunity to play an important role in increasing the effectiveness productivity and revenue growth in the Sales Team by partnering closely with Account Executives to close new business with prospects as well as with existing customers through discovery calls product demonstrations proof-of-concepts(POCs) and meetings.\n\nDuties and responsibilities as they align with Ryans Key Results\n\nPeople :\n• Work alongside Sales and Customer Success as the ultimate product expert\n• Attend Inter-departmental meetings to generate new ideas strategies and opportunities for the company and maintain communication flow between departments\n\nClient :\n• Be the trusted advisor to both prospects and customers to ensure they get the correct business value from our products.\n• Assist prospects and customers with Business Assessment (POCs Pilots).\n• Craft content to show customers how to leverage products for specific use cases.\n• Assist with RFPs and questionnaires in the context of sales cycles.\n• Contribute reusable assets to the Sales Engineering team and the company at-large.\n\nValue :\n• Help eliminate bottlenecks by working cross-functionally (Sales Customer Success Support Product Management Engineering) in order to get deals across the line.\n• Collaborate closely with Product Marketing Product Management and Engineering to share voice of the customer feedback in order to influence our product roadmap and GTM strategies.\n\nEducation and Experience :\n• 5 years of customer-facing experience in a sales engineering (pre-sales) role or a combination of sales engineering and other relevant work experience.\n• Experience with sales technology (CRMs) cloud architecture or telephony / web conferencing systems.\n• Experience with data flows AI / ML concepts analytics databases APIs / webhooks or JSON\n• Understanding of security and privacy pertaining to SaaS systems.\n• Excellent verbal and written communication skills.\n• Strong interpersonal and teamwork skills.\n• Passion for technology and problem-solving.\n• Able to make the complex sound simple!\n• Industry knowledge of our key markets (technology business services financing staffing & recruiting) is a plus\n\nSupervisory Responsibilities :\n• This role will not have supervisory responsibilities\n\n#Li-hybrid\n\nRequired Experience :\n\nIC\n\nKey Skills\n\nSpring,.NET,C / C++,Go,React,OOP,C#,Data Structures,JavaScript,Software Development,Java,Distributed Systems\n\nEmployment Type : Full-Time\n\nExperience : years\n\nVacancy : 1",
+              "job_is_remote": false,
+              "job_posted_at": "3 days ago",
+              "job_posted_at_timestamp": 1770336000,
+              "job_posted_at_datetime_utc": "2026-02-06T00:00:00.000Z",
+              "job_location": "London",
+              "job_city": "London",
+              "job_state": null,
+              "job_country": "GB",
+              "job_latitude": 51.5072178,
+              "job_longitude": -0.12758619999999998,
+              "job_benefits": null,
+              "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3DNFPi8b3n9Gjn-OPhAAAAAA%3D%3D&vssid=jobs-detail-viewer",
+              "job_salary": null,
+              "job_min_salary": null,
+              "job_max_salary": null,
+              "job_salary_period": null,
+              "job_highlights": {},
+              "job_onet_soc": "41903100",
+              "job_onet_job_zone": "4"
+            },
+            {
+              "job_id": "fHVbiRb9nEtuNNmGAAAAAA==",
+              "job_title": "GTM Engineer & AI Growth Architect (EMEA)",
+              "employer_name": "Apollo",
+              "employer_logo": null,
+              "employer_website": "https://www.apollo.com",
+              "job_publisher": "Talents By StudySmarter",
+              "job_employment_type": "Full–time",
+              "job_employment_types": [
+                "FULLTIME"
+              ],
+              "job_apply_link": "https://talents.studysmarter.co.uk/companies/apollo/london/gtm-engineer-ai-growth-architect-emea-25773132/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "job_apply_is_direct": false,
+              "apply_options": [
+                {
+                  "publisher": "Talents By StudySmarter",
+                  "apply_link": "https://talents.studysmarter.co.uk/companies/apollo/london/gtm-engineer-ai-growth-architect-emea-25773132/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+                  "is_direct": false
+                }
+              ],
+              "job_description": "A leading sales solutions provider in Greater London is seeking a Go-To-Market Engineer to design and optimize product usage. You will be responsible for owning growth outcomes and refining GTM strategies to ensure customer success. The ideal candidate will have over 5 years of experience in Sales Operations and possess strong analytical and customer relationship management skills. This role blends strategy and technology to drive measurable impact, contributing to the overall growth of the business.\n#J-18808-Ljbffr",
+              "job_is_remote": false,
+              "job_posted_at": "6 days ago",
+              "job_posted_at_timestamp": 1770076800,
+              "job_posted_at_datetime_utc": "2026-02-03T00:00:00.000Z",
+              "job_location": "London",
+              "job_city": "London",
+              "job_state": null,
+              "job_country": "GB",
+              "job_latitude": 51.5072178,
+              "job_longitude": -0.12758619999999998,
+              "job_benefits": null,
+              "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3DfHVbiRb9nEtuNNmGAAAAAA%3D%3D&vssid=jobs-detail-viewer",
+              "job_min_salary": null,
+              "job_max_salary": null,
+              "job_salary_period": "YEAR",
+              "job_highlights": {},
+              "job_onet_soc": "15119900",
+              "job_onet_job_zone": "4"
+            },
+            {
+              "job_id": "2IN93KGSgHuYZaVVAAAAAA==",
+              "job_title": "Tech Lead & Hands-On Engineer GTM, React & Cloud Infra",
+              "employer_name": "CreateFuture",
+              "employer_logo": null,
+              "employer_website": "https://createfuture.com",
+              "job_publisher": "Learn4Good",
+              "job_employment_type": "Full–time",
+              "job_employment_types": [
+                "FULLTIME"
+              ],
+              "job_apply_link": "https://www.learn4good.com/jobs/london/uk/info_technology/4845767273/e/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "job_apply_is_direct": false,
+              "apply_options": [
+                {
+                  "publisher": "Learn4Good",
+                  "apply_link": "https://www.learn4good.com/jobs/london/uk/info_technology/4845767273/e/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+                  "is_direct": false
+                }
+              ],
+              "job_description": "Position: Tech Lead & Hands-On Engineer for GTM, React & Cloud Infra\nLocation: Greater London\n\nA dynamic technology company in Greater London seeks an adaptable engineering leader to drive technical initiatives. The role involves hands-on work in the Paid Marketing and Audience Experience space, focusing on Google Tag Manager and React implementation. Candidates should possess strong technical skills, including infrastructure automation with Terraform and stakeholder engagement. The company offers a supportive culture, flexible working arrangements, and opportunities for professional growth.\n#J-18808-Ljbffr",
+              "job_is_remote": false,
+              "job_posted_at": "4 days ago",
+              "job_posted_at_timestamp": 1770249600,
+              "job_posted_at_datetime_utc": "2026-02-05T00:00:00.000Z",
+              "job_location": "London",
+              "job_city": "London",
+              "job_state": null,
+              "job_country": "GB",
+              "job_latitude": 51.5072178,
+              "job_longitude": -0.12758619999999998,
+              "job_benefits": null,
+              "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3D2IN93KGSgHuYZaVVAAAAAA%3D%3D&vssid=jobs-detail-viewer",
+              "job_salary": null,
+              "job_min_salary": null,
+              "job_max_salary": null,
+              "job_salary_period": null,
+              "job_highlights": {},
+              "job_onet_soc": "15113300",
+              "job_onet_job_zone": "4"
+            },
+            {
+              "job_id": "NJXTZAnhsMNsBSFxAAAAAA==",
+              "job_title": "GTM Engineer: EdTech SaaS Growth & Strategy",
+              "employer_name": "Cadmus",
+              "employer_logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT38Xw5w7SfIV1vL9zlvdIjSs22OpMT1oY7AToj&s=0",
+              "employer_website": "https://cadmusgroup.com",
+              "job_publisher": "FE Careers",
+              "job_employment_type": "Full–time",
+              "job_employment_types": [
+                "FULLTIME"
+              ],
+              "job_apply_link": "https://www.fecareers.co.uk/job/IPn59MzT/gtm-engineer-edtech-saas-growth-strategy?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "job_apply_is_direct": false,
+              "apply_options": [
+                {
+                  "publisher": "FE Careers",
+                  "apply_link": "https://www.fecareers.co.uk/job/IPn59MzT/gtm-engineer-edtech-saas-growth-strategy?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+                  "is_direct": false
+                },
+                {
+                  "publisher": "Talents By StudySmarter",
+                  "apply_link": "https://talents.studysmarter.co.uk/companies/centre-people/city-of-london/emea-banking-strategy-vp-syndication-growth-18072404/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+                  "is_direct": false
+                },
+                {
+                  "publisher": "ZipRecruiter",
+                  "apply_link": "https://www.ziprecruiter.co.uk/jobs/490592090-vp-learning-strategy-production-at-multiverse?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+                  "is_direct": false
+                },
+                {
+                  "publisher": "Jobijoba UK",
+                  "apply_link": "https://www.jobijoba.co.uk/detail/92/5672cba4631622ffbc837e9e7146f125?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+                  "is_direct": false
+                },
+                {
+                  "publisher": "BeBee GB",
+                  "apply_link": "https://gb.bebee.com/job/b03baf71db9be0dd4c3e873332abf12e?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+                  "is_direct": false
+                },
+                {
+                  "publisher": "Hollylist",
+                  "apply_link": "https://www.hollylist.com/jobs/4WLkFguLDb9mjpHv7?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+                  "is_direct": false
+                },
+                {
+                  "publisher": "Talent.com",
+                  "apply_link": "https://uk.talent.com/view?id=6cbe577611d5&utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+                  "is_direct": false
+                },
+                {
+                  "publisher": "Employbl",
+                  "apply_link": "https://www.employbl.com/jobs/vp-learning-strategy-production-multiverse-1300870?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+                  "is_direct": false
+                }
+              ],
+              "job_description": "A leading EdTech company is seeking a Go-to-Market (GTM) Engineer to execute the company's sales and marketing strategy. This pivotal role involves developing pipelines for products and market segments while collaborating across teams to ensure market readiness. Candidates should have a background in higher education or SaaS, with strong attention to detail and a data-driven mindset. The company offers a hybrid working arrangement, promoting inclusivity and professional growth opportunities.",
+              "job_is_remote": false,
+              "job_posted_at": "7 days ago",
+              "job_posted_at_timestamp": 1769990400,
+              "job_posted_at_datetime_utc": "2026-02-02T00:00:00.000Z",
+              "job_location": "London",
+              "job_city": "London",
+              "job_state": null,
+              "job_country": "GB",
+              "job_latitude": 51.5072178,
+              "job_longitude": -0.12758619999999998,
+              "job_benefits": null,
+              "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3DNJXTZAnhsMNsBSFxAAAAAA%3D%3D&vssid=jobs-detail-viewer",
+              "job_min_salary": null,
+              "job_max_salary": null,
+              "job_salary_period": "YEAR",
+              "job_highlights": {},
+              "job_onet_soc": "41903100",
+              "job_onet_job_zone": "4"
+            },
+            {
+              "job_id": "vrLT8xXFoeSxQxj6AAAAAA==",
+              "job_title": "GTM Data Engineer: Revenue Systems & Pipelines Architect",
+              "employer_name": "Neara",
+              "employer_logo": null,
+              "employer_website": "https://neara.com",
+              "job_publisher": "Learn4Good",
+              "job_employment_type": "Full–time",
+              "job_employment_types": [
+                "FULLTIME"
+              ],
+              "job_apply_link": "https://www.learn4good.com/jobs/london/uk/info_technology/4843512470/e/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "job_apply_is_direct": false,
+              "apply_options": [
+                {
+                  "publisher": "Learn4Good",
+                  "apply_link": "https://www.learn4good.com/jobs/london/uk/info_technology/4843512470/e/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+                  "is_direct": false
+                }
+              ],
+              "job_description": "Location: Greater London\n\nA leading technology firm in Greater London is seeking a GTM Data Engineer to integrate and optimize data pipelines that support growth initiatives. The ideal candidate will have over 5 years of relevant experience, including expertise in Salesforce and strong skills in SQL and Python. Responsibilities include managing the GTM systems stack and ensuring data quality across various platforms.\n\nThis role offers an opportunity to influence data-driven decision-making and improve GTM efficiency.\n#J-18808-Ljbffr",
+              "job_is_remote": false,
+              "job_posted_at": "5 days ago",
+              "job_posted_at_timestamp": 1770163200,
+              "job_posted_at_datetime_utc": "2026-02-04T00:00:00.000Z",
+              "job_location": "London",
+              "job_city": "London",
+              "job_state": null,
+              "job_country": "GB",
+              "job_latitude": 51.5072178,
+              "job_longitude": -0.12758619999999998,
+              "job_benefits": null,
+              "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3DvrLT8xXFoeSxQxj6AAAAAA%3D%3D&vssid=jobs-detail-viewer",
+              "job_min_salary": null,
+              "job_max_salary": null,
+              "job_salary_period": "YEAR",
+              "job_highlights": {},
+              "job_onet_soc": "15113200",
+              "job_onet_job_zone": "4"
+            }
+          ]
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ],
+    "Split Out2": [
+      {
+        "json": {
+          "job_id": "XXlyfWyz22heud8MAAAAAA==",
+          "job_title": "Go-To-Market (GTM) Engineer",
+          "employer_name": "Push Gaming Limited",
+          "employer_logo": null,
+          "employer_website": "https://www.pushgaming.com",
+          "job_publisher": "Totaljobs",
+          "job_employment_type": "Contractor",
+          "job_employment_types": [
+            "CONTRACTOR"
+          ],
+          "job_apply_link": "https://www.totaljobs.com/job/go-to-market-gtm-engineer/push-gaming-limited-job106653144?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+          "job_apply_is_direct": true,
+          "apply_options": [
+            {
+              "publisher": "Totaljobs",
+              "apply_link": "https://www.totaljobs.com/job/go-to-market-gtm-engineer/push-gaming-limited-job106653144?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "is_direct": true
+            },
+            {
+              "publisher": "Jobs By Workable",
+              "apply_link": "https://apply.workable.com/cadmus-io/j/4C7265044B?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "is_direct": true
+            },
+            {
+              "publisher": "LinkedIn",
+              "apply_link": "https://uk.linkedin.com/jobs/view/go-to-market-gtm-engineer-at-cadmus-4368874035?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "is_direct": false
+            },
+            {
+              "publisher": "Talents By StudySmarter",
+              "apply_link": "https://talents.studysmarter.co.uk/companies/hernshead-recruitment-ltd/european-sales-engineer-hybrid-servo-hydraulic-20024291/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "is_direct": false
+            },
+            {
+              "publisher": "Quality Contracts",
+              "apply_link": "https://qualitycontracts.co.uk/contract-jobs/go-to-market-gtm-engineer-in-united-kingdom-1770092894?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "is_direct": false
+            },
+            {
+              "publisher": "BeBee GB",
+              "apply_link": "https://gb.bebee.com/job/dbc407a51753db8d373da321aa2a3d5e?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "is_direct": false
+            },
+            {
+              "publisher": "Trabajo.org",
+              "apply_link": "https://gb.trabajo.org/job-3812-5ac94ec717aaa18e0925ce187420cdf7?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "is_direct": false
+            },
+            {
+              "publisher": "Jobrapido",
+              "apply_link": "https://uk.jobrapido.com/jobpreview/5089481280916029440?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "is_direct": false
+            }
+          ],
+          "job_description": "Go-To-Market (GTM) Engineer\n\nPush Gaming is an award-winning and innovative B2B iGaming development studio that specialises in creating top-quality, mobile-optimised online casino games. With a passion for gaming and a commitment to pushing boundaries, we are dedicated to delivering exceptional experiences to players worldwide.\n\nWe are looking for a highly technical and strategic Go-To-Market Engineer to architect, optimise, and scale our lead generation and sales machinery. You will be the \"engine room\" behind PrizeFlex and our broader games portfolio, ensuring our sales team has a steady stream of high-quality leads and the technical infrastructure to close them.\n\nThis is a critical role responsible for bridging the gap between our product roadmap and our commercial goals.\n\nPlease note this is a contract position. We think 6 weeks or project based - to be discussed at interview.\n\nWhat you will be doing:\n• Be the primary architect for HubSpot, managing complex workflows, data hygiene, and integration with our product suite.\n• Design and execute automated lead generation funnels across all PrizeFlex products and upcoming game launches.\n• Optimise LinkedIn Sales Navigator use and integration to ensure the BD team is targeting the right stakeholders with precision.\n• Build the GTM technical framework for new roadmap launches, ensuring seamless transitions from \"product ready\" to \"market active\".\n• Develop dashboards to track conversion rates, pipeline velocity, and the ROI of GTM experiments.\n• Maintain and improve the connectivity between our CRM, prospecting tools, and internal product data.\n\nWhat you’ll bring:\n• Deep expertise in HubSpot (Marketing & Sales Hubs) is essential. You should be comfortable with advanced automation and AI.\n• Proven experience using LinkedIn Sales Navigator for outbound at scale, including Smart Links and CRM sync. Heyreach experience is also beneficial.\n• You understand the \"Lead Gen\" ecosystem, from cold outreach and sequencing to inbound lead scoring.\n• Ability to work with APIs, webhooks, and data enrichment tools.\n• Experience managing GTM timelines for multi-product portfolios or software roadmap releases.\n\nYou Are the Perfect Fit If...\n• You enjoy building systems more than just running reports.\n• You can translate a \"roadmap launch\" into a technical outbound sequence.\n• You are data-obsessed and hate \"leaky\" sales funnels.",
+          "job_is_remote": false,
+          "job_posted_at": "6 days ago",
+          "job_posted_at_timestamp": 1770076800,
+          "job_posted_at_datetime_utc": "2026-02-03T00:00:00.000Z",
+          "job_location": "United Kingdom",
+          "job_city": null,
+          "job_state": null,
+          "job_country": "GB",
+          "job_latitude": 55.378051,
+          "job_longitude": -3.4359729999999997,
+          "job_benefits": null,
+          "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3DXXlyfWyz22heud8MAAAAAA%3D%3D&vssid=jobs-detail-viewer",
+          "job_salary": null,
+          "job_min_salary": null,
+          "job_max_salary": null,
+          "job_salary_period": null,
+          "job_highlights": {},
+          "job_onet_soc": "41903100",
+          "job_onet_job_zone": "4"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "job_id": "9RsJygEJ-aoUaXirAAAAAA==",
+          "job_title": "Go-to-Market (GTM) Engineer",
+          "employer_name": "Cadmus",
+          "employer_logo": null,
+          "employer_website": "https://cadmusgroup.com",
+          "job_publisher": "British Jobs",
+          "job_employment_type": "Full–time",
+          "job_employment_types": [
+            "FULLTIME"
+          ],
+          "job_apply_link": "https://www.britishjobs.co.uk/job/1277000000000212087/Go-to-Market-GTM-Engineer?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+          "job_apply_is_direct": false,
+          "apply_options": [
+            {
+              "publisher": "British Jobs",
+              "apply_link": "https://www.britishjobs.co.uk/job/1277000000000212087/Go-to-Market-GTM-Engineer?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "is_direct": false
+            }
+          ],
+          "job_description": "Meet Cadmus!\n\nAt Cadmus, we believe every student should have equal opportunity to achieve academic excellence; that’s why we’re changing how the world learns! Cadmus is a global EdTech company purposefully built for the higher education sector to break down global learning barriers by providing educators and diverse student cohorts with access to high-quality learning and assessment through one powerful platform. Built on rich, student-centric values, Cadmus empowers individuals to achieve their highest potential and graduate with the critical skills and knowledge to profoundly impact our workforces, communities, and evolving world.\n\nA Bold Plan for Global Impact\n\nAt Cadmus, we’re working hard in pursuit of an ambitious, world-shaping goal: to provide 1 billion students with access to high-quality education by 2050.\n\nThat’s why we need an ambitious Go-to-Market (GTM) Engineer to drive effective execution of the company's sales and marketing strategy; ensuring our offering is clearly articulated, competitively positioned, and effectively delivered to the market.\n\nRequirements\n\nRole Overview\n\nReporting directly to the Chief Revenue Officer, the Go-to-Market (GTM) Engineer will be responsible for execution of the comprehensive GTM strategy - creating and developing a pipeline for existing and new products, features, and market segments. This role is critical in ensuring Cadmus successfully launches, scales, and achieves aggressive revenue and adoption targets by working at the intersection of Product, Marketing, Sales, and Customer Success efforts.\n\nThis role would suit a hands-on and results-orientated practitioner, adept at utilising cutting-edge AI-driven GTM tools, techniques and best practices. Experience with Account-based Marketing highly advantageous, as is exposure to working in a high-growth SaaS environment. EdTech exposure preferable but non-essential.\n\nRole Responsibilities\n• Execution, execution, execution: First and foremost, bring together target segments, messaging and available channels to develop consistent and high-quality pipeline.\n• GTM Strategy Optimisation: Utilise data, market feedback and cross-functional alignment to continually identify and implement process improvements. Be empowered to drive innovation and change.\n• Cross-Functional Alignment: Serve as the primary internal GTM liaison, ensuring seamless collaboration and alignment across Product, Product Marketing, Sales, Marketing, and Customer Success teams to guarantee market readiness and consistent attainment of the GTM goals.\n• Sales Enablement: Collaborate with the CRO in developing and delivering high-impact sales tools, training, and collateral (e.g., pitch decks, competitive battle cards, demo scripts) that empower the sales team to effectively articulate the product's value proposition and close deals.\n• Market Intelligence & Competitive Analysis: Act as the internal expert on market trends, customer needs, and the competitive landscape. Use insights to refine GTM strategies, identify potential threats, and pinpoint new growth opportunities.\n\nProfessional Skills and Requirements\n• You have worked in higher education, EdTech, a Saas provider, or similar industry.\n• Your background is in Business Development, Go-to-Market, Revenue Operations, or Performance Marketing.\n• High attention to detail, with the desire to create market-leading work that propels Cadmus forward and sets us apart from competitors.\n• Inspired by, not afraid of, a data and results-driven environment.\n• Self-starting, solution-orientated individual who can problem solve and take initiative in a flat-structured environment.\n• Comfortable sitting at the elbow of the companies Founders, CRO and ELT in driving through initiatives.\n• Team player who enjoys assisting their teammates and collaborating across departmental projects.\n\nBenefits\n• This role is open to candidates across the UK and can expect a hybrid working arrangement.\n• Learning allowances; because we don’t just have words on a website, we genuinely do what we say and provide educational opportunities to all (including the Cadmus team).\n• A diverse and inclusive workplace where there are no barriers to anyone succeeding.\n• A surrounding team of mission-driven individuals who genuinely love what they do.\n\nInclusivity:\n\nAt Cadmus, we hire great people from diverse backgrounds making our company stronger. We never discriminate based on race, religion, national origin, gender identity or expression, sexual orientation, age, marital, or disability status. If you share our values and our enthusiasm for education, you will find a home at Cadmus.\n\nIf you need assistance or accommodations made due to a disability, please let us know.\n\nHow to apply:\n\nPlease apply below by the link with your resume, and instead of a cover letter, we would prefer for you to answer a few questions.",
+          "job_is_remote": false,
+          "job_posted_at": "5 days ago",
+          "job_posted_at_timestamp": 1770163200,
+          "job_posted_at_datetime_utc": "2026-02-04T00:00:00.000Z",
+          "job_location": null,
+          "job_city": null,
+          "job_state": null,
+          "job_country": null,
+          "job_latitude": null,
+          "job_longitude": null,
+          "job_benefits": null,
+          "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3D9RsJygEJ-aoUaXirAAAAAA%3D%3D&vssid=jobs-detail-viewer",
+          "job_salary": null,
+          "job_min_salary": null,
+          "job_max_salary": null,
+          "job_salary_period": null,
+          "job_highlights": {},
+          "job_onet_soc": "41903100",
+          "job_onet_job_zone": "4"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "job_id": "ACWqCx_gWaG91gekAAAAAA==",
+          "job_title": "GTM Engineer – AI Powered Revenue Engine Architect",
+          "employer_name": "Gravitee Topco Limited.",
+          "employer_logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLuQJTJ4AVLgwQgCcXTnHmeTDXfm7V1jyMJZuS&s=0",
+          "employer_website": "https://www.gravitee.io",
+          "job_publisher": "Talents By StudySmarter",
+          "job_employment_type": "Full–time",
+          "job_employment_types": [
+            "FULLTIME"
+          ],
+          "job_apply_link": "https://talents.studysmarter.co.uk/companies/gravitee-topco-limited/london/gtm-engineer-ai-powered-revenue-engine-architect-26239875/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+          "job_apply_is_direct": false,
+          "apply_options": [
+            {
+              "publisher": "Talents By StudySmarter",
+              "apply_link": "https://talents.studysmarter.co.uk/companies/gravitee-topco-limited/london/gtm-engineer-ai-powered-revenue-engine-architect-26239875/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "is_direct": false
+            },
+            {
+              "publisher": "Talent.com",
+              "apply_link": "https://uk.talent.com/view?id=a790b30ded8d&utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "is_direct": false
+            },
+            {
+              "publisher": "Learn4Good",
+              "apply_link": "https://www.learn4good.com/jobs/london/uk/info_technology/4843416188/e/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "is_direct": false
+            }
+          ],
+          "job_description": "A leading technology company in London is hiring a GTM Engineer to optimize their systems for revenue generation. This role, blending technical execution with commercial strategy, is essential for supporting the customer journey and leveraging AI-driven efficiencies. Candidates should have a strong background in SaaS, data proficiency, and experience with tools like HubSpot and Clay. Join them to drive innovation and growth in a dynamic team environment.\n#J-18808-Ljbffr",
+          "job_is_remote": false,
+          "job_posted_at": "3 days ago",
+          "job_posted_at_timestamp": 1770336000,
+          "job_posted_at_datetime_utc": "2026-02-06T00:00:00.000Z",
+          "job_location": "London",
+          "job_city": "London",
+          "job_state": null,
+          "job_country": "GB",
+          "job_latitude": 51.5072178,
+          "job_longitude": -0.12758619999999998,
+          "job_benefits": null,
+          "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3DACWqCx_gWaG91gekAAAAAA%3D%3D&vssid=jobs-detail-viewer",
+          "job_min_salary": null,
+          "job_max_salary": null,
+          "job_salary_period": "YEAR",
+          "job_highlights": {},
+          "job_onet_soc": "15119900",
+          "job_onet_job_zone": "4"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "job_id": "PQMMNUENzNn-VkWoAAAAAA==",
+          "job_title": "GTM Engineer | London, UK",
+          "employer_name": "ComplyAdvantage",
+          "employer_logo": null,
+          "employer_website": "https://complyadvantage.com",
+          "job_publisher": "EFinancialCareers",
+          "job_employment_type": "Full–time",
+          "job_employment_types": [
+            "FULLTIME"
+          ],
+          "job_apply_link": "https://www.efinancialcareers.co.uk/jobs-UK-London-GTM_Engineer.id23670015?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+          "job_apply_is_direct": true,
+          "apply_options": [
+            {
+              "publisher": "EFinancialCareers",
+              "apply_link": "https://www.efinancialcareers.co.uk/jobs-UK-London-GTM_Engineer.id23670015?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "is_direct": true
+            }
+          ],
+          "job_description": "GTM Engineer\n\nWe are looking for a GTM Systems Engineer to be the architect of our revenue engine. This is a critical mid-level role focused on blending technical expertise with go-to-market strategy to drive scalable and efficient growth.\n\nThe role is a hybrid operator who designs, builds, and maintains the systems that power Sales, Marketing, and Customer Success. You won't just run campaigns; you will design the automated infrastructure that ensures our data is clean, our outreach is hyper-targeted, and our revenue teams are enabled to close deals faster.\n\nYou will be the bridge between technical platforms and commercial outcomes, translating complex product capabilities into business value and ensuring a seamless, data-driven customer journey.\nWhat you will be doing:\n\nYour primary responsibility will be to build, optimize, and scale the technology backbone of our Go-To-Market efforts:\n\n• Revenue Engine Architecture: Design, build, and optimize automated workflows (lead qualification, nurturing, omnichannel campaigns) to convert leads into closed deals efficiently.\n• Tech Stack Ownership: Own the integration and operation of our GTM technology stack (CRM, Marketing Automation, Outreach Tools, Data Enrichment, Analytics) using APIs, no-code/low-code tools, and custom scripting to ensure flawless data flow.\n• Data & Intelligence: Build and manage data pipelines for lead enrichment (firmographics, intent data, technographics) to ensure our data is clean, consistent, and actionable across all GTM teams.\n• Sales Process Automation: Create automated systems that provide real-time sales support, pre-call intelligence, and personalized messaging to help the sales team engage leads better and accelerate the sales cycle.\n• Optimization & Analysis: Monitor key funnel metrics and conversion rates. Conduct root-cause analysis of bottlenecks and systematically test and iterate on GTM processes to drive continuous improvement.\n• Cross-Functional Alignment: Work closely with Revenue Operations, Customer Experience and Sales to define requirements, gather feedback, and ensure the GTM systems support company-wide growth goals. What you'll bring:\n\n• Experience: 2-4 years of experience in a highly technical GTM role (e.g., GTM Engineer, RevOps Specialist, Sales/Marketing Automation Architect, or Solutions Engineer).\n• Technical Proficiency: Strong hands-on experience integrating and managing GTM platforms (e.g., Salesforce, HubSpot, Marketo, Outreach, Clay) and comfort with technical concepts like AI, APIs and JSON.\n• Systems Thinking: The ability to see the GTM process as a full, interconnected system and design scalable, repeatable workflows.\n• Artificial Intelligence: Understanding of the AI market place specifically the GTM Vertical tools.\n• Data Fluency: Proficiency in data analysis, data modeling, and reporting (e.g., SQL, Google Sheets/Docs, or BI tools) to define and track performance.\n• Communication: Excellent ability to translate complex technical architectures into simple business outcomes for non-technical stakeholders.\n• Mindset: You thrive in ambiguous, fast-paced environments and possess an exceptional ability to learn new tools and technologies quickly. What's in it for you?\n\n• Equity as we want you to have a part of what we are building\n• Private medical insurance designed to keep you ensuring peace of mind while you excel in your career\n• Unlimited Time Off Policy- A work-life balance and focus on our well-being are critical to keeping us performing at our best\n• We embrace a hybrid approach that requires employees to be in the office for two days a week. We strongly believe that this approach fosters collaboration and enables the building of meaningful relationships\n• You will also get a new starter budget to kit out your home office\n• Opportunity to work on innovative projects with smart-minded people keen to share their knowledge and continuously improve\nAbout us:\n\nOur mission is to empower every business to eliminate financial crime.\n\nBy harnessing AI, a unified platform, and an extensive partner ecosystem, we help customers turn compliance into a catalyst for growth, operational resilience, and enduring regulatory trust.\n\nMore than 3,000 enterprises across 75 countries rely on our end-to-end platform and the world's most comprehensive financial crime risk intelligence. With full-stack agentic automation, we help organizations automate up to 95% of KYC, AML, and sanctions reviews, cut onboarding times by 50%, reduce false positives by 70%, and handle 7x more work with the same staff.\n\nComplyAdvantage is headquartered in London and has global hubs in New York, Lisbon, Singapore, and Cluj-Napoca. It is backed by Balderton Capital, Index Ventures, Ontario Teachers' Pension Plan, Goldman Sachs, and Andreessen Horowitz. Learn more about compliance re-engineered for the age of AI at complyadvantage.com.",
+          "job_is_remote": false,
+          "job_posted_at": "28 days ago",
+          "job_posted_at_timestamp": 1768176000,
+          "job_posted_at_datetime_utc": "2026-01-12T00:00:00.000Z",
+          "job_location": "London",
+          "job_city": "London",
+          "job_state": null,
+          "job_country": "GB",
+          "job_latitude": 51.5072178,
+          "job_longitude": -0.12758619999999998,
+          "job_benefits": null,
+          "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3DPQMMNUENzNn-VkWoAAAAAA%3D%3D&vssid=jobs-detail-viewer",
+          "job_salary": null,
+          "job_min_salary": null,
+          "job_max_salary": null,
+          "job_salary_period": null,
+          "job_highlights": {},
+          "job_onet_soc": "41903100",
+          "job_onet_job_zone": "4"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "job_id": "wlGODbnOR2Gx1Jn5AAAAAA==",
+          "job_title": "GTM Engineer & Growth Architect, EMEA (Hybrid London)",
+          "employer_name": "Apollo.io",
+          "employer_logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRa0FcBw1fSfjTeFm7bnx7IYEOd3TdLrCykkZE4&s=0",
+          "employer_website": "https://www.apollo.io",
+          "job_publisher": "Talents By StudySmarter",
+          "job_employment_type": "Full–time",
+          "job_employment_types": [
+            "FULLTIME"
+          ],
+          "job_apply_link": "https://talents.studysmarter.co.uk/companies/apollo-io/london/gtm-engineer-growth-architect-emea-hybrid-london-25773166/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+          "job_apply_is_direct": false,
+          "apply_options": [
+            {
+              "publisher": "Talents By StudySmarter",
+              "apply_link": "https://talents.studysmarter.co.uk/companies/apollo-io/london/gtm-engineer-growth-architect-emea-hybrid-london-25773166/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "is_direct": false
+            }
+          ],
+          "job_description": "A leading technology company in London seeks a Go-To-Market Engineer to drive customer success through effective GTM strategies. In this hybrid role, you will optimize product usage and generate revenue pipelines utilizing advanced data analysis and AI tools. Ideal candidates will have 5+ years in relevant fields, possess strong data-driven skills, and be customer-obsessed. You will work collaboratively within a dynamic team to refine customer strategies and enhance performance.#J-18808-Ljbffr",
+          "job_is_remote": false,
+          "job_posted_at": "6 days ago",
+          "job_posted_at_timestamp": 1770076800,
+          "job_posted_at_datetime_utc": "2026-02-03T00:00:00.000Z",
+          "job_location": "London",
+          "job_city": "London",
+          "job_state": null,
+          "job_country": "GB",
+          "job_latitude": 51.5072178,
+          "job_longitude": -0.12758619999999998,
+          "job_benefits": null,
+          "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3DwlGODbnOR2Gx1Jn5AAAAAA%3D%3D&vssid=jobs-detail-viewer",
+          "job_min_salary": null,
+          "job_max_salary": null,
+          "job_salary_period": "YEAR",
+          "job_highlights": {},
+          "job_onet_soc": "15119900",
+          "job_onet_job_zone": "4"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "job_id": "NFPi8b3n9Gjn-OPhAAAAAA==",
+          "job_title": "Sales Engineer (GTM) Tax Software",
+          "employer_name": "Ryan",
+          "employer_logo": null,
+          "employer_website": "https://ryan.com",
+          "job_publisher": "Talent.com",
+          "job_employment_type": "Full–time",
+          "job_employment_types": [
+            "FULLTIME"
+          ],
+          "job_apply_link": "https://uk.talent.com/view?id=03cb7a837bd9&utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+          "job_apply_is_direct": false,
+          "apply_options": [
+            {
+              "publisher": "Talent.com",
+              "apply_link": "https://uk.talent.com/view?id=03cb7a837bd9&utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "is_direct": false
+            },
+            {
+              "publisher": "Jooble",
+              "apply_link": "https://uk.jooble.org/jdp/-5450121988132453404?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "is_direct": false
+            }
+          ],
+          "job_description": "Why Ryan\n\nCompetitive Compensation and Benefits\n\nHome Office Stipend\n\nBusiness Connectivity Reimbursement (Phone / Internet)\n\nGym Membership or Equipment Reimbursement\n\nLinkedIn Learning Subscription\n\nFlexible Work Environment\n\nTuition Reimbursement After One Year of Service\n\nAccelerated Career Path\n\nAward-Winning Culture & Community Outreach\n\nWe are seeking a dynamic and results-driven Sales Engineer to join our this role you will be responsible for supporting and promoting our products to clients. Your primary objective will be to understand the clients technical requirements propose solutions secure sales and develop new business growth in this specified market. The Sales Engineer will play a key role in leading product demos and educating customers (everyone from sales reps to sales enablement to executives) on the best way to implement Revenue intelligence in .\n\nYou will have the opportunity to play an important role in increasing the effectiveness productivity and revenue growth in the Sales Team by partnering closely with Account Executives to close new business with prospects as well as with existing customers through discovery calls product demonstrations proof-of-concepts(POCs) and meetings.\n\nDuties and responsibilities as they align with Ryans Key Results\n\nPeople :\n• Work alongside Sales and Customer Success as the ultimate product expert\n• Attend Inter-departmental meetings to generate new ideas strategies and opportunities for the company and maintain communication flow between departments\n\nClient :\n• Be the trusted advisor to both prospects and customers to ensure they get the correct business value from our products.\n• Assist prospects and customers with Business Assessment (POCs Pilots).\n• Craft content to show customers how to leverage products for specific use cases.\n• Assist with RFPs and questionnaires in the context of sales cycles.\n• Contribute reusable assets to the Sales Engineering team and the company at-large.\n\nValue :\n• Help eliminate bottlenecks by working cross-functionally (Sales Customer Success Support Product Management Engineering) in order to get deals across the line.\n• Collaborate closely with Product Marketing Product Management and Engineering to share voice of the customer feedback in order to influence our product roadmap and GTM strategies.\n\nEducation and Experience :\n• 5 years of customer-facing experience in a sales engineering (pre-sales) role or a combination of sales engineering and other relevant work experience.\n• Experience with sales technology (CRMs) cloud architecture or telephony / web conferencing systems.\n• Experience with data flows AI / ML concepts analytics databases APIs / webhooks or JSON\n• Understanding of security and privacy pertaining to SaaS systems.\n• Excellent verbal and written communication skills.\n• Strong interpersonal and teamwork skills.\n• Passion for technology and problem-solving.\n• Able to make the complex sound simple!\n• Industry knowledge of our key markets (technology business services financing staffing & recruiting) is a plus\n\nSupervisory Responsibilities :\n• This role will not have supervisory responsibilities\n\n#Li-hybrid\n\nRequired Experience :\n\nIC\n\nKey Skills\n\nSpring,.NET,C / C++,Go,React,OOP,C#,Data Structures,JavaScript,Software Development,Java,Distributed Systems\n\nEmployment Type : Full-Time\n\nExperience : years\n\nVacancy : 1",
+          "job_is_remote": false,
+          "job_posted_at": "3 days ago",
+          "job_posted_at_timestamp": 1770336000,
+          "job_posted_at_datetime_utc": "2026-02-06T00:00:00.000Z",
+          "job_location": "London",
+          "job_city": "London",
+          "job_state": null,
+          "job_country": "GB",
+          "job_latitude": 51.5072178,
+          "job_longitude": -0.12758619999999998,
+          "job_benefits": null,
+          "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3DNFPi8b3n9Gjn-OPhAAAAAA%3D%3D&vssid=jobs-detail-viewer",
+          "job_salary": null,
+          "job_min_salary": null,
+          "job_max_salary": null,
+          "job_salary_period": null,
+          "job_highlights": {},
+          "job_onet_soc": "41903100",
+          "job_onet_job_zone": "4"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "job_id": "fHVbiRb9nEtuNNmGAAAAAA==",
+          "job_title": "GTM Engineer & AI Growth Architect (EMEA)",
+          "employer_name": "Apollo",
+          "employer_logo": null,
+          "employer_website": "https://www.apollo.com",
+          "job_publisher": "Talents By StudySmarter",
+          "job_employment_type": "Full–time",
+          "job_employment_types": [
+            "FULLTIME"
+          ],
+          "job_apply_link": "https://talents.studysmarter.co.uk/companies/apollo/london/gtm-engineer-ai-growth-architect-emea-25773132/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+          "job_apply_is_direct": false,
+          "apply_options": [
+            {
+              "publisher": "Talents By StudySmarter",
+              "apply_link": "https://talents.studysmarter.co.uk/companies/apollo/london/gtm-engineer-ai-growth-architect-emea-25773132/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "is_direct": false
+            }
+          ],
+          "job_description": "A leading sales solutions provider in Greater London is seeking a Go-To-Market Engineer to design and optimize product usage. You will be responsible for owning growth outcomes and refining GTM strategies to ensure customer success. The ideal candidate will have over 5 years of experience in Sales Operations and possess strong analytical and customer relationship management skills. This role blends strategy and technology to drive measurable impact, contributing to the overall growth of the business.\n#J-18808-Ljbffr",
+          "job_is_remote": false,
+          "job_posted_at": "6 days ago",
+          "job_posted_at_timestamp": 1770076800,
+          "job_posted_at_datetime_utc": "2026-02-03T00:00:00.000Z",
+          "job_location": "London",
+          "job_city": "London",
+          "job_state": null,
+          "job_country": "GB",
+          "job_latitude": 51.5072178,
+          "job_longitude": -0.12758619999999998,
+          "job_benefits": null,
+          "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3DfHVbiRb9nEtuNNmGAAAAAA%3D%3D&vssid=jobs-detail-viewer",
+          "job_min_salary": null,
+          "job_max_salary": null,
+          "job_salary_period": "YEAR",
+          "job_highlights": {},
+          "job_onet_soc": "15119900",
+          "job_onet_job_zone": "4"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "job_id": "2IN93KGSgHuYZaVVAAAAAA==",
+          "job_title": "Tech Lead & Hands-On Engineer GTM, React & Cloud Infra",
+          "employer_name": "CreateFuture",
+          "employer_logo": null,
+          "employer_website": "https://createfuture.com",
+          "job_publisher": "Learn4Good",
+          "job_employment_type": "Full–time",
+          "job_employment_types": [
+            "FULLTIME"
+          ],
+          "job_apply_link": "https://www.learn4good.com/jobs/london/uk/info_technology/4845767273/e/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+          "job_apply_is_direct": false,
+          "apply_options": [
+            {
+              "publisher": "Learn4Good",
+              "apply_link": "https://www.learn4good.com/jobs/london/uk/info_technology/4845767273/e/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "is_direct": false
+            }
+          ],
+          "job_description": "Position: Tech Lead & Hands-On Engineer for GTM, React & Cloud Infra\nLocation: Greater London\n\nA dynamic technology company in Greater London seeks an adaptable engineering leader to drive technical initiatives. The role involves hands-on work in the Paid Marketing and Audience Experience space, focusing on Google Tag Manager and React implementation. Candidates should possess strong technical skills, including infrastructure automation with Terraform and stakeholder engagement. The company offers a supportive culture, flexible working arrangements, and opportunities for professional growth.\n#J-18808-Ljbffr",
+          "job_is_remote": false,
+          "job_posted_at": "4 days ago",
+          "job_posted_at_timestamp": 1770249600,
+          "job_posted_at_datetime_utc": "2026-02-05T00:00:00.000Z",
+          "job_location": "London",
+          "job_city": "London",
+          "job_state": null,
+          "job_country": "GB",
+          "job_latitude": 51.5072178,
+          "job_longitude": -0.12758619999999998,
+          "job_benefits": null,
+          "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3D2IN93KGSgHuYZaVVAAAAAA%3D%3D&vssid=jobs-detail-viewer",
+          "job_salary": null,
+          "job_min_salary": null,
+          "job_max_salary": null,
+          "job_salary_period": null,
+          "job_highlights": {},
+          "job_onet_soc": "15113300",
+          "job_onet_job_zone": "4"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "job_id": "NJXTZAnhsMNsBSFxAAAAAA==",
+          "job_title": "GTM Engineer: EdTech SaaS Growth & Strategy",
+          "employer_name": "Cadmus",
+          "employer_logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT38Xw5w7SfIV1vL9zlvdIjSs22OpMT1oY7AToj&s=0",
+          "employer_website": "https://cadmusgroup.com",
+          "job_publisher": "FE Careers",
+          "job_employment_type": "Full–time",
+          "job_employment_types": [
+            "FULLTIME"
+          ],
+          "job_apply_link": "https://www.fecareers.co.uk/job/IPn59MzT/gtm-engineer-edtech-saas-growth-strategy?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+          "job_apply_is_direct": false,
+          "apply_options": [
+            {
+              "publisher": "FE Careers",
+              "apply_link": "https://www.fecareers.co.uk/job/IPn59MzT/gtm-engineer-edtech-saas-growth-strategy?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "is_direct": false
+            },
+            {
+              "publisher": "Talents By StudySmarter",
+              "apply_link": "https://talents.studysmarter.co.uk/companies/centre-people/city-of-london/emea-banking-strategy-vp-syndication-growth-18072404/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "is_direct": false
+            },
+            {
+              "publisher": "ZipRecruiter",
+              "apply_link": "https://www.ziprecruiter.co.uk/jobs/490592090-vp-learning-strategy-production-at-multiverse?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "is_direct": false
+            },
+            {
+              "publisher": "Jobijoba UK",
+              "apply_link": "https://www.jobijoba.co.uk/detail/92/5672cba4631622ffbc837e9e7146f125?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "is_direct": false
+            },
+            {
+              "publisher": "BeBee GB",
+              "apply_link": "https://gb.bebee.com/job/b03baf71db9be0dd4c3e873332abf12e?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "is_direct": false
+            },
+            {
+              "publisher": "Hollylist",
+              "apply_link": "https://www.hollylist.com/jobs/4WLkFguLDb9mjpHv7?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "is_direct": false
+            },
+            {
+              "publisher": "Talent.com",
+              "apply_link": "https://uk.talent.com/view?id=6cbe577611d5&utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "is_direct": false
+            },
+            {
+              "publisher": "Employbl",
+              "apply_link": "https://www.employbl.com/jobs/vp-learning-strategy-production-multiverse-1300870?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "is_direct": false
+            }
+          ],
+          "job_description": "A leading EdTech company is seeking a Go-to-Market (GTM) Engineer to execute the company's sales and marketing strategy. This pivotal role involves developing pipelines for products and market segments while collaborating across teams to ensure market readiness. Candidates should have a background in higher education or SaaS, with strong attention to detail and a data-driven mindset. The company offers a hybrid working arrangement, promoting inclusivity and professional growth opportunities.",
+          "job_is_remote": false,
+          "job_posted_at": "7 days ago",
+          "job_posted_at_timestamp": 1769990400,
+          "job_posted_at_datetime_utc": "2026-02-02T00:00:00.000Z",
+          "job_location": "London",
+          "job_city": "London",
+          "job_state": null,
+          "job_country": "GB",
+          "job_latitude": 51.5072178,
+          "job_longitude": -0.12758619999999998,
+          "job_benefits": null,
+          "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3DNJXTZAnhsMNsBSFxAAAAAA%3D%3D&vssid=jobs-detail-viewer",
+          "job_min_salary": null,
+          "job_max_salary": null,
+          "job_salary_period": "YEAR",
+          "job_highlights": {},
+          "job_onet_soc": "41903100",
+          "job_onet_job_zone": "4"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "job_id": "vrLT8xXFoeSxQxj6AAAAAA==",
+          "job_title": "GTM Data Engineer: Revenue Systems & Pipelines Architect",
+          "employer_name": "Neara",
+          "employer_logo": null,
+          "employer_website": "https://neara.com",
+          "job_publisher": "Learn4Good",
+          "job_employment_type": "Full–time",
+          "job_employment_types": [
+            "FULLTIME"
+          ],
+          "job_apply_link": "https://www.learn4good.com/jobs/london/uk/info_technology/4843512470/e/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+          "job_apply_is_direct": false,
+          "apply_options": [
+            {
+              "publisher": "Learn4Good",
+              "apply_link": "https://www.learn4good.com/jobs/london/uk/info_technology/4843512470/e/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+              "is_direct": false
+            }
+          ],
+          "job_description": "Location: Greater London\n\nA leading technology firm in Greater London is seeking a GTM Data Engineer to integrate and optimize data pipelines that support growth initiatives. The ideal candidate will have over 5 years of relevant experience, including expertise in Salesforce and strong skills in SQL and Python. Responsibilities include managing the GTM systems stack and ensuring data quality across various platforms.\n\nThis role offers an opportunity to influence data-driven decision-making and improve GTM efficiency.\n#J-18808-Ljbffr",
+          "job_is_remote": false,
+          "job_posted_at": "5 days ago",
+          "job_posted_at_timestamp": 1770163200,
+          "job_posted_at_datetime_utc": "2026-02-04T00:00:00.000Z",
+          "job_location": "London",
+          "job_city": "London",
+          "job_state": null,
+          "job_country": "GB",
+          "job_latitude": 51.5072178,
+          "job_longitude": -0.12758619999999998,
+          "job_benefits": null,
+          "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3DvrLT8xXFoeSxQxj6AAAAAA%3D%3D&vssid=jobs-detail-viewer",
+          "job_min_salary": null,
+          "job_max_salary": null,
+          "job_salary_period": "YEAR",
+          "job_highlights": {},
+          "job_onet_soc": "15113200",
+          "job_onet_job_zone": "4"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ],
+    "Prepare Job Data": [
+      {
+        "json": {
+          "job_id": "XXlyfWyz22heud8MAAAAAA==",
+          "job_title": "Go-To-Market (GTM) Engineer",
+          "employer_name": "Push Gaming Limited",
+          "job_location": "United Kingdom",
+          "job_country": "GB",
+          "job_employment_type": "Contractor",
           "job_is_remote": 0,
-          "job_posted_at_datetime_utc": "2026-01-24 00:00:00",
-          "job_apply_link": "https://www.indeed.com/viewjob?jk=53455d58b2e9ba3a&utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
-          "job_google_link": "https://www.google.com/search?q=jobs&gl=us&hl=en&udm=8#vhid=vt%3D20/docid%3DV-1A-W97ae8w9UaqAAAAAA%3D%3D&vssid=jobs-detail-viewer"
+          "job_posted_at_datetime_utc": "2026-02-03 00:00:00",
+          "job_apply_link": "https://www.totaljobs.com/job/go-to-market-gtm-engineer/push-gaming-limited-job106653144?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+          "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3DXXlyfWyz22heud8MAAAAAA%3D%3D&vssid=jobs-detail-viewer"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "job_id": "9RsJygEJ-aoUaXirAAAAAA==",
+          "job_title": "Go-to-Market (GTM) Engineer",
+          "employer_name": "Cadmus",
+          "job_location": null,
+          "job_country": null,
+          "job_employment_type": "Full–time",
+          "job_is_remote": 0,
+          "job_posted_at_datetime_utc": "2026-02-04 00:00:00",
+          "job_apply_link": "https://www.britishjobs.co.uk/job/1277000000000212087/Go-to-Market-GTM-Engineer?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+          "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3D9RsJygEJ-aoUaXirAAAAAA%3D%3D&vssid=jobs-detail-viewer"
+        },
+        "pairedItem": {
+          "item": 1
+        }
+      },
+      {
+        "json": {
+          "job_id": "ACWqCx_gWaG91gekAAAAAA==",
+          "job_title": "GTM Engineer – AI Powered Revenue Engine Architect",
+          "employer_name": "Gravitee Topco Limited.",
+          "job_location": "London",
+          "job_country": "GB",
+          "job_employment_type": "Full–time",
+          "job_is_remote": 0,
+          "job_posted_at_datetime_utc": "2026-02-06 00:00:00",
+          "job_apply_link": "https://talents.studysmarter.co.uk/companies/gravitee-topco-limited/london/gtm-engineer-ai-powered-revenue-engine-architect-26239875/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+          "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3DACWqCx_gWaG91gekAAAAAA%3D%3D&vssid=jobs-detail-viewer"
         },
         "pairedItem": {
           "item": 2
@@ -480,16 +1628,16 @@
       },
       {
         "json": {
-          "job_id": "rbmHK5QorNUTgQ7eAAAAAA==",
-          "job_title": "GTM Engineer (Sales Assist)",
-          "employer_name": "Clay Labs",
-          "job_location": "New York, NY",
-          "job_country": "US",
-          "job_employment_type": "Full-time",
+          "job_id": "PQMMNUENzNn-VkWoAAAAAA==",
+          "job_title": "GTM Engineer | London, UK",
+          "employer_name": "ComplyAdvantage",
+          "job_location": "London",
+          "job_country": "GB",
+          "job_employment_type": "Full–time",
           "job_is_remote": 0,
-          "job_posted_at_datetime_utc": "2026-01-25 00:00:00",
-          "job_apply_link": "https://www.ziprecruiter.com/c/Clay-Labs/Job/GTM-Engineer-(Sales-Assist)/-in-New-York,NY?jid=f0fb3ad301bdc89a&utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
-          "job_google_link": "https://www.google.com/search?q=jobs&gl=us&hl=en&udm=8#vhid=vt%3D20/docid%3DrbmHK5QorNUTgQ7eAAAAAA%3D%3D&vssid=jobs-detail-viewer"
+          "job_posted_at_datetime_utc": "2026-01-12 00:00:00",
+          "job_apply_link": "https://www.efinancialcareers.co.uk/jobs-UK-London-GTM_Engineer.id23670015?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+          "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3DPQMMNUENzNn-VkWoAAAAAA%3D%3D&vssid=jobs-detail-viewer"
         },
         "pairedItem": {
           "item": 3
@@ -497,16 +1645,16 @@
       },
       {
         "json": {
-          "job_id": "sf9rpDaIWFJlG4XwAAAAAA==",
-          "job_title": "Clay GTM Engineer for Campaigns",
-          "employer_name": "Upwork",
-          "job_location": "United States",
-          "job_country": "US",
-          "job_employment_type": "Contractor",
-          "job_is_remote": 1,
-          "job_posted_at_datetime_utc": "2026-01-21 00:00:00",
-          "job_apply_link": "https://www.upwork.com/freelance-jobs/apply/Clay-GTM-Engineer-for-Campaigns_~022013672267281767225/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
-          "job_google_link": "https://www.google.com/search?q=jobs&gl=us&hl=en&udm=8#vhid=vt%3D20/docid%3Dsf9rpDaIWFJlG4XwAAAAAA%3D%3D&vssid=jobs-detail-viewer"
+          "job_id": "wlGODbnOR2Gx1Jn5AAAAAA==",
+          "job_title": "GTM Engineer & Growth Architect, EMEA (Hybrid London)",
+          "employer_name": "Apollo.io",
+          "job_location": "London",
+          "job_country": "GB",
+          "job_employment_type": "Full–time",
+          "job_is_remote": 0,
+          "job_posted_at_datetime_utc": "2026-02-03 00:00:00",
+          "job_apply_link": "https://talents.studysmarter.co.uk/companies/apollo-io/london/gtm-engineer-growth-architect-emea-hybrid-london-25773166/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+          "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3DwlGODbnOR2Gx1Jn5AAAAAA%3D%3D&vssid=jobs-detail-viewer"
         },
         "pairedItem": {
           "item": 4
@@ -514,16 +1662,16 @@
       },
       {
         "json": {
-          "job_id": "XKUikkQaN2FAkS1XAAAAAA==",
-          "job_title": "GTM Engineer",
-          "employer_name": "Loop AI",
-          "job_location": "Tampa, FL",
-          "job_country": "US",
-          "job_employment_type": "Full-time",
+          "job_id": "NFPi8b3n9Gjn-OPhAAAAAA==",
+          "job_title": "Sales Engineer (GTM) Tax Software",
+          "employer_name": "Ryan",
+          "job_location": "London",
+          "job_country": "GB",
+          "job_employment_type": "Full–time",
           "job_is_remote": 0,
-          "job_posted_at_datetime_utc": "2026-01-22 00:00:00",
-          "job_apply_link": "https://www.ziprecruiter.com/c/Loop-AI/Job/GTM-Engineer/-in-Tampa,FL?jid=6341d8d817dcd6c6&utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
-          "job_google_link": "https://www.google.com/search?q=jobs&gl=us&hl=en&udm=8#vhid=vt%3D20/docid%3DXKUikkQaN2FAkS1XAAAAAA%3D%3D&vssid=jobs-detail-viewer"
+          "job_posted_at_datetime_utc": "2026-02-06 00:00:00",
+          "job_apply_link": "https://uk.talent.com/view?id=03cb7a837bd9&utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+          "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3DNFPi8b3n9Gjn-OPhAAAAAA%3D%3D&vssid=jobs-detail-viewer"
         },
         "pairedItem": {
           "item": 5
@@ -531,16 +1679,16 @@
       },
       {
         "json": {
-          "job_id": "3ihySSy9Dj7QHmZoAAAAAA==",
-          "job_title": "Marketing Operations and GTM Engineer",
-          "employer_name": "Level AI",
-          "job_location": "Charleston, WV",
-          "job_country": "US",
-          "job_employment_type": "Full-time",
+          "job_id": "fHVbiRb9nEtuNNmGAAAAAA==",
+          "job_title": "GTM Engineer & AI Growth Architect (EMEA)",
+          "employer_name": "Apollo",
+          "job_location": "London",
+          "job_country": "GB",
+          "job_employment_type": "Full–time",
           "job_is_remote": 0,
-          "job_posted_at_datetime_utc": "2026-01-24 00:00:00",
-          "job_apply_link": "https://www.ziprecruiter.com/c/Level-AI/Job/Marketing-Operations-and-GTM-Engineer/-in-Remote,US?jid=5b42201cece05a2e&utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
-          "job_google_link": "https://www.google.com/search?q=jobs&gl=us&hl=en&udm=8#vhid=vt%3D20/docid%3D3ihySSy9Dj7QHmZoAAAAAA%3D%3D&vssid=jobs-detail-viewer"
+          "job_posted_at_datetime_utc": "2026-02-03 00:00:00",
+          "job_apply_link": "https://talents.studysmarter.co.uk/companies/apollo/london/gtm-engineer-ai-growth-architect-emea-25773132/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+          "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3DfHVbiRb9nEtuNNmGAAAAAA%3D%3D&vssid=jobs-detail-viewer"
         },
         "pairedItem": {
           "item": 6
@@ -548,16 +1696,16 @@
       },
       {
         "json": {
-          "job_id": "qxhtynYFNL_REc2FAAAAAA==",
-          "job_title": "GTM Engineer",
-          "employer_name": "Qualia",
-          "job_location": "Texas",
-          "job_country": "US",
-          "job_employment_type": "Full-time",
+          "job_id": "2IN93KGSgHuYZaVVAAAAAA==",
+          "job_title": "Tech Lead & Hands-On Engineer GTM, React & Cloud Infra",
+          "employer_name": "CreateFuture",
+          "job_location": "London",
+          "job_country": "GB",
+          "job_employment_type": "Full–time",
           "job_is_remote": 0,
-          "job_posted_at_datetime_utc": "2026-01-21 00:00:00",
-          "job_apply_link": "https://www.engineeringjobs.net/jobdetails.cfm/292748/GTM-Engineer?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
-          "job_google_link": "https://www.google.com/search?q=jobs&gl=us&hl=en&udm=8#vhid=vt%3D20/docid%3DqxhtynYFNL_REc2FAAAAAA%3D%3D&vssid=jobs-detail-viewer"
+          "job_posted_at_datetime_utc": "2026-02-05 00:00:00",
+          "job_apply_link": "https://www.learn4good.com/jobs/london/uk/info_technology/4845767273/e/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+          "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3D2IN93KGSgHuYZaVVAAAAAA%3D%3D&vssid=jobs-detail-viewer"
         },
         "pairedItem": {
           "item": 7
@@ -565,16 +1713,16 @@
       },
       {
         "json": {
-          "job_id": "5a9YwH6X6rXgjwO2AAAAAA==",
-          "job_title": "Founding GTM/Ops Lead (GTM Engineer) - Full-time",
-          "employer_name": "EQL Tech",
-          "job_location": "Austin, TX",
-          "job_country": "US",
-          "job_employment_type": "Full-time",
+          "job_id": "NJXTZAnhsMNsBSFxAAAAAA==",
+          "job_title": "GTM Engineer: EdTech SaaS Growth & Strategy",
+          "employer_name": "Cadmus",
+          "job_location": "London",
+          "job_country": "GB",
+          "job_employment_type": "Full–time",
           "job_is_remote": 0,
-          "job_posted_at_datetime_utc": "2026-01-23 00:00:00",
-          "job_apply_link": "https://www.snagajob.com/jobs/1159717279?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
-          "job_google_link": "https://www.google.com/search?q=jobs&gl=us&hl=en&udm=8#vhid=vt%3D20/docid%3D5a9YwH6X6rXgjwO2AAAAAA%3D%3D&vssid=jobs-detail-viewer"
+          "job_posted_at_datetime_utc": "2026-02-02 00:00:00",
+          "job_apply_link": "https://www.fecareers.co.uk/job/IPn59MzT/gtm-engineer-edtech-saas-growth-strategy?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+          "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3DNJXTZAnhsMNsBSFxAAAAAA%3D%3D&vssid=jobs-detail-viewer"
         },
         "pairedItem": {
           "item": 8
@@ -582,19 +1730,45 @@
       },
       {
         "json": {
-          "job_id": "0AD7Usl-D-FnrtcgAAAAAA==",
-          "job_title": "GTM Automation Engineer — Outbound & AI Email",
-          "employer_name": "Wing Assistant",
-          "job_location": "Jamestown, NY",
-          "job_country": "US",
-          "job_employment_type": "Full-time",
+          "job_id": "vrLT8xXFoeSxQxj6AAAAAA==",
+          "job_title": "GTM Data Engineer: Revenue Systems & Pipelines Architect",
+          "employer_name": "Neara",
+          "job_location": "London",
+          "job_country": "GB",
+          "job_employment_type": "Full–time",
           "job_is_remote": 0,
-          "job_posted_at_datetime_utc": "2026-01-22 00:00:00",
-          "job_apply_link": "https://www.learn4good.com/jobs/jamestown/new-york/manufacturing/4804878837/e/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
-          "job_google_link": "https://www.google.com/search?q=jobs&gl=us&hl=en&udm=8#vhid=vt%3D20/docid%3D0AD7Usl-D-FnrtcgAAAAAA%3D%3D&vssid=jobs-detail-viewer"
+          "job_posted_at_datetime_utc": "2026-02-04 00:00:00",
+          "job_apply_link": "https://www.learn4good.com/jobs/london/uk/info_technology/4843512470/e/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
+          "job_google_link": "https://www.google.com/search?q=jobs&gl=gb&hl=en&udm=8#vhid=vt%3D20/docid%3DvrLT8xXFoeSxQxj6AAAAAA%3D%3D&vssid=jobs-detail-viewer"
         },
         "pairedItem": {
           "item": 9
+        }
+      }
+    ],
+    "Error Alert - Job Scraper": [
+      {
+        "json": {
+          "id": "19c41b331b9ffac5",
+          "threadId": "19c41b331b9ffac5",
+          "labelIds": [
+            "SENT"
+          ]
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "id": "19c41b33416e1076",
+          "threadId": "19c41b33416e1076",
+          "labelIds": [
+            "SENT"
+          ]
+        },
+        "pairedItem": {
+          "item": 1
         }
       }
     ]
@@ -725,7 +1899,7 @@
       "main": [
         [
           {
-            "node": "Job Scraper2",
+            "node": "Code in JavaScript",
             "type": "main",
             "index": 0
           }
@@ -736,7 +1910,7 @@
       "main": [
         [
           {
-            "node": "Job Scraper2",
+            "node": "Code in JavaScript",
             "type": "main",
             "index": 0
           }
@@ -782,6 +1956,28 @@
           }
         ]
       ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Job Scraper2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
@@ -789,7 +1985,7 @@
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "92655ac7-1501-4e3a-83b7-cd57310b40e9",
+  "versionId": "47e23b04-001f-4d7e-9e02-50ae4853d06c",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "238e209ef863af056f51ef319ce60e54301f4959b4ddfd37a8126b18abdcba6f"
