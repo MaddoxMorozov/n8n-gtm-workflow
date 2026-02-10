@@ -15,3 +15,6 @@ id_ed25519
 db_creds.txt
 id_rsa_mysql.txt
 test_db_connection.js
+
+fix_*.js
+.claude/

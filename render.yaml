@@ -1,10 +1,15 @@
 services:
-  - type: worker
-    name: mysql-ssh-tunnel
-    runtime: node
-    buildCommand: npm install
-    startCommand: node start_tunnel.js
+  # Single Web Service: SSH Tunnel + n8n + OAuth2 Proxy (all in one)
+  # OAuth2 Proxy is the public-facing server (handles Google auth)
+  # n8n runs internally on port 5678
+  - type: web
+    name: gtm-tool
+    runtime: docker
+    # Uses default ./Dockerfile
+    plan: standard  # Needs at least standard for n8n memory requirements
+
     envVars:
+      # ---- SSH Tunnel (MySQL connection) ----
       - key: SSH_HOST
         value: 173.212.247.135
       - key: SSH_PORT
@@ -12,8 +17,20 @@ services:
       - key: SSH_USERNAME
         value: root
       - key: SSH_PRIVATE_KEY
-        sync: false # Set this manually in Render dashboard (base64 encoded)
+        sync: false  # Set this manually in Render dashboard (base64 encoded)
       - key: REMOTE_HOST
         value: 127.0.0.1
       - key: REMOTE_PORT
         value: 3306
+
+      # ---- Google OAuth2 ----
+      - key: GOOGLE_CLIENT_ID
+        value: 447046445190-al88jt66ddfi8qe18v9m4n3bkticfqbf.apps.googleusercontent.com
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false  # Set this manually in Render dashboard
+      - key: OAUTH2_COOKIE_SECRET
+        sync: false  # Set this manually in Render dashboard (generate random 32-byte base64)
+      - key: ALLOWED_EMAIL_DOMAINS
+        value: insightstap.com,sdtcdigital.com
+
+    healthCheckPath: /oauth2/ping

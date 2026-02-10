@@ -77,7 +77,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const html = `<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\" />\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n  <title>Jobs Selection</title>\n  <style>\n    :root {\n      --bg: #0f1220;\n      --card: #171a2b;\n      --muted: #9aa4bf;\n      --text: #eef1ff;\n      --accent: #f4b266;\n      --accent-2: #6fc3df;\n      --border: #2a2f45;\n      --chip: #1f2438;\n      --shadow: 0 12px 30px rgba(0,0,0,0.35);\n    }\n    * { box-sizing: border-box; }\n    body {\n      margin: 0;\n      font-family: \"Space Grotesk\", \"Satoshi\", \"Segoe UI\", sans-serif;\n      background: radial-gradient(1200px 600px at 10% -20%, #243b55 0%, transparent 60%),\n                  radial-gradient(800px 500px at 90% -10%, #3b2f2f 0%, transparent 60%),\n                  var(--bg);\n      color: var(--text);\n    }\n    header {\n      padding: 28px 28px 12px;\n      display: flex;\n      align-items: flex-end;\n      justify-content: space-between;\n      gap: 16px;\n    }\n    h1 {\n      margin: 0;\n      font-size: 28px;\n      letter-spacing: 0.2px;\n    }\n    .sub {\n      color: var(--muted);\n      font-size: 14px;\n      margin-top: 6px;\n    }\n    .stats {\n      display: flex;\n      gap: 12px;\n      flex-wrap: wrap;\n    }\n    .chip {\n      background: var(--chip);\n      border: 1px solid var(--border);\n      border-radius: 999px;\n      padding: 6px 12px;\n      font-size: 12px;\n      color: var(--muted);\n    }\n    .container {\n      padding: 0 24px 32px;\n      display: grid;\n      grid-template-columns: 1fr;\n      gap: 16px;\n    }\n    .panel {\n      background: var(--card);\n      border: 1px solid var(--border);\n      border-radius: 14px;\n      box-shadow: var(--shadow);\n      padding: 16px;\n    }\n    .filters {\n      display: grid;\n      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));\n      gap: 12px;\n    }\n    input, select, button, textarea {\n      font: inherit;\n      color: var(--text);\n    }\n    input, select {\n      background: #111427;\n      border: 1px solid var(--border);\n      border-radius: 10px;\n      padding: 10px 12px;\n      width: 100%;\n      outline: none;\n    }\n    button {\n      background: linear-gradient(135deg, var(--accent), #f7d199);\n      border: none;\n      color: #1b1b1b;\n      padding: 10px 14px;\n      border-radius: 10px;\n      cursor: pointer;\n      font-weight: 600;\n    }\n    button.secondary {\n      background: transparent;\n      border: 1px solid var(--border);\n      color: var(--text);\n    }\n    .table-wrap {\n      overflow: auto;\n      border-radius: 12px;\n      border: 1px solid var(--border);\n      background: #101424;\n    }\n    table {\n      width: 100%;\n      border-collapse: collapse;\n      min-width: 720px;\n    }\n    thead th {\n      position: sticky;\n      top: 0;\n      background: #12162b;\n      text-align: left;\n      font-size: 12px;\n      text-transform: uppercase;\n      letter-spacing: 0.08em;\n      padding: 12px;\n      border-bottom: 1px solid var(--border);\n    }\n    tbody td {\n      padding: 12px;\n      border-bottom: 1px solid var(--border);\n      font-size: 14px;\n    }\n    tbody tr:hover {\n      background: rgba(255,255,255,0.03);\n    }\n    .row-title {\n      font-weight: 600;\n      margin-bottom: 4px;\n    }\n    .row-meta {\n      color: var(--muted);\n      font-size: 12px;\n    }\n    .badge {\n      display: inline-block;\n      padding: 4px 8px;\n      border-radius: 999px;\n      background: rgba(111,195,223,0.15);\n      color: var(--accent-2);\n      font-size: 11px;\n      border: 1px solid rgba(111,195,223,0.3);\n    }\n    .footer-bar {\n      display: flex;\n      align-items: center;\n      justify-content: space-between;\n      gap: 12px;\n      flex-wrap: wrap;\n    }\n    .selected-list {\n      max-height: 120px;\n      overflow: auto;\n      border: 1px dashed var(--border);\n      padding: 8px;\n      border-radius: 10px;\n      background: #0f1220;\n      font-size: 12px;\n      color: var(--muted);\n    }\n    .action-row {\n      display: flex;\n      gap: 10px;\n      flex-wrap: wrap;\n      align-items: center;\n    }\n    .pagination {\n      display: flex;\n      gap: 8px;\n      align-items: center;\n      color: var(--muted);\n      font-size: 13px;\n    }\n    .empty {\n      text-align: center;\n      padding: 40px;\n      color: var(--muted);\n    }\n    @media (max-width: 780px) {\n      header {\n        flex-direction: column;\n        align-items: flex-start;\n      }\n    }\n  </style>\n</head>\n<body>\n  <header>\n    <div>\n      <h1>Job Selection Console</h1>\n      <div class=\"sub\">Pick jobs to advance in the workflow. Latest records are loaded from Database.</div>\n    </div>\n    <div class=\"stats\">\n      <div class=\"chip\" id=\"total-count\">0 jobs</div>\n      <div class=\"chip\" id=\"filtered-count\">0 shown</div>\n      <div class=\"chip\" id=\"selected-count\">0 selected</div>\n    </div>\n  </header>\n\n  <div class=\"container\">\n    <div class=\"panel\">\n      <div class=\"filters\">\n        <input id=\"search\" type=\"text\" placeholder=\"Search title, company, location...\" />\n        <select id=\"filter-remote\">\n          <option value=\"\">Remote + On-site</option>\n          <option value=\"remote\">Remote only</option>\n          <option value=\"onsite\">On-site only</option>\n        </select>\n        <input id=\"filter-type\" type=\"text\" placeholder=\"Employment type (e.g., Full-time)\" />\n        <select id=\"sort\">\n          <option value=\"recent\">Sort by recent</option>\n          <option value=\"company\">Sort by company</option>\n          <option value=\"title\">Sort by title</option>\n        </select>\n      </div>\n    </div>\n\n    <div class=\"panel\">\n      <div class=\"table-wrap\">\n        <table>\n          <thead>\n            <tr>\n              <th style=\"width: 48px;\"><input id=\"toggle-all\" type=\"checkbox\" /></th>\n              <th>Role</th>\n              <th>Company</th>\n              <th>Location</th>\n              <th>Type</th>\n              <th>Remote</th>\n              <th>Posted</th>\n              <th>Link</th>\n            </tr>\n          </thead>\n          <tbody id=\"table-body\"></tbody>\n        </table>\n        <div id=\"empty\" class=\"empty\" style=\"display:none;\">No jobs match the current filters.</div>\n      </div>\n    </div>\n\n    <div class=\"panel\">\n      <div class=\"footer-bar\">\n        <div class=\"pagination\">\n          <button class=\"secondary\" id=\"prev-page\">Prev</button>\n          <span id=\"page-status\">Page 1</span>\n          <button class=\"secondary\" id=\"next-page\">Next</button>\n        </div>\n        <div class=\"action-row\">\n          <button class=\"secondary\" id=\"clear-selection\">Clear selection</button>\n          <button id=\"submit-selection\">Push selected to flow</button>\n        </div>\n      </div>\n      <div style=\"margin-top: 12px;\">\n        <div class=\"sub\" style=\"margin-bottom: 6px;\">Selected jobs</div>\n        <div id=\"selected-list\" class=\"selected-list\"></div>\n      </div>\n    </div>\n  </div>\n\n  <script>\n    const state = {\n      page: 1,\n      perPage: 12,\n      search: '',\n      remote: '',\n      type: '',\n      sort: 'recent',\n      selected: new Set(),\n      jobs: [],\n      total: 0,\n      loading: false,\n    };\n\n    const el = (id) => document.getElementById(id);\n    const tableBody = el('table-body');\n    const empty = el('empty');\n    const totalCount = el('total-count');\n    const filteredCount = el('filtered-count');\n    const selectedCount = el('selected-count');\n    const selectedList = el('selected-list');\n\n    const formatDate = (value) => {\n      if (!value) return 'N/A';\n      const d = new Date(value);\n      if (Number.isNaN(d.getTime())) return value;\n      return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });\n    };\n\n    const getBase = () => {\n      const useTest = window.location.pathname.includes('/webhook-test/');\n      return window.location.origin + (useTest ? '/webhook-test/' : '/webhook/');\n    };\n\n    const loadData = async () => {\n      state.loading = true;\n      const params = new URLSearchParams({\n        q: state.search || '',\n        remote: state.remote || '',\n        type: state.type || '',\n        sort: state.sort || 'recent',\n        page: String(state.page),\n        perPage: String(state.perPage),\n      });\n\n      const url = \\`\\${getBase()}jobs-ui-data?\\${params}\\`;\n      try {\n        const res = await fetch(url);\n        if (!res.ok) throw new Error(\\`HTTP \\${res.status}\\`);\n        const payload = await res.json();\n        state.jobs = Array.isArray(payload.items) ? payload.items : [];\n        state.total = Number(payload.total || payload.totalCount || state.jobs.length || 0);\n      } catch (err) {\n        console.error(err);\n        state.jobs = [];\n        state.total = 0;\n      } finally {\n        state.loading = false;\n        render();\n      }\n    };\n\n    const render = () => {\n      const totalPages = Math.max(1, Math.ceil(state.total / state.perPage) || 1);\n      state.page = Math.min(state.page, totalPages);\n\n      totalCount.textContent = \\`\\${state.total} jobs\\`;\n      filteredCount.textContent = \\`\\${state.jobs.length} shown\\`;\n      selectedCount.textContent = \\`\\${state.selected.size} selected\\`;\n\n      tableBody.innerHTML = '';\n      if (!state.jobs.length) {\n        empty.style.display = 'block';\n      } else {\n        empty.style.display = 'none';\n      }\n\n      state.jobs.forEach((job) => {\n        const tr = document.createElement('tr');\n        const checked = state.selected.has(job.id);\n        tr.innerHTML = \\`\n          <td><input type=\"checkbox\" data-id=\"\\${job.id}\" \\${checked ? 'checked' : ''} /></td>\n          <td><div class=\"row-title\">\\${job.title}</div><div class=\"row-meta\">\\${job.id}</div></td>\n          <td>\\${job.company}</td>\n          <td>\\${job.location}</td>\n          <td>\\${job.employmentType || 'N/A'}</td>\n          <td>\\${job.remote ? '<span class=\"badge\">Remote</span>' : 'On-site'}</td>\n          <td>\\${formatDate(job.postedAt || job.createdAt)}</td>\n          <td>\\${job.url ? \\`<a href=\"\\${job.url}\" target=\"_blank\" rel=\"noopener\" style=\"color: var(--accent-2);\">Open</a>\\` : 'N/A'}</td>\n        \\`;\n        tableBody.appendChild(tr);\n      });\n\n      el('page-status').textContent = \\`Page \\${state.page} of \\${totalPages}\\`;\n      renderSelectedList();\n    };\n\n    const renderSelectedList = () => {\n      if (!state.selected.size) {\n        selectedList.textContent = 'No jobs selected yet.';\n        return;\n      }\n      const selectedJobs = state.jobs.filter(j => state.selected.has(j.id));\n      if (!selectedJobs.length) {\n        selectedList.textContent = \\`\\${state.selected.size} jobs selected across pages.\\`;\n        return;\n      }\n      selectedList.innerHTML = selectedJobs.map(j => \\`\\${j.title} — \\${j.company}\\`).join('<br />');\n    };\n\n    const debounce = (fn, delay) => {\n      let t;\n      return (...args) => {\n        clearTimeout(t);\n        t = setTimeout(() => fn(...args), delay);\n      };\n    };\n\n    tableBody.addEventListener('change', (event) => {\n      const target = event.target;\n      if (target && target.matches('input[type=\"checkbox\"][data-id]')) {\n        const id = target.getAttribute('data-id');\n        if (target.checked) state.selected.add(id);\n        else state.selected.delete(id);\n        selectedCount.textContent = \\`\\${state.selected.size} selected\\`;\n        renderSelectedList();\n      }\n    });\n\n    el('toggle-all').addEventListener('change', (event) => {\n      const checked = event.target.checked;\n      state.jobs.forEach((job) => {\n        if (checked) state.selected.add(job.id);\n        else state.selected.delete(job.id);\n      });\n      render();\n    });\n\n    el('search').addEventListener('input', debounce((e) => {\n      state.search = e.target.value.trim();\n      state.page = 1;\n      loadData();\n    }, 300));\n\n    el('filter-remote').addEventListener('change', (e) => {\n      state.remote = e.target.value;\n      state.page = 1;\n      loadData();\n    });\n\n    el('filter-type').addEventListener('input', debounce((e) => {\n      state.type = e.target.value.trim();\n      state.page = 1;\n      loadData();\n    }, 300));\n\n    el('sort').addEventListener('change', (e) => {\n      state.sort = e.target.value;\n      state.page = 1;\n      loadData();\n    });\n\n    el('prev-page').addEventListener('click', () => {\n      state.page = Math.max(1, state.page - 1);\n      loadData();\n    });\n\n    el('next-page').addEventListener('click', () => {\n      const maxPage = Math.max(1, Math.ceil(state.total / state.perPage));\n      state.page = Math.min(maxPage, state.page + 1);\n      loadData();\n    });\n\n    el('clear-selection').addEventListener('click', () => {\n      state.selected.clear();\n      render();\n    });\n\n    el('submit-selection').addEventListener('click', async () => {\n      if (!state.selected.size) {\n        alert('Select at least one job to continue.');\n        return;\n      }\n      const base = getBase();\n      const url = base + 'jobs-ui-submit';\n      const payload = { selectedJobIds: Array.from(state.selected) };\n\n      try {\n        const res = await fetch(url, {\n          method: 'POST',\n          headers: { 'Content-Type': 'application/json' },\n          body: JSON.stringify(payload),\n        });\n        if (!res.ok) throw new Error(\\`HTTP \\${res.status}\\`);\n        const html = await res.text();\n        document.open();\n        document.write(html);\n        document.close();\n      } catch (err) {\n        alert('Submit failed. Check n8n logs and try again.');\n        console.error(err);\n      }\n    });\n\n    loadData();\n  </script>\n</body>\n</html>`;\n\nreturn [{ json: { html } }];"
+        "jsCode": "const html = `<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\" />\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n  <title>Jobs Selection</title>\n  <style>\n    :root {\n      --bg: #0f1220;\n      --card: #171a2b;\n      --muted: #9aa4bf;\n      --text: #eef1ff;\n      --accent: #f4b266;\n      --accent-2: #6fc3df;\n      --border: #2a2f45;\n      --chip: #1f2438;\n      --shadow: 0 12px 30px rgba(0,0,0,0.35);\n    }\n    * { box-sizing: border-box; }\n\n    body {\n      margin: 0;\n      font-family: \"Space Grotesk\", \"Satoshi\", \"Segoe UI\", sans-serif;\n      background: radial-gradient(1200px 600px at 10% -20%, #243b55 0%, transparent 60%),\n                  radial-gradient(800px 500px at 90% -10%, #3b2f2f 0%, transparent 60%),\n                  var(--bg);\n      color: var(--text);\n    }\n    header {\n      padding: 28px 28px 12px;\n      display: flex;\n      align-items: flex-end;\n      justify-content: space-between;\n      gap: 16px;\n    }\n    h1 {\n      margin: 0;\n      font-size: 28px;\n      letter-spacing: 0.2px;\n    }\n    .sub {\n      color: var(--muted);\n      font-size: 14px;\n      margin-top: 6px;\n    }\n    .stats {\n      display: flex;\n      gap: 12px;\n      flex-wrap: wrap;\n    }\n    .chip {\n      background: var(--chip);\n      border: 1px solid var(--border);\n      border-radius: 999px;\n      padding: 6px 12px;\n      font-size: 12px;\n      color: var(--muted);\n    }\n    .container {\n      padding: 0 24px 32px;\n      display: grid;\n      grid-template-columns: 1fr;\n      gap: 16px;\n    }\n    .panel {\n      background: var(--card);\n      border: 1px solid var(--border);\n      border-radius: 14px;\n      box-shadow: var(--shadow);\n      padding: 16px;\n    }\n    .filters {\n      display: grid;\n      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));\n      gap: 12px;\n    }\n    input, select, button, textarea {\n      font: inherit;\n      color: var(--text);\n    }\n    input, select {\n      background: #111427;\n      border: 1px solid var(--border);\n      border-radius: 10px;\n      padding: 10px 12px;\n      width: 100%;\n      outline: none;\n    }\n    button {\n      background: linear-gradient(135deg, var(--accent), #f7d199);\n      border: none;\n      color: #1b1b1b;\n      padding: 10px 14px;\n      border-radius: 10px;\n      cursor: pointer;\n      font-weight: 600;\n    }\n    button.secondary {\n      background: transparent;\n      border: 1px solid var(--border);\n      color: var(--text);\n    }\n    .table-wrap {\n      overflow: auto;\n      border-radius: 12px;\n      border: 1px solid var(--border);\n      background: #101424;\n    }\n    table {\n      width: 100%;\n      border-collapse: collapse;\n      min-width: 720px;\n    }\n    thead th {\n      position: sticky;\n      top: 0;\n      background: #12162b;\n      text-align: left;\n      font-size: 12px;\n      text-transform: uppercase;\n      letter-spacing: 0.08em;\n      padding: 12px;\n      border-bottom: 1px solid var(--border);\n    }\n    tbody td {\n      padding: 12px;\n      border-bottom: 1px solid var(--border);\n      font-size: 14px;\n    }\n    tbody tr:hover {\n      background: rgba(255,255,255,0.03);\n    }\n    .row-title {\n      font-weight: 600;\n      margin-bottom: 4px;\n    }\n    .row-meta {\n      color: var(--muted);\n      font-size: 12px;\n    }\n    .badge {\n      display: inline-block;\n      padding: 4px 8px;\n      border-radius: 999px;\n      background: rgba(111,195,223,0.15);\n      color: var(--accent-2);\n      font-size: 11px;\n      border: 1px solid rgba(111,195,223,0.3);\n    }\n    .footer-bar {\n      display: flex;\n      align-items: center;\n      justify-content: space-between;\n      gap: 12px;\n      flex-wrap: wrap;\n    }\n    .selected-list {\n      max-height: 120px;\n      overflow: auto;\n      border: 1px dashed var(--border);\n      padding: 8px;\n      border-radius: 10px;\n      background: #0f1220;\n      font-size: 12px;\n      color: var(--muted);\n    }\n    .action-row {\n      display: flex;\n      gap: 10px;\n      flex-wrap: wrap;\n      align-items: center;\n    }\n    .pagination {\n      display: flex;\n      gap: 8px;\n      align-items: center;\n      color: var(--muted);\n      font-size: 13px;\n    }\n    .empty {\n      text-align: center;\n      padding: 40px;\n      color: var(--muted);\n    }\n    @media (max-width: 780px) {\n      header {\n        flex-direction: column;\n        align-items: flex-start;\n      }\n    }  </style>\n  </head>\n<body>\n    <header>\n    <div>\n      <h1>Job Selection Console</h1>\n      <div class=\"sub\">Pick jobs to advance in the workflow. Latest records are loaded from Database.</div>\n    </div>\n    <div class=\"stats\">\n      <div class=\"chip\" id=\"total-count\">0 jobs</div>\n      <div class=\"chip\" id=\"filtered-count\">0 shown</div>\n      <div class=\"chip\" id=\"selected-count\">0 selected</div>\n    </div>\n  </header>\n\n  <div class=\"container\">\n    <div class=\"panel\">\n      <div class=\"filters\">\n        <input id=\"search\" type=\"text\" placeholder=\"Search title, company, location...\" />\n        <select id=\"filter-remote\">\n          <option value=\"\">Remote + On-site</option>\n          <option value=\"remote\">Remote only</option>\n          <option value=\"onsite\">On-site only</option>\n        </select>\n        <input id=\"filter-type\" type=\"text\" placeholder=\"Employment type (e.g., Full-time)\" />\n        <select id=\"sort\">\n          <option value=\"recent\">Sort by recent</option>\n          <option value=\"company\">Sort by company</option>\n          <option value=\"title\">Sort by title</option>\n        </select>\n      </div>\n    </div>\n\n    <div class=\"panel\">\n      <div class=\"table-wrap\">\n        <table>\n          <thead>\n            <tr>\n              <th style=\"width: 48px;\"><input id=\"toggle-all\" type=\"checkbox\" /></th>\n              <th>Role</th>\n              <th>Company</th>\n              <th>Location</th>\n              <th>Type</th>\n              <th>Remote</th>\n              <th>Posted</th>\n              <th>Link</th>\n            </tr>\n          </thead>\n          <tbody id=\"table-body\"></tbody>\n        </table>\n        <div id=\"empty\" class=\"empty\" style=\"display:none;\">No jobs match the current filters.</div>\n      </div>\n    </div>\n\n    <div class=\"panel\">\n      <div class=\"footer-bar\">\n        <div class=\"pagination\">\n          <button class=\"secondary\" id=\"prev-page\">Prev</button>\n          <span id=\"page-status\">Page 1</span>\n          <button class=\"secondary\" id=\"next-page\">Next</button>\n        </div>\n        <div class=\"action-row\">\n          <button class=\"secondary\" id=\"clear-selection\">Clear selection</button>\n          <button id=\"submit-selection\">Push selected to flow</button>\n        </div>\n      </div>\n      <div style=\"margin-top: 12px;\">\n        <div class=\"sub\" style=\"margin-bottom: 6px;\">Selected jobs</div>\n        <div id=\"selected-list\" class=\"selected-list\"></div>\n      </div>\n    </div>\n  </div>\n\n  <script>\n    const state = {\n      page: 1,\n      perPage: 12,\n      search: '',\n      remote: '',\n      type: '',\n      sort: 'recent',\n      selected: new Set(),\n      jobs: [],\n      total: 0,\n      loading: false,\n    };\n\n    const el = (id) => document.getElementById(id);\n    const tableBody = el('table-body');\n    const empty = el('empty');\n    const totalCount = el('total-count');\n    const filteredCount = el('filtered-count');\n    const selectedCount = el('selected-count');\n    const selectedList = el('selected-list');\n\n    const formatDate = (value) => {\n      if (!value) return 'N/A';\n      const d = new Date(value);\n      if (Number.isNaN(d.getTime())) return value;\n      return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });\n    };\n\n    const getBase = () => {\n      const useTest = window.location.pathname.includes('/webhook-test/');\n      return window.location.origin + (useTest ? '/webhook-test/' : '/webhook/');\n    };\n\n    const loadData = async () => {\n      state.loading = true;\n      const params = new URLSearchParams({\n        q: state.search || '',\n        remote: state.remote || '',\n        type: state.type || '',\n        sort: state.sort || 'recent',\n        page: String(state.page),\n        perPage: String(state.perPage),\n      });\n\n      const url = \\`\\${getBase()}jobs-ui-data?\\${params}\\`;\n      try {\n        const res = await fetch(url);\n        if (!res.ok) throw new Error(\\`HTTP \\${res.status}\\`);\n        const payload = await res.json();\n        state.jobs = Array.isArray(payload.items) ? payload.items : [];\n        state.total = Number(payload.total || payload.totalCount || state.jobs.length || 0);\n      } catch (err) {\n        console.error(err);\n        state.jobs = [];\n        state.total = 0;\n      } finally {\n        state.loading = false;\n        render();\n      }\n    };\n\n    const render = () => {\n      const totalPages = Math.max(1, Math.ceil(state.total / state.perPage) || 1);\n      state.page = Math.min(state.page, totalPages);\n\n      totalCount.textContent = \\`\\${state.total} jobs\\`;\n      filteredCount.textContent = \\`\\${state.jobs.length} shown\\`;\n      selectedCount.textContent = \\`\\${state.selected.size} selected\\`;\n\n      tableBody.innerHTML = '';\n      if (!state.jobs.length) {\n        empty.style.display = 'block';\n      } else {\n        empty.style.display = 'none';\n      }\n\n      state.jobs.forEach((job) => {\n        const tr = document.createElement('tr');\n        const checked = state.selected.has(job.id);\n        tr.innerHTML = \\`\n          <td><input type=\"checkbox\" data-id=\"\\${job.id}\" \\${checked ? 'checked' : ''} /></td>\n          <td><div class=\"row-title\">\\${job.title}</div><div class=\"row-meta\">\\${job.id}</div></td>\n          <td>\\${job.company}</td>\n          <td>\\${job.location}</td>\n          <td>\\${job.employmentType || 'N/A'}</td>\n          <td>\\${job.remote ? '<span class=\"badge\">Remote</span>' : 'On-site'}</td>\n          <td>\\${formatDate(job.postedAt || job.createdAt)}</td>\n          <td>\\${job.url ? \\`<a href=\"\\${job.url}\" target=\"_blank\" rel=\"noopener\" style=\"color: var(--accent-2);\">Open</a>\\` : 'N/A'}</td>\n        \\`;\n        tableBody.appendChild(tr);\n      });\n\n      el('page-status').textContent = \\`Page \\${state.page} of \\${totalPages}\\`;\n      renderSelectedList();\n    };\n\n    const renderSelectedList = () => {\n      if (!state.selected.size) {\n        selectedList.textContent = 'No jobs selected yet.';\n        return;\n      }\n      const selectedJobs = state.jobs.filter(j => state.selected.has(j.id));\n      if (!selectedJobs.length) {\n        selectedList.textContent = \\`\\${state.selected.size} jobs selected across pages.\\`;\n        return;\n      }\n      selectedList.innerHTML = selectedJobs.map(j => \\`\\${j.title} — \\${j.company}\\`).join('<br />');\n    };\n\n    const debounce = (fn, delay) => {\n      let t;\n      return (...args) => {\n        clearTimeout(t);\n        t = setTimeout(() => fn(...args), delay);\n      };\n    };\n\n    tableBody.addEventListener('change', (event) => {\n      const target = event.target;\n      if (target && target.matches('input[type=\"checkbox\"][data-id]')) {\n        const id = target.getAttribute('data-id');\n        if (target.checked) state.selected.add(id);\n        else state.selected.delete(id);\n        selectedCount.textContent = \\`\\${state.selected.size} selected\\`;\n        renderSelectedList();\n      }\n    });\n\n    el('toggle-all').addEventListener('change', (event) => {\n      const checked = event.target.checked;\n      state.jobs.forEach((job) => {\n        if (checked) state.selected.add(job.id);\n        else state.selected.delete(job.id);\n      });\n      render();\n    });\n\n    el('search').addEventListener('input', debounce((e) => {\n      state.search = e.target.value.trim();\n      state.page = 1;\n      loadData();\n    }, 300));\n\n    el('filter-remote').addEventListener('change', (e) => {\n      state.remote = e.target.value;\n      state.page = 1;\n      loadData();\n    });\n\n    el('filter-type').addEventListener('input', debounce((e) => {\n      state.type = e.target.value.trim();\n      state.page = 1;\n      loadData();\n    }, 300));\n\n    el('sort').addEventListener('change', (e) => {\n      state.sort = e.target.value;\n      state.page = 1;\n      loadData();\n    });\n\n    el('prev-page').addEventListener('click', () => {\n      state.page = Math.max(1, state.page - 1);\n      loadData();\n    });\n\n    el('next-page').addEventListener('click', () => {\n      const maxPage = Math.max(1, Math.ceil(state.total / state.perPage));\n      state.page = Math.min(maxPage, state.page + 1);\n      loadData();\n    });\n\n    el('clear-selection').addEventListener('click', () => {\n      state.selected.clear();\n      render();\n    });\n\n    el('submit-selection').addEventListener('click', async () => {\n      if (!state.selected.size) {\n        alert('Select at least one job to continue.');\n        return;\n      }\n      // Show loading overlay\n      const overlay = document.createElement('div');\n      overlay.id = 'loading-overlay';\n      overlay.style.cssText = 'position:fixed;inset:0;background:rgba(15,18,32,0.92);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;';\n      overlay.innerHTML = '<div style=\"text-align:center;\"><div style=\"width:48px;height:48px;border:3px solid #2a2f45;border-top-color:#f4b266;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 20px;\"></div><div style=\"font-size:20px;font-weight:600;margin-bottom:8px;color:#eef1ff;\">Processing selected jobs...</div><div style=\"color:#9aa4bf;font-size:14px;\">Searching for company leaders. This may take a minute.</div></div>';\n      const styleTag = document.createElement('style');\n      styleTag.textContent = '@keyframes spin{to{transform:rotate(360deg)}}';\n      document.head.appendChild(styleTag);\n      document.body.appendChild(overlay);\n\n      const base = getBase();\n      const url = base + 'jobs-ui-submit';\n      const payload = { selectedJobIds: Array.from(state.selected) };\n\n      try {\n        const res = await fetch(url, {\n          method: 'POST',\n          headers: { 'Content-Type': 'application/json' },\n          body: JSON.stringify(payload),\n        });\n        if (!res.ok) throw new Error(\\`HTTP \\${res.status}\\`);\n        const html = await res.text();\n        if (!html || html.trim().length < 50) throw new Error('Empty or invalid response from server');\n        document.open();\n        document.write(html);\n        document.close();\n      } catch (err) {\n        const ov = document.getElementById('loading-overlay');\n        if (ov) ov.remove();\n        alert('Submit failed: ' + err.message + '. Check n8n execution logs.');\n        console.error(err);\n      }\n    });\n\n    loadData();\n  </script>\n\n\\n  \\n\n</body>\n</html>`;\n\nreturn [{ json: { html } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -254,7 +254,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const rows = Array.isArray($json) ? $json : (Array.isArray($json.body) ? $json.body : []);\nreturn rows.map((row) => ({ json: row }));"
+        "jsCode": "const items = $input.all().map(i => i.json);\nreturn items.map((row) => ({ json: row }));"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -268,7 +268,7 @@
     {
       "parameters": {
         "respondWith": "text",
-        "responseBody": "={{'<html><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>Selection Received</title><style>body{font-family:Segoe UI, sans-serif;background:#0f1220;color:#eef1ff;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;} .card{background:#171a2b;border:1px solid #2a2f45;border-radius:14px;padding:24px;max-width:520px;text-align:center;} a{color:#6fc3df;text-decoration:none;}</style></head><body><div class=\"card\"><h2>Selection received</h2><p>Your jobs have been sent to the workflow.</p><p>You can close this tab or <a href=\"/webhook/jobs-ui\">go back</a>.</p></div></body></html>'}}",
+        "responseBody": "={{$json.html}}",
         "options": {
           "responseCode": 200,
           "responseHeaders": {
@@ -284,8 +284,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.2,
       "position": [
-        736,
-        7776
+        2496,
+        7632
       ],
       "id": "7372f504-6282-4f83-994d-41e04cfe217e",
       "name": "Selection Response"
@@ -460,6 +460,500 @@
       "id": "58c9a063-d2b4-4b1f-9f62-eef3b78069b9",
       "name": "Wait",
       "webhookId": "d50aa357-6071-4fdb-961c-053e3dee6d1f"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $items(\"Save People to DB\")[0].json;\nconst allPeople = data.allPeople || [];\nconst companiesSearched = data.companiesSearched || 0;\nconst totalPeople = data.totalPeople || 0;\nconst searchBatchId = data.searchBatchId || '';\n\nconst esc = (s) => String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;');\n\n// Group people by company, suggested first\nconst grouped = {};\nfor (const p of allPeople) {\n  if (!grouped[p.company]) grouped[p.company] = { suggested: [], others: [] };\n  if (p.is_suggested) {\n    grouped[p.company].suggested.push(p);\n  } else {\n    grouped[p.company].others.push(p);\n  }\n}\n\nconst suggestedCount = allPeople.filter(p => p.is_suggested).length;\nconst companies = Object.keys(grouped);\n\nlet peopleHtml = '';\nlet compIdx = 0;\nfor (const companyName of companies) {\n  const grp = grouped[companyName];\n  const all = [...grp.suggested, ...grp.others];\n  const sj = all[0] || {};\n  \n  peopleHtml += '<div class=\"company-section\" data-company=\"' + compIdx + '\">';\n  peopleHtml += '<div class=\"company-header\">';\n  peopleHtml += '<div class=\"company-header-left\">';\n  peopleHtml += '<label class=\"cb-wrap\"><input type=\"checkbox\" class=\"company-select-all\" data-company=\"' + compIdx + '\" /><span class=\"checkmark\"></span></label>';\n  peopleHtml += '<div><div class=\"company-name\">' + esc(companyName) + '</div>';\n  peopleHtml += '<div class=\"company-meta\">' + all.length + ' people found';\n  if (grp.suggested.length > 0) peopleHtml += ' &middot; ' + grp.suggested.length + ' AI suggested';\n  if (sj.sourceJobTitle) peopleHtml += ' &middot; Source: ' + esc(sj.sourceJobTitle);\n  peopleHtml += '</div></div></div></div>';\n  \n  for (const p of all) {\n    const skillsHtml = (p.skills || []).slice(0, 6).map(s => '<span class=\"skill\">' + esc(s) + '</span>').join('');\n    const expHtml = (p.experience || []).slice(0, 2).map(e => '<div class=\"exp-item\">' + esc(e) + '</div>').join('');\n    const otwBadge = p.openToWork ? '<span class=\"badge otw\">Open to work</span>' : '';\n    const sugBadge = p.is_suggested ? '<span class=\"badge ai-sug\">AI Suggested</span>' : '';\n    const reasonHtml = p.is_suggested && p.suggestion_reason ? '<div class=\"sug-reason\">' + esc(p.suggestion_reason) + '</div>' : '';\n    \n    peopleHtml += '<div class=\"person-row' + (p.is_suggested ? ' suggested' : '') + '\">';\n    peopleHtml += '<label class=\"cb-wrap\"><input type=\"checkbox\" class=\"person-cb\" data-company=\"' + compIdx + '\" data-uid=\"' + esc(p.uid) + '\" /><span class=\"checkmark\"></span></label>';\n    peopleHtml += '<div class=\"person-info\">';\n    peopleHtml += '<div class=\"person-name-line\"><span class=\"person-name\">' + esc(p.fullName) + '</span>' + sugBadge + otwBadge + '</div>';\n    peopleHtml += '<div class=\"person-title\">' + esc(p.currentTitle) + '</div>';\n    peopleHtml += '<div class=\"person-location\">' + esc(p.location) + '</div>';\n    peopleHtml += reasonHtml;\n    peopleHtml += '<div class=\"person-skills\">' + (skillsHtml || '') + '</div>';\n    peopleHtml += '<div class=\"person-exp\">' + (expHtml || '') + '</div>';\n    peopleHtml += '</div></div>';\n  }\n  \n  peopleHtml += '</div>';\n  compIdx++;\n}\n\nconst html = `<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/>\n  <title>People Selection - Enrichment</title>\n  <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n  <link href=\"https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap\" rel=\"stylesheet\">\n  <style>\n    :root{--bg:#0f1220;--card:#171a2b;--muted:#9aa4bf;--text:#eef1ff;--accent:#f4b266;--accent-2:#6fc3df;--border:#2a2f45;--chip:#1f2438;--shadow:0 12px 30px rgba(0,0,0,.35);--green:#4ade80;--purple:#a78bfa;--gold:#f4b266}\n    *{box-sizing:border-box;margin:0}\n\n    body{font-family:\"Space Grotesk\",\"Segoe UI\",sans-serif;background:radial-gradient(1200px 600px at 10% -20%,#1a2a3a 0%,transparent 60%),radial-gradient(800px 500px at 90% -10%,#2a1f3a 0%,transparent 60%),var(--bg);color:var(--text);min-height:100vh}\n    header{padding:28px 28px 12px;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}\n    h1{font-size:28px;letter-spacing:.2px}\n    .sub{color:var(--muted);font-size:14px;margin-top:6px}\n    .stats{display:flex;gap:12px;flex-wrap:wrap}\n    .chip{background:var(--chip);border:1px solid var(--border);border-radius:999px;padding:6px 14px;font-size:12px;color:var(--muted)}\n    .chip.highlight{border-color:var(--green);color:var(--green)}\n    .chip.ai{border-color:var(--purple);color:var(--purple)}\n    .chip.gold{border-color:var(--gold);color:var(--gold)}\n    .container{padding:0 24px 32px;display:grid;gap:16px}\n    .panel{background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:20px}\n    .toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;gap:12px;flex-wrap:wrap}\n    .toolbar-left{display:flex;align-items:center;gap:12px;flex-wrap:wrap}\n    input[type=\"text\"]{background:#111427;border:1px solid var(--border);border-radius:10px;padding:10px 14px;width:320px;max-width:100%;color:var(--text);outline:none;font:inherit;font-size:14px}\n    input[type=\"text\"]:focus{border-color:var(--accent-2)}\n    .btn{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:10px;font-weight:600;font-size:14px;cursor:pointer;transition:transform .15s,box-shadow .15s;text-decoration:none;border:none;font-family:inherit}\n    .btn:hover{transform:translateY(-1px)}\n    .btn-primary{background:linear-gradient(135deg,var(--accent),#f7d199);color:#1b1b1b;box-shadow:0 4px 12px rgba(244,178,102,.3)}\n    .btn-secondary{background:rgba(111,195,223,.12);color:var(--accent-2);border:1px solid rgba(111,195,223,.25)}\n    .btn-back{background:rgba(167,139,250,.12);color:var(--purple);border:1px solid rgba(167,139,250,.25)}\n    .btn:disabled{opacity:.5;cursor:not-allowed;transform:none}\n    .company-section{margin-bottom:16px;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:rgba(0,0,0,.15)}\n    .company-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:rgba(167,139,250,.06);border-bottom:1px solid rgba(167,139,250,.15)}\n    .company-header-left{display:flex;align-items:center;gap:12px}\n    .company-name{font-weight:700;font-size:15px;color:var(--purple)}\n    .company-meta{color:var(--muted);font-size:12px;margin-top:3px}\n    .person-row{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border);transition:background .15s}\n    .person-row:last-child{border-bottom:none}\n    .person-row:hover{background:rgba(255,255,255,.025)}\n    .person-row.suggested{background:rgba(244,178,102,.03);border-left:3px solid var(--gold)}\n    .person-info{flex:1;min-width:0}\n    .person-name-line{display:flex;align-items:center;gap:8px;flex-wrap:wrap}\n    .person-name{font-weight:600;font-size:14px}\n    .person-title{color:var(--accent);font-weight:500;font-size:13px;margin-top:2px}\n    .person-location{color:var(--muted);font-size:12px;margin-top:2px}\n    .sug-reason{color:var(--gold);font-size:12px;margin-top:4px;font-style:italic;padding:4px 8px;background:rgba(244,178,102,.06);border-radius:6px;border-left:2px solid var(--gold)}\n    .person-skills{margin-top:6px}\n    .skill{display:inline-block;padding:2px 7px;border-radius:6px;font-size:10px;background:rgba(111,195,223,.08);color:var(--accent-2);border:1px solid rgba(111,195,223,.15);margin:2px}\n    .person-exp{margin-top:4px}\n    .exp-item{font-size:11px;color:var(--muted);line-height:1.4;margin-bottom:2px}\n    .badge{display:inline-block;padding:3px 8px;border-radius:999px;font-size:11px;border:1px solid;font-weight:500}\n    .badge.otw{background:rgba(74,222,128,.1);color:var(--green);border-color:rgba(74,222,128,.25)}\n    .badge.ai-sug{background:rgba(244,178,102,.1);color:var(--gold);border-color:rgba(244,178,102,.3)}\n    .cb-wrap{position:relative;display:flex;align-items:center;cursor:pointer;padding-top:2px}\n    .cb-wrap input{position:absolute;opacity:0;cursor:pointer;height:0;width:0}\n    .checkmark{height:18px;width:18px;border:2px solid var(--border);border-radius:4px;transition:all .2s;flex-shrink:0}\n    .cb-wrap input:checked~.checkmark{background:var(--accent);border-color:var(--accent)}\n    .cb-wrap input:checked~.checkmark::after{content:'';position:absolute;left:5px;top:1px;width:5px;height:10px;border:solid #1b1b1b;border-width:0 2px 2px 0;transform:rotate(45deg)}\n    .select-bar{display:flex;align-items:center;gap:16px;padding:12px 16px;background:rgba(244,178,102,.06);border:1px solid rgba(244,178,102,.15);border-radius:10px;margin-bottom:16px}\n    .select-count{font-weight:600;color:var(--accent);font-size:14px}\n    #status-msg{margin-left:12px;font-size:13px;color:var(--green)}\n    @media(max-width:780px){header{flex-direction:column;align-items:flex-start}input[type=\"text\"]{width:100%}.toolbar{flex-direction:column;align-items:flex-start}}  </style>\n  </head>\n<body>\n    <header>\n    <div>\n      <h1>People Found - Select for Enrichment</h1>\n      <div class=\"sub\">All people found via SignalHire. AI-suggested contacts are highlighted. Select people to enrich with full contact details.</div>\n    </div>\n    <div class=\"stats\">\n      <div class=\"chip\">${companiesSearched} companies</div>\n      <div class=\"chip highlight\">${totalPeople} people found</div>\n      <div class=\"chip gold\">${suggestedCount} AI suggested</div>\n      <div class=\"chip ai\">SignalHire + Claude AI</div>\n    </div>\n  </header>\n  <div class=\"container\">\n    <div class=\"panel\">\n      <div class=\"toolbar\">\n        <div class=\"toolbar-left\">\n          <input id=\"search\" type=\"text\" placeholder=\"Filter by name, title, company, skills...\"/>\n          <label class=\"cb-wrap\" style=\"gap:8px;font-size:13px;color:var(--muted)\">\n            <input type=\"checkbox\" id=\"global-select-all\"/>\n            <span class=\"checkmark\"></span>\n            Select All\n          </label>\n        </div>\n        <div style=\"display:flex;gap:10px;flex-wrap:wrap\">\n          <a class=\"btn btn-back\" href=\"/webhook/jobs-ui\">Back to Jobs</a>\n          <a class=\"btn btn-secondary\" href=\"/webhook/enriched-ui\">View Enriched Data</a>\n        </div>\n      </div>\n      <div class=\"select-bar\">\n        <span class=\"select-count\"><span id=\"sel-count\">0</span> people selected</span>\n        <button class=\"btn btn-primary\" id=\"enrich-btn\" disabled>Enrich Selected</button>\n        <span id=\"status-msg\"></span>\n      </div>\n      <input type=\"hidden\" id=\"batch-id\" value=\"${searchBatchId}\"/>\n      <div id=\"people-list\">\n        ${peopleHtml}\n      </div>\n    </div>\n  </div>\n  <script>\n    const allCbs = document.querySelectorAll('.person-cb');\n    const companyCbs = document.querySelectorAll('.company-select-all');\n    const globalCb = document.getElementById('global-select-all');\n    const enrichBtn = document.getElementById('enrich-btn');\n    const selCount = document.getElementById('sel-count');\n    const statusMsg = document.getElementById('status-msg');\n    const batchId = document.getElementById('batch-id').value;\n\n    function updateCount() {\n      const checked = document.querySelectorAll('.person-cb:checked').length;\n      selCount.textContent = checked;\n      enrichBtn.disabled = checked === 0;\n    }\n\n    allCbs.forEach(cb => cb.addEventListener('change', () => {\n      updateCount();\n      const comp = cb.dataset.company;\n      const compCbs = document.querySelectorAll('.person-cb[data-company=\"'+comp+'\"]');\n      const compAll = document.querySelector('.company-select-all[data-company=\"'+comp+'\"]');\n      if(compAll) compAll.checked = [...compCbs].every(c => c.checked);\n      globalCb.checked = [...allCbs].every(c => c.checked);\n    }));\n\n    companyCbs.forEach(cb => cb.addEventListener('change', () => {\n      const comp = cb.dataset.company;\n      const compCbs = document.querySelectorAll('.person-cb[data-company=\"'+comp+'\"]');\n      compCbs.forEach(c => c.checked = cb.checked);\n      updateCount();\n      globalCb.checked = [...allCbs].every(c => c.checked);\n    }));\n\n    globalCb.addEventListener('change', () => {\n      allCbs.forEach(c => c.checked = globalCb.checked);\n      companyCbs.forEach(c => c.checked = globalCb.checked);\n      updateCount();\n    });\n\n    document.getElementById('search').addEventListener('input', function() {\n      const q = this.value.toLowerCase();\n      document.querySelectorAll('.company-section').forEach(sec => {\n        const rows = sec.querySelectorAll('.person-row');\n        let anyVisible = false;\n        rows.forEach(r => {\n          const show = !q || r.textContent.toLowerCase().includes(q);\n          r.style.display = show ? '' : 'none';\n          if (show) anyVisible = true;\n        });\n        sec.style.display = (!q || anyVisible || sec.querySelector('.company-header').textContent.toLowerCase().includes(q)) ? '' : 'none';\n      });\n    });\n\n    enrichBtn.addEventListener('click', async () => {\n      const selected = [...document.querySelectorAll('.person-cb:checked')].map(c => c.dataset.uid).filter(Boolean);\n      if (selected.length === 0) return;\n      enrichBtn.disabled = true;\n      enrichBtn.textContent = 'Enriching...';\n      statusMsg.textContent = 'Sending ' + selected.length + ' people for enrichment...';\n      try {\n        const resp = await fetch('/webhook/enrich-submit', {\n          method: 'POST',\n          headers: { 'Content-Type': 'application/json' },\n          body: JSON.stringify({ uids: selected, searchBatchId: batchId })\n        });\n        const result = await resp.text();\n        statusMsg.textContent = 'Enrichment request sent! Check back at View Enriched Data for results.';\n        statusMsg.style.color = 'var(--green)';\n        enrichBtn.textContent = 'Sent!';\n      } catch(e) {\n        statusMsg.textContent = 'Error: ' + e.message;\n        statusMsg.style.color = '#f87171';\n        enrichBtn.disabled = false;\n        enrichBtn.textContent = 'Enrich Selected';\n      }\n    });\n  </script>\n\n\\n  \\n\n</body>\n</html>`;\n\nreturn [{ json: { html, allPeople, searchBatchId, companiesSearched, totalPeople } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2296,
+        7632
+      ],
+      "id": "d2b3c4e5-f6a7-8901-2222-bbccddeeff00",
+      "name": "Build Leaders UI HTML"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all().map(i => i.json);\n\n// Group jobs by company\nconst companyMap = {};\nfor (const job of items) {\n  const name = (job.employer_name || '').trim();\n  if (!name) continue;\n  if (!companyMap[name]) companyMap[name] = [];\n  companyMap[name].push({\n    title: job.job_title || '',\n    location: job.job_location || '',\n    type: job.job_employment_type || '',\n    remote: job.job_is_remote ? 'Yes' : 'No'\n  });\n}\n\nconst companies = Object.keys(companyMap);\nif (companies.length === 0) {\n  return [{ json: { error: 'No companies found in selection' } }];\n}\n\n// Output one item per company for SignalHire search\nreturn companies.map(name => ({\n  json: {\n    companyName: name,\n    jobs: companyMap[name],\n    companiesTotal: companies.length\n  }\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        576,
+        7632
+      ],
+      "id": "aa11bb22-cc33-dd44-ee55-ff6677889900",
+      "name": "Prepare Company Search"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://www.signalhire.com/api/v1/candidate/searchByQuery",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $env.SIGNALHIRE_API_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"currentCompany\": {{ JSON.stringify($json.companyName) }},\n  \"currentTitle\": \"VP OR Director OR Head OR Chief OR President OR SVP OR Partner OR Founder\",\n  \"size\": 15\n}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        816,
+        7632
+      ],
+      "id": "bb22cc33-dd44-ee55-ff66-778899001122",
+      "name": "Search SignalHire Leaders",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const shItems = $input.all();\nconst companyItems = $items('Prepare Company Search');\n\n// Collect all profiles per company\nconst companyData = [];\nfor (let i = 0; i < shItems.length; i++) {\n  const sh = shItems[i].json;\n  const ci = companyItems[i] ? companyItems[i].json : {};\n  const companyName = ci.companyName || 'Unknown';\n  const jobs = ci.jobs || [];\n  const profiles = sh.profiles || [];\n  \n  companyData.push({\n    companyName,\n    jobs,\n    profiles: profiles.map(p => ({\n      fullName: p.fullName || '',\n      location: p.location || '',\n      currentTitle: (p.experience && p.experience[0]) ? p.experience[0].title : '',\n      currentCompany: (p.experience && p.experience[0]) ? p.experience[0].company : '',\n      experience: (p.experience || []).slice(0, 4).map(e => e.title + ' at ' + e.company),\n      skills: (p.skills || []).slice(0, 8),\n      openToWork: p.openToWork || false,\n      uid: p.uid || ''\n    })),\n    totalFound: sh.total || 0\n  });\n}\n\n// Build prompt for Claude to pick best 3 per company\nlet promptText = 'You are a GTM sales intelligence assistant. Below are real people found at each company via SignalHire. For each company, analyze the people and pick EXACTLY 3 who are the best decision-makers to contact for a sales outreach related to the job postings shown.\\n\\nConsider:\\n- Seniority and relevance of their role\\n- How their department relates to the job posting\\n- Their experience and skills\\n\\nReturn ONLY valid JSON in this format:\\n{\\n  \"picks\": [\\n    {\\n      \"company\": \"Company Name\",\\n      \"selected\": [\\n        { \"fullName\": \"exact name from the list\", \"reason\": \"one sentence why\" }\\n      ]\\n    }\\n  ]\\n}\\n\\n';\n\nfor (const cd of companyData) {\n  promptText += '\\n--- COMPANY: ' + cd.companyName + ' ---\\n';\n  promptText += 'Job postings: ' + cd.jobs.map(j => j.title + ' (' + j.location + ')').join(', ') + '\\n';\n  promptText += 'People found (' + cd.profiles.length + '):\\n';\n  for (const p of cd.profiles) {\n    promptText += '  • ' + p.fullName + ' | ' + p.currentTitle + ' | ' + p.location + ' | Skills: ' + p.skills.slice(0, 5).join(', ') + '\\n';\n  }\n  if (cd.profiles.length === 0) {\n    promptText += '  (No senior leaders found)\\n';\n  }\n}\n\nreturn [{ json: {\n  prompt: promptText,\n  companyData: companyData,\n  companiesTotal: companyData.length\n} }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1056,
+        7632
+      ],
+      "id": "cc33dd44-ee55-ff66-7788-990011223344",
+      "name": "Prepare AI Analysis"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-api-key",
+              "value": "={{ $env.ANTHROPIC_API_KEY }}"
+            },
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"claude-3-5-haiku-20241022\",\n  \"max_tokens\": 1024,\n  \"messages\": [{\"role\": \"user\", \"content\": {{ JSON.stringify($json.prompt) }} }]\n}",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1296,
+        7632
+      ],
+      "id": "dd44ee55-ff66-7788-9900-112233445566",
+      "name": "Claude Pick Best Leaders",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const claudeResp = $input.all()[0].json;\nconst analysisData = $items('Prepare AI Analysis')[0].json;\nconst companyData = analysisData.companyData || [];\nconst companiesTotal = analysisData.companiesTotal || 0;\n\n// Parse Claude response\nlet text = '';\nif (claudeResp.content && Array.isArray(claudeResp.content) && claudeResp.content[0]) {\n  text = claudeResp.content[0].text || '';\n}\n\nlet aiPicks;\ntry {\n  aiPicks = JSON.parse(text);\n} catch(e) {\n  const m = text.match(/\\{[\\s\\S]*\\}/);\n  if (m) { try { aiPicks = JSON.parse(m[0]); } catch(e2) {} }\n}\n\nconst searchBatchId = 'batch_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);\nconst allPeople = [];\n\n// Build a map of AI picks per company\nconst picksMap = {};\nif (aiPicks && aiPicks.picks) {\n  for (const pick of aiPicks.picks) {\n    const compName = (pick.company || '').toLowerCase();\n    picksMap[compName] = {};\n    for (const sel of (pick.selected || [])) {\n      picksMap[compName][(sel.fullName || '').toLowerCase()] = sel.reason || '';\n    }\n  }\n}\n\n// Process ALL profiles from ALL companies\nfor (const cd of companyData) {\n  const companyName = cd.companyName || 'Unknown';\n  const sourceJob = cd.jobs && cd.jobs[0] ? cd.jobs[0] : {};\n  const compKey = companyName.toLowerCase();\n  const compPicks = picksMap[compKey] || {};\n  \n  // Also try partial matching for company names\n  let matchedPicks = compPicks;\n  if (Object.keys(compPicks).length === 0) {\n    for (const pk of Object.keys(picksMap)) {\n      if (compKey.includes(pk) || pk.includes(compKey)) {\n        matchedPicks = picksMap[pk];\n        break;\n      }\n    }\n  }\n  \n  for (const profile of (cd.profiles || [])) {\n    const nameKey = (profile.fullName || '').toLowerCase();\n    const isSuggested = nameKey in matchedPicks;\n    const reason = matchedPicks[nameKey] || '';\n    \n    allPeople.push({\n      company: companyName,\n      fullName: profile.fullName || 'Unknown',\n      currentTitle: profile.currentTitle || 'N/A',\n      location: profile.location || 'N/A',\n      skills: profile.skills || [],\n      experience: profile.experience || [],\n      openToWork: profile.openToWork || false,\n      uid: profile.uid || '',\n      is_suggested: isSuggested,\n      suggestion_reason: reason,\n      sourceJobTitle: sourceJob.title || '',\n      sourceJobLocation: sourceJob.location || ''\n    });\n  }\n}\n\nreturn [{ json: {\n  allPeople,\n  companiesSearched: companiesTotal,\n  totalPeople: allPeople.length,\n  searchBatchId\n}}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1496,
+        7632
+      ],
+      "id": "ee55ff66-7788-9900-1122-334455667788",
+      "name": "Process AI Picks"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $json;\nconst allPeople = data.allPeople || [];\nconst batchId = data.searchBatchId || '';\n\nif (allPeople.length === 0) {\n  return [{ json: { ...data, sqlStatements: [], error: 'No people to save' } }];\n}\n\nconst createTableSQL = `CREATE TABLE IF NOT EXISTS people (\n  id INT AUTO_INCREMENT PRIMARY KEY,\n  uid VARCHAR(64) NOT NULL,\n  company_name VARCHAR(255),\n  full_name VARCHAR(255),\n  current_title VARCHAR(500),\n  location VARCHAR(255),\n  skills TEXT,\n  experience TEXT,\n  open_to_work TINYINT DEFAULT 0,\n  is_suggested TINYINT DEFAULT 0,\n  suggestion_reason TEXT,\n  source_job_title VARCHAR(500),\n  source_job_location VARCHAR(255),\n  search_batch_id VARCHAR(64),\n  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,\n  UNIQUE KEY unique_uid (uid)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4`;\n\nconst esc = (s) => String(s || '').replace(/\\\\/g, '\\\\\\\\').replace(/'/g, \"\\\\'\");\n\nconst values = allPeople.map(p => {\n  return `('${esc(p.uid)}', '${esc(p.company)}', '${esc(p.fullName)}', '${esc(p.currentTitle)}', '${esc(p.location)}', '${esc(JSON.stringify(p.skills))}', '${esc(JSON.stringify(p.experience))}', ${p.openToWork ? 1 : 0}, ${p.is_suggested ? 1 : 0}, '${esc(p.suggestion_reason)}', '${esc(p.sourceJobTitle)}', '${esc(p.sourceJobLocation)}', '${esc(batchId)}')`;\n}).join(',\\n');\n\nconst insertSQL = `INSERT INTO people (uid, company_name, full_name, current_title, location, skills, experience, open_to_work, is_suggested, suggestion_reason, source_job_title, source_job_location, search_batch_id)\nVALUES ${values}\nON DUPLICATE KEY UPDATE\n  company_name = VALUES(company_name),\n  full_name = VALUES(full_name),\n  current_title = VALUES(current_title),\n  location = VALUES(location),\n  skills = VALUES(skills),\n  experience = VALUES(experience),\n  open_to_work = VALUES(open_to_work),\n  is_suggested = VALUES(is_suggested),\n  suggestion_reason = VALUES(suggestion_reason),\n  source_job_title = VALUES(source_job_title),\n  source_job_location = VALUES(source_job_location),\n  search_batch_id = VALUES(search_batch_id)`;\n\nreturn [{ json: { ...data, createTableSQL, insertSQL } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1696,
+        7632
+      ],
+      "id": "a1b2c3d4-e5f6-7890-abcd-111111111111",
+      "name": "Save People to DB"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "={{$json.createTableSQL}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2,
+      "position": [
+        1896,
+        7532
+      ],
+      "id": "a1b2c3d4-e5f6-7890-abcd-222222222222",
+      "name": "Create People Table (MySQL)",
+      "credentials": {
+        "mySql": {
+          "id": "Mmz0SsGmSZ76dUMn",
+          "name": "MySQL account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "={{$items('Save People to DB')[0].json.insertSQL}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2,
+      "position": [
+        2096,
+        7532
+      ],
+      "id": "a1b2c3d4-e5f6-7890-abcd-333333333333",
+      "name": "Insert People (MySQL)",
+      "credentials": {
+        "mySql": {
+          "id": "Mmz0SsGmSZ76dUMn",
+          "name": "MySQL account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "CREATE TABLE IF NOT EXISTS enriched_people (\n  id INT AUTO_INCREMENT PRIMARY KEY,\n  uid VARCHAR(64) NOT NULL,\n  full_name VARCHAR(255),\n  company_name VARCHAR(255),\n  headline VARCHAR(500),\n  summary TEXT,\n  photo_url VARCHAR(500),\n  location_name VARCHAR(255),\n  emails TEXT,\n  phones TEXT,\n  social_links TEXT,\n  education TEXT,\n  experience_detailed TEXT,\n  languages TEXT,\n  certifications TEXT,\n  skills TEXT,\n  open_to_work TINYINT DEFAULT 0,\n  enrichment_status VARCHAR(50) DEFAULT 'pending',\n  search_batch_id VARCHAR(64),\n  enriched_at DATETIME DEFAULT CURRENT_TIMESTAMP,\n  UNIQUE KEY unique_uid (uid)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2,
+      "position": [
+        2096,
+        7732
+      ],
+      "id": "a1b2c3d4-e5f6-7890-abcd-444444444444",
+      "name": "Create Enriched Table (MySQL)",
+      "credentials": {
+        "mySql": {
+          "id": "Mmz0SsGmSZ76dUMn",
+          "name": "MySQL account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "enrich-submit",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        576,
+        8200
+      ],
+      "id": "a1b2c3d4-e5f6-7890-abcd-555555555555",
+      "name": "Enrich Submit (POST)",
+      "webhookId": "f1a2b3c4-d5e6-7890-abcd-enrichsubmit"
+    },
+    {
+      "parameters": {
+        "jsCode": "const payload = $json.body || $json;\nconst uids = payload.uids || [];\nconst searchBatchId = payload.searchBatchId || '';\n\nif (!Array.isArray(uids) || uids.length === 0) {\n  return [{ json: { error: 'No UIDs provided', uids: [], searchBatchId } }];\n}\n\n// Use WEBHOOK_URL env var (set by start_render.js) or fallback to localhost\nconst baseUrl = process.env.WEBHOOK_URL ? process.env.WEBHOOK_URL.replace(/\\/$/, '') : 'http://localhost:5678';\nconst callbackUrl = baseUrl + '/webhook/signalhire-callback';\n\nreturn [{ json: {\n  items: uids,\n  callbackUrl: callbackUrl,\n  searchBatchId: searchBatchId,\n  totalRequested: uids.length\n} }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        816,
+        8200
+      ],
+      "id": "a1b2c3d4-e5f6-7890-abcd-666666666666",
+      "name": "Process Enrich Request"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://www.signalhire.com/api/v1/candidate/search",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "202.iP79vUc8wCXrUGTECnPnH6Z8Uu51"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"items\": {{ JSON.stringify($json.items) }},\n  \"callbackUrl\": {{ JSON.stringify($json.callbackUrl) }}\n}",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1056,
+        8200
+      ],
+      "id": "a1b2c3d4-e5f6-7890-abcd-777777777777",
+      "name": "Call SignalHire Person API",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={\"status\":\"ok\",\"message\":\"Enrichment request sent. Results will arrive via callback.\"}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json; charset=UTF-8"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.2,
+      "position": [
+        1296,
+        8200
+      ],
+      "id": "a1b2c3d4-e5f6-7890-abcd-888888888888",
+      "name": "Enrich Response"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "signalhire-callback",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        576,
+        8500
+      ],
+      "id": "a1b2c3d4-e5f6-7890-abcd-999999999999",
+      "name": "SignalHire Callback (POST)",
+      "webhookId": "f1a2b3c4-d5e6-7890-abcd-shcallback01"
+    },
+    {
+      "parameters": {
+        "jsCode": "const callbackData = $json.body || $json;\nconst items = Array.isArray(callbackData) ? callbackData : (callbackData.items || callbackData.data || [callbackData]);\n\nif (!items || items.length === 0) {\n  return [{ json: { error: 'No callback data received', insertSQL: 'SELECT 1' } }];\n}\n\nconst esc = (s) => String(s || '').replace(/\\\\/g, '\\\\\\\\').replace(/'/g, \"\\\\'\");\nconst jsonEsc = (v) => esc(JSON.stringify(v || []));\n\nconst successItems = items.filter(i => i.status === 'success' && i.candidate);\n\nif (successItems.length === 0) {\n  const failInfo = items.map(i => i.status + ': ' + (i.item || '')).join(', ');\n  return [{ json: { error: 'No successful enrichments. Statuses: ' + failInfo, insertSQL: 'SELECT 1', totalProcessed: 0 } }];\n}\n\nconst values = successItems.map(item => {\n  const c = item.candidate;\n  \n  const emails = (c.contacts || []).filter(ct => ct.type === 'email').map(ct => ({\n    value: ct.value || '', subType: ct.subType || 'unknown', rating: ct.rating || '0'\n  }));\n  \n  const phones = (c.contacts || []).filter(ct => ct.type === 'phone').map(ct => ({\n    value: ct.value || '', subType: ct.subType || 'unknown', rating: ct.rating || '0'\n  }));\n  \n  const socialLinks = (c.social || []).map(s => ({\n    type: s.type || '', link: s.link || '', rating: s.rating || '0'\n  }));\n  \n  const education = (c.education || []).map(ed => ({\n    university: ed.university || '', faculty: ed.faculty || '',\n    degree: Array.isArray(ed.degree) ? ed.degree.join(', ') : (ed.degree || ''),\n    startedYear: ed.startedYear || '', endedYear: ed.endedYear || ''\n  }));\n  \n  const experience = (c.experience || []).map(exp => ({\n    position: exp.position || '', company: exp.company || '',\n    location: exp.location || '', current: exp.current || false,\n    started: exp.started || '', ended: exp.ended || '',\n    summary: exp.summary || '', companySize: exp.companySize || '',\n    staffCount: exp.staffCount || 0, industry: exp.industry || '',\n    website: exp.website || ''\n  }));\n  \n  const languages = (c.language || []).map(l => ({\n    name: l.name || '', proficiency: l.proficiency || ''\n  }));\n  \n  const certifications = (c.certification || []).map(ct => ({\n    name: ct.name || '', authority: ct.authority || '', license: ct.license || ''\n  }));\n  \n  const loc = (c.locations || [])[0] || {};\n  const currentExp = (c.experience || []).find(e => e.current) || (c.experience || [])[0] || {};\n  const companyName = currentExp.company || '';\n  \n  return \"  ('\" + esc(c.uid || '') + \"', '\" + esc(c.fullName || '') + \"', '\" + esc(companyName) + \"', '\" + esc(c.headLine || '') + \"', '\" + esc(c.summary || '') + \"', '\" + esc(c.photo ? c.photo.url : '') + \"', '\" + esc(loc.name || '') + \"', '\" + jsonEsc(emails) + \"', '\" + jsonEsc(phones) + \"', '\" + jsonEsc(socialLinks) + \"', '\" + jsonEsc(education) + \"', '\" + jsonEsc(experience) + \"', '\" + jsonEsc(languages) + \"', '\" + jsonEsc(certifications) + \"', '\" + jsonEsc(c.skills || []) + \"', \" + (c.openToWork ? 1 : 0) + \", 'success', '')\";\n}).join(',\\n');\n\nconst insertSQL = \"INSERT INTO enriched_people (uid, full_name, company_name, headline, summary, photo_url, location_name, emails, phones, social_links, education, experience_detailed, languages, certifications, skills, open_to_work, enrichment_status, search_batch_id) VALUES\\n\" + values + \"\\nON DUPLICATE KEY UPDATE full_name=VALUES(full_name), company_name=VALUES(company_name), headline=VALUES(headline), summary=VALUES(summary), photo_url=VALUES(photo_url), location_name=VALUES(location_name), emails=VALUES(emails), phones=VALUES(phones), social_links=VALUES(social_links), education=VALUES(education), experience_detailed=VALUES(experience_detailed), languages=VALUES(languages), certifications=VALUES(certifications), skills=VALUES(skills), enrichment_status=VALUES(enrichment_status), enriched_at=CURRENT_TIMESTAMP\";\n\nreturn [{ json: { insertSQL, totalProcessed: successItems.length, failedItems: items.filter(i => i.status !== 'success').map(i => ({ item: i.item, status: i.status })) } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        816,
+        8500
+      ],
+      "id": "a1b2c3d4-e5f6-7890-abcd-aaaaaaaaaaaa",
+      "name": "Process Callback Data"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "={{$json.insertSQL}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2,
+      "position": [
+        1056,
+        8500
+      ],
+      "id": "a1b2c3d4-e5f6-7890-abcd-bbbbbbbbbbbb",
+      "name": "Save Enriched Data (MySQL)",
+      "credentials": {
+        "mySql": {
+          "id": "Mmz0SsGmSZ76dUMn",
+          "name": "MySQL account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={\"status\":\"ok\",\"processed\":{{$json.totalProcessed}}}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json; charset=UTF-8"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.2,
+      "position": [
+        1296,
+        8500
+      ],
+      "id": "a1b2c3d4-e5f6-7890-abcd-cccccccccccc",
+      "name": "Callback Response"
+    },
+    {
+      "parameters": {
+        "path": "enriched-ui",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        576,
+        8800
+      ],
+      "id": "a1b2c3d4-e5f6-7890-abcd-dddddddddddd",
+      "name": "Enriched Data UI (GET)",
+      "webhookId": "f1a2b3c4-d5e6-7890-abcd-enrichedui01"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n  e.*,\n  COALESCE(NULLIF(e.company_name, ''), p.company_name, 'Unknown Company') as display_company\nFROM enriched_people e\nLEFT JOIN people p ON e.uid = p.uid\nORDER BY e.enriched_at DESC\nLIMIT 200",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2,
+      "position": [
+        816,
+        8800
+      ],
+      "id": "a1b2c3d4-e5f6-7890-abcd-eeeeeeeeeeee",
+      "name": "Fetch Enriched Data (MySQL)",
+      "credentials": {
+        "mySql": {
+          "id": "Mmz0SsGmSZ76dUMn",
+          "name": "MySQL account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all().map(i => i.json);\n\nconst esc = (s) => String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;');\n\nconst tryParse = (v) => {\n  if (!v) return [];\n  if (Array.isArray(v)) return v;\n  if (typeof v === 'object' && v !== null) return Array.isArray(v) ? v : [v];\n  try { const parsed = JSON.parse(v); return Array.isArray(parsed) ? parsed : [parsed]; } catch(e) { return []; }\n};\n\n// Filter out rows that have no real data (empty MySQL results produce one row with nulls)\nconst realItems = items.filter(p => p.uid && p.uid !== '' && p.uid !== null);\n\n// Group by company\nconst grouped = {};\nfor (const p of realItems) {\n  const company = p.display_company || p.company_name || 'Unknown Company';\n  if (!grouped[company]) grouped[company] = [];\n  grouped[company].push(p);\n}\n\nconst companies = Object.keys(grouped);\nconst totalPeople = realItems.length;\n\nlet cardsHtml = '';\nif (totalPeople === 0) {\n  cardsHtml = '<div class=\"empty-state\"><div class=\"empty-icon\">&#128269;</div><h3>No enriched data yet</h3><p>Select people from the Leaders page and click \\\"Enrich Selected\\\" to fetch their contact details via SignalHire Person API.</p><p class=\"note\">Note: The Person API uses a callback mechanism. After you submit enrichment requests, SignalHire processes them asynchronously and sends results back to your callback webhook. This may take a few seconds to a few minutes.</p></div>';\n} else {\n  for (const company of companies) {\n    const people = grouped[company];\n    cardsHtml += '<div class=\"company-group\">';\n    cardsHtml += '<div class=\"company-group-header\">' + esc(company) + ' (' + people.length + ' people)</div>';\n    \n    for (const p of people) {\n      const emails = tryParse(p.emails);\n      const phones = tryParse(p.phones);\n      const socialLinks = tryParse(p.social_links);\n      const education = tryParse(p.education);\n      const experience = tryParse(p.experience_detailed);\n      const languages = tryParse(p.languages);\n      const certifications = tryParse(p.certifications);\n      const skills = tryParse(p.skills);\n      \n      const statusClass = p.enrichment_status === 'success' ? 'status-success' : (p.enrichment_status === 'failed' ? 'status-failed' : 'status-pending');\n      \n      let emailsHtml = '';\n      if (emails.length > 0) {\n        emailsHtml = emails.map(e => '<div class=\"contact-item\"><span class=\"contact-badge\">' + esc(e.subType || e.type || 'email') + '</span><a href=\"mailto:' + esc(e.value) + '\" class=\"contact-value\">' + esc(e.value) + '</a>' + (e.rating && e.rating !== '0' ? '<span class=\"rating\">&#9733; ' + e.rating + '%</span>' : '') + '</div>').join('');\n      } else {\n        emailsHtml = '<div class=\"no-data\">No emails found</div>';\n      }\n      \n      let phonesHtml = '';\n      if (phones.length > 0) {\n        phonesHtml = phones.map(ph => '<div class=\"contact-item\"><span class=\"contact-badge\">' + esc(ph.subType || ph.type || 'phone') + '</span><a href=\"tel:' + esc(ph.value) + '\" class=\"contact-value\">' + esc(ph.value) + '</a>' + (ph.rating && ph.rating !== '0' ? '<span class=\"rating\">&#9733; ' + ph.rating + '%</span>' : '') + '</div>').join('');\n      } else {\n        phonesHtml = '<div class=\"no-data\">No phone numbers found</div>';\n      }\n      \n      let socialHtml = '';\n      if (Array.isArray(socialLinks) && socialLinks.length > 0) {\n        socialHtml = socialLinks.map(s => {\n          const label = s.type === 'li' ? 'LinkedIn' : (s.type === 'fb' ? 'Facebook' : (s.type === 'tw' ? 'Twitter' : s.type));\n          return '<a class=\"social-link\" href=\"' + esc(s.link) + '\" target=\"_blank\">' + esc(label) + '</a>';\n        }).join(' ');\n      }\n      \n      let eduHtml = '';\n      if (education.length > 0) {\n        eduHtml = education.map(ed => '<div class=\"edu-item\"><strong>' + esc(ed.university || ed.school || '') + '</strong>' + (ed.degree ? ' - ' + esc(ed.degree) : '') + (ed.faculty ? ' (' + esc(ed.faculty) + ')' : '') + (ed.startedYear || ed.endedYear ? '<span class=\"date-range\"> ' + (ed.startedYear || '?') + ' - ' + (ed.endedYear || 'Present') + '</span>' : '') + '</div>').join('');\n      }\n      \n      let expHtml = '';\n      if (experience.length > 0) {\n        expHtml = experience.slice(0, 5).map(exp => {\n          let dateStr = '';\n          if (exp.started) {\n            const start = exp.started.substring(0, 7);\n            const end = exp.current ? 'Present' : (exp.ended ? exp.ended.substring(0, 7) : '');\n            dateStr = ' (' + start + (end ? ' - ' + end : '') + ')';\n          }\n          return '<div class=\"exp-item\"><div class=\"exp-title\">' + esc(exp.position || '') + '</div><div class=\"exp-company\">' + esc(exp.company || '') + dateStr + '</div>' + (exp.industry ? '<span class=\"exp-tag\">' + esc(exp.industry) + '</span>' : '') + (exp.companySize ? '<span class=\"exp-tag\">' + esc(exp.companySize) + ' employees</span>' : '') + (exp.summary ? '<div class=\"exp-summary\">' + esc(exp.summary).substring(0, 200) + '</div>' : '') + '</div>';\n        }).join('');\n      }\n      \n      let skillsHtml = '';\n      if (Array.isArray(skills) && skills.length > 0) {\n        skillsHtml = skills.slice(0, 12).map(s => '<span class=\"skill-chip\">' + esc(typeof s === 'string' ? s : s.name || '') + '</span>').join('');\n      }\n      \n      let langHtml = '';\n      if (languages.length > 0) {\n        langHtml = languages.map(l => '<span class=\"lang-chip\">' + esc(l.name || '') + (l.proficiency ? ' (' + esc(l.proficiency) + ')' : '') + '</span>').join(' ');\n      }\n      \n      let certHtml = '';\n      if (certifications.length > 0) {\n        certHtml = certifications.map(ct => '<div class=\"cert-item\">' + esc(ct.name || '') + (ct.authority ? ' - ' + esc(ct.authority) : '') + '</div>').join('');\n      }\n      \n      const photoHtml = p.photo_url ? '<img src=\"' + esc(p.photo_url) + '\" class=\"person-photo\" onerror=\"this.style.display=\\'none\\';this.nextElementSibling.style.display=\\'flex\\'\"/><div class=\"photo-placeholder\" style=\"display:none\">&#128100;</div>' : '<div class=\"photo-placeholder\">&#128100;</div>';\n      \n      cardsHtml += '<div class=\"person-card\">';\n      cardsHtml += '<div class=\"person-header\">';\n      cardsHtml += '<div class=\"person-photo-wrap\">' + photoHtml + '</div>';\n      cardsHtml += '<div class=\"person-info\"><h3>' + esc(p.full_name || 'Unknown') + '</h3>';\n      if (p.headline) cardsHtml += '<div class=\"person-headline\">' + esc(p.headline) + '</div>';\n      if (p.location_name) cardsHtml += '<div class=\"person-location\">&#128205; ' + esc(p.location_name) + '</div>';\n      cardsHtml += '<span class=\"status-badge ' + statusClass + '\">' + esc(p.enrichment_status || 'unknown') + '</span>';\n      cardsHtml += '</div></div>';\n      \n      if (p.summary) {\n        cardsHtml += '<div class=\"person-summary\">' + esc(p.summary).substring(0, 400) + '</div>';\n      }\n      \n      cardsHtml += '<div class=\"section\"><div class=\"section-title\">&#9993; Contact</div>';\n      cardsHtml += '<div class=\"subsection\"><strong>Emails</strong>' + emailsHtml + '</div>';\n      cardsHtml += '<div class=\"subsection\"><strong>Phones</strong>' + phonesHtml + '</div>';\n      if (socialHtml) cardsHtml += '<div class=\"subsection\"><strong>Social</strong><div class=\"social-links\">' + socialHtml + '</div></div>';\n      cardsHtml += '</div>';\n      \n      if (skillsHtml) {\n        cardsHtml += '<div class=\"section\"><div class=\"section-title\">&#127919; Skills</div><div class=\"skills-wrap\">' + skillsHtml + '</div></div>';\n      }\n      \n      if (expHtml) {\n        cardsHtml += '<div class=\"section\"><div class=\"section-title\">&#128188; Experience</div>' + expHtml + '</div>';\n      }\n      \n      if (eduHtml) {\n        cardsHtml += '<div class=\"section\"><div class=\"section-title\">&#127891; Education</div>' + eduHtml + '</div>';\n      }\n      \n      if (langHtml) {\n        cardsHtml += '<div class=\"section\"><div class=\"section-title\">&#127760; Languages</div><div class=\"lang-wrap\">' + langHtml + '</div></div>';\n      }\n      \n      if (certHtml) {\n        cardsHtml += '<div class=\"section\"><div class=\"section-title\">&#127942; Certifications</div>' + certHtml + '</div>';\n      }\n      \n      cardsHtml += '</div>'; // person-card\n    }\n    cardsHtml += '</div>'; // company-group\n  }\n}\n\nconst html = `<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\" />\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n  <title>Enriched People Data</title>\n  <style>\n    :root { --bg: #0f1220; --card: #171a2b; --muted: #9aa4bf; --text: #eef1ff; --accent: #f4b266; --accent-2: #6fc3df; --green: #4caf50; --red: #ef5350; --border: #2a2f45; --chip: #1f2438; }\n    * { box-sizing: border-box; margin: 0; }\n\n    body { font-family: \"Space Grotesk\",\"Satoshi\",\"Segoe UI\",sans-serif; background: radial-gradient(1200px 600px at 10% -20%,#243b55 0%,transparent 60%),radial-gradient(800px 500px at 90% -10%,#3b2f2f 0%,transparent 60%),var(--bg); color: var(--text); min-height: 100vh; }\n    header { padding: 28px 28px 12px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }\n    h1 { font-size: 28px; letter-spacing: 0.2px; }\n    .sub { color: var(--muted); font-size: 14px; margin-top: 6px; }\n    .stats { display: flex; gap: 12px; flex-wrap: wrap; }\n    .chip { background: var(--chip); border: 1px solid var(--border); border-radius: 999px; padding: 6px 14px; font-size: 13px; color: var(--muted); }\n    .chip.accent { border-color: var(--accent); color: var(--accent); }\n    .container { padding: 12px 24px 40px; }\n    .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; gap: 12px; flex-wrap: wrap; }\n    .toolbar input { background: var(--card); border: 1px solid var(--border); border-radius: 8px; color: var(--text); padding: 10px 16px; font-size: 14px; width: 340px; outline: none; }\n    .toolbar input:focus { border-color: var(--accent-2); }\n    .btn { background: var(--card); border: 1px solid var(--border); border-radius: 8px; color: var(--accent-2); padding: 10px 20px; font-size: 13px; cursor: pointer; text-decoration: none; font-weight: 600; }\n    .btn:hover { border-color: var(--accent-2); background: rgba(111,195,223,0.1); }\n    .btn.accent { border-color: var(--accent); color: var(--accent); }\n    .btn.accent:hover { background: rgba(244,178,102,0.1); }\n    .company-group { margin-bottom: 24px; }\n    .company-group-header { font-size: 18px; font-weight: 700; color: var(--accent); padding: 12px 0 8px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }\n    .person-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; margin-bottom: 16px; }\n    .person-header { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 12px; }\n    .person-photo-wrap { flex-shrink: 0; }\n    .person-photo { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); }\n    .photo-placeholder { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg,var(--accent-2),var(--accent)); display: flex; align-items: center; justify-content: center; font-size: 28px; color: white; }\n    .person-info h3 { font-size: 18px; margin-bottom: 4px; }\n    .person-headline { color: var(--muted); font-size: 14px; }\n    .person-location { color: var(--muted); font-size: 13px; margin-top: 2px; }\n    .status-badge { display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 999px; margin-top: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }\n    .status-success { background: rgba(76,175,80,0.15); color: var(--green); border: 1px solid rgba(76,175,80,0.3); }\n    .status-failed { background: rgba(239,83,80,0.15); color: var(--red); border: 1px solid rgba(239,83,80,0.3); }\n    .status-pending { background: rgba(244,178,102,0.15); color: var(--accent); border: 1px solid rgba(244,178,102,0.3); }\n    .person-summary { color: var(--muted); font-size: 13px; line-height: 1.5; margin-bottom: 12px; padding: 8px 12px; background: rgba(255,255,255,0.02); border-radius: 8px; }\n    .section { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); }\n    .section-title { font-size: 14px; font-weight: 700; color: var(--accent-2); margin-bottom: 8px; letter-spacing: 0.5px; }\n    .subsection { margin-bottom: 10px; }\n    .subsection strong { display: block; font-size: 12px; color: var(--muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }\n    .contact-item { display: flex; align-items: center; gap: 8px; padding: 4px 0; flex-wrap: wrap; }\n    .contact-badge { background: var(--chip); border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; font-size: 11px; color: var(--accent); text-transform: uppercase; min-width: 60px; text-align: center; }\n    .contact-value { color: var(--accent-2); text-decoration: none; font-size: 14px; }\n    .contact-value:hover { text-decoration: underline; }\n    .rating { font-size: 11px; color: var(--accent); }\n    .no-data { color: var(--muted); font-size: 13px; font-style: italic; padding: 2px 0; }\n    .social-links { display: flex; gap: 8px; flex-wrap: wrap; }\n    .social-link { background: var(--chip); border: 1px solid var(--border); border-radius: 6px; padding: 4px 12px; color: var(--accent-2); text-decoration: none; font-size: 13px; }\n    .social-link:hover { border-color: var(--accent-2); background: rgba(111,195,223,0.1); }\n    .skills-wrap { display: flex; flex-wrap: wrap; gap: 6px; }\n    .skill-chip { background: var(--chip); border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; font-size: 12px; color: var(--muted); }\n    .exp-item { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }\n    .exp-item:last-child { border-bottom: none; }\n    .exp-title { font-weight: 600; font-size: 14px; }\n    .exp-company { color: var(--muted); font-size: 13px; }\n    .exp-tag { display: inline-block; background: var(--chip); border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; font-size: 11px; color: var(--muted); margin: 4px 4px 0 0; }\n    .exp-summary { color: var(--muted); font-size: 12px; margin-top: 4px; line-height: 1.4; }\n    .edu-item { padding: 6px 0; font-size: 14px; }\n    .date-range { color: var(--muted); font-size: 12px; }\n    .lang-wrap { display: flex; gap: 8px; flex-wrap: wrap; }\n    .lang-chip { background: var(--chip); border: 1px solid var(--border); border-radius: 6px; padding: 4px 12px; font-size: 12px; color: var(--muted); }\n    .cert-item { padding: 4px 0; font-size: 13px; color: var(--muted); }\n    .empty-state { text-align: center; padding: 60px 20px; }\n    .empty-icon { font-size: 48px; margin-bottom: 16px; }\n    .empty-state h3 { font-size: 22px; margin-bottom: 12px; }\n    .empty-state p { color: var(--muted); font-size: 14px; max-width: 500px; margin: 0 auto 8px; line-height: 1.6; }\n    .empty-state .note { font-size: 12px; color: var(--accent); background: rgba(244,178,102,0.08); border: 1px solid rgba(244,178,102,0.2); border-radius: 8px; padding: 12px; margin-top: 16px; display: inline-block; }\n    @media (max-width: 768px) { .person-header { flex-direction: column; } .toolbar input { width: 100%; } }  </style>\n  </head>\n<body>\n    <header>\n    <div><h1>Enriched People Data</h1><div class=\"sub\">Full contact details, experience, education, and social links for enriched people.</div></div>\n    <div class=\"stats\">\n      <span class=\"chip accent\">${totalPeople} enriched people</span>\n      <span class=\"chip\">${companies.length} companies</span>\n    </div>\n  </header>\n  <div class=\"container\">\n    <div class=\"toolbar\">\n      <input type=\"text\" id=\"filterInput\" placeholder=\"Filter by name, company, skill, email...\" oninput=\"filterCards()\" />\n      <div style=\"display:flex;gap:8px\">\n        <a class=\"btn accent\" href=\"/webhook/jobs-ui\">Back to Jobs</a>\n        <button class=\"btn\" onclick=\"location.reload()\">Refresh</button>\n      </div>\n    </div>\n    <div id=\"results\">${cardsHtml}</div>\n  </div>\n  <script>\n    function filterCards() {\n      const q = document.getElementById('filterInput').value.toLowerCase();\n      document.querySelectorAll('.person-card').forEach(card => {\n        card.style.display = card.textContent.toLowerCase().includes(q) ? '' : 'none';\n      });\n      document.querySelectorAll('.company-group').forEach(grp => {\n        const visible = grp.querySelectorAll('.person-card[style=\"\"], .person-card:not([style])').length;\n        grp.style.display = visible > 0 ? '' : 'none';\n      });\n    }\n  </script>\n\n\\n  \\n\n</body>\n</html>`;\n\nreturn [{ json: { html } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1056,
+        8800
+      ],
+      "id": "a1b2c3d4-e5f6-7890-abcd-ffffffffffff",
+      "name": "Build Enriched UI HTML"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{$json.html}}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/html; charset=UTF-8"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.2,
+      "position": [
+        1296,
+        8800
+      ],
+      "id": "a1b2c3d4-e5f6-7890-abcd-101010101010",
+      "name": "Enriched UI Response"
+    },
+    {
+      "parameters": {
+        "path": "auth",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        -432,
+        6700
+      ],
+      "id": "auth-webhook-123456",
+      "name": "Auth Page (GET)",
+      "webhookId": "auth-page-webhook"
+    },
+    {
+      "parameters": {
+        "jsCode": "const html = `<!DOCTYPE html>\\n<html lang=\"en\">\\n<head>\\n  <meta charset=\"utf-8\" />\\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\\n  <title>Login - GTM Console</title>\\n  <script src=\"https://accounts.google.com/gsi/client\" async defer></script>\\n  <style>\\n    :root { --bg: #0f1220; --card: #171a2b; --text: #eef1ff; --accent: #f4b266; }\\n    body { background: var(--bg); color: var(--text); font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }\\n    .login-box { background: var(--card); padding: 40px; border-radius: 12px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); width: 100%; max-width: 400px; }\\n    h1 { margin-bottom: 8px; font-size: 24px; }\\n    p { color: #9aa4bf; margin-bottom: 24px; font-size: 14px; }\\n    .g_id_signin { display: flex; justify-content: center; }\\n    #error-msg { color: #ff6b6b; margin-top: 16px; font-size: 13px; display: none; }\\n  </style>\\n</head>\\n<body>\\n  <div class=\"login-box\">\\n    <h1>GTM Console</h1>\\n    <p>Sign in to access the dashboard</p>\\n    <div id=\"g_id_onload\"\\n         data-client_id=\"447046445190-al88jt66ddfi8qe18v9m4n3bkticfqbf.apps.googleusercontent.com\"\\n         data-callback=\"handleCredentialResponse\"\\n         data-auto_select=\"false\"\\n         data-itp_support=\"true\">\\n    </div>\\n    <div class=\"g_id_signin\" data-type=\"standard\" data-size=\"large\" data-theme=\"filled_black\" data-text=\"sign_in_with\" data-shape=\"rectangular\" data-logo_alignment=\"left\"></div>\\n    <div id=\"error-msg\"></div>\\n  </div>\\n  <script>\\n    function handleCredentialResponse(response) {\\n      const responsePayload = decodeJwtResponse(response.credential);\\n      const email = responsePayload.email;\\n      const domain = email.split('@')[1];\\n      const allowed = ['insightstap.com', 'sdtcdigital.com'];\\n      \\n      if (allowed.includes(domain)) {\\n        localStorage.setItem('gtm_user', JSON.stringify({ email: email, name: responsePayload.name, picture: responsePayload.picture }));\\n        const redirect = new URLSearchParams(window.location.search).get('returnUrl') || '/webhook/jobs-ui';\\n        window.location.href = redirect;\\n      } else {\\n        document.getElementById('error-msg').style.display = 'block';\\n        document.getElementById('error-msg').textContent = 'Access Denied: @' + domain + ' is not authorized.';\\n      }\\n    }\\n    function decodeJwtResponse(token) {\\n      var base64Url = token.split('.')[1];\\n      var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');\\n      var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {\\n        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);\\n      }).join(''));\\n      return JSON.parse(jsonPayload);\\n    }\\n  </script>\\n</body>\\n</html>`;\\nreturn [{ json: { html } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -128,
+        6700
+      ],
+      "id": "auth-html-123456",
+      "name": "Build Auth Page"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{$json.html}}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/html; charset=UTF-8"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.2,
+      "position": [
+        128,
+        6700
+      ],
+      "id": "auth-respond-123456",
+      "name": "Auth Page Response"
     }
   ],
   "pinData": {
@@ -1888,7 +2382,7 @@
       "main": [
         [
           {
-            "node": "Selection Response",
+            "node": "Prepare Company Search",
             "type": "main",
             "index": 0
           }
@@ -1973,6 +2467,252 @@
         [
           {
             "node": "Job Scraper2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Company Search": {
+      "main": [
+        [
+          {
+            "node": "Search SignalHire Leaders",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search SignalHire Leaders": {
+      "main": [
+        [
+          {
+            "node": "Prepare AI Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare AI Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare AI Analysis": {
+      "main": [
+        [
+          {
+            "node": "Claude Pick Best Leaders",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude Pick Best Leaders": {
+      "main": [
+        [
+          {
+            "node": "Process AI Picks",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Process AI Picks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process AI Picks": {
+      "main": [
+        [
+          {
+            "node": "Save People to DB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save People to DB": {
+      "main": [
+        [
+          {
+            "node": "Create People Table (MySQL)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create Enriched Table (MySQL)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create People Table (MySQL)": {
+      "main": [
+        [
+          {
+            "node": "Insert People (MySQL)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert People (MySQL)": {
+      "main": [
+        [
+          {
+            "node": "Build Leaders UI HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Leaders UI HTML": {
+      "main": [
+        [
+          {
+            "node": "Selection Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enrich Submit (POST)": {
+      "main": [
+        [
+          {
+            "node": "Process Enrich Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Enrich Request": {
+      "main": [
+        [
+          {
+            "node": "Call SignalHire Person API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call SignalHire Person API": {
+      "main": [
+        [
+          {
+            "node": "Enrich Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Enrich Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SignalHire Callback (POST)": {
+      "main": [
+        [
+          {
+            "node": "Process Callback Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Callback Data": {
+      "main": [
+        [
+          {
+            "node": "Save Enriched Data (MySQL)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Enriched Data (MySQL)": {
+      "main": [
+        [
+          {
+            "node": "Callback Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enriched Data UI (GET)": {
+      "main": [
+        [
+          {
+            "node": "Fetch Enriched Data (MySQL)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Enriched Data (MySQL)": {
+      "main": [
+        [
+          {
+            "node": "Build Enriched UI HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Enriched UI HTML": {
+      "main": [
+        [
+          {
+            "node": "Enriched UI Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Auth Page (GET)": {
+      "main": [
+        [
+          {
+            "node": "Build Auth Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Auth Page": {
+      "main": [
+        [
+          {
+            "node": "Auth Page Response",
             "type": "main",
             "index": 0
           }

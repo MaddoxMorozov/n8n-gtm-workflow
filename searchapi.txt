@@ -1,0 +1,162 @@
+Signalhire api key : [REDACTED]
+
+Search API
+The Search API allows you to search for individuals or companies in the SignalHire database using a wide variety of filters. This API can return multiple results depending on the search criteria provided, such as job title, location, or industry. It is highly useful for lead generation, market research, and talent acquisition.
+
+Search by Query
+API Endpoint:
+POST https://www.signalhire.com/api/v1/candidate/searchByQuery
+
+The searchByQuery endpoint is the request for searching profiles in the SignalHire database. It enables users to filter candidates based on multiple criteria such as location, job title, and keywords. The response includes a scrollId field and the first batch of profiles. The scrollId can be used to retrieve subsequent batches of results using the second part of this API: Scroll Search.
+
+Access to the Search API
+Access to the Search API can be obtained only by contacting support@signalhire.com.
+Limitations: Please note that only three concurrent Search API requests are allowed at a time.
+
+Search Filters
+Parameter	Type	Description
+currentTitle	string	A Boolean query string specifying job titles to search for.
+currentPastTitle	string	A Boolean query string specifying current or past job titles to search for.
+location	string or array of strings	Specifies the geographical area(s) for the search. Accepts either a single city/state/country as a string, or multiple locations as an array of strings.
+Examples: "location":"Los Angeles, California", "location":["India", "Rome, Italy"].
+latitude, longitude	float	Defines a specific geographical point for the search.
+Both latitude and longitude must be provided together to specify a valid map location.
+When these fields are set, they override the location filter.
+The search will include profiles within a 10-kilometer radius from the given coordinates.
+Example: "latitude":41.9028, "longitude":-12.4964.
+coordinates	array<object>	Defines multiple geographical points for the search.
+Each item in the coordinates array must contain both latitude and longitude fields to specify a valid map location.
+This field is used only when the top-level latitude and longitude fields are not provided.
+When set, it also overrides the location filter and allows searching around several points at once.
+Each coordinate is processed with a default 10-kilometer radius from the given point.
+Example:
+"coordinates":[ {"latitude": 41.9028, "longitude": 12.4964}, {"latitude": 45.4642, "longitude": 9.1900} ]
+currentCompany	string	A Boolean query string specifying current company names to search for.
+currentPastCompany	string	A Boolean query string specifying current or past company names to search for.
+fullName	string	Search by full name.
+keywords	string	A Boolean query string for filtering based on skills or other attributes (description, education etc).
+industry	string	Search by industry category (allowed values listed below).
+yearsOfCurrentExperienceFrom	number	Minimum years of experience in the current role and company.
+yearsOfCurrentExperienceTo	number	Maximum years of experience in the current role and company.
+yearsOfCurrentPastExperienceFrom	number	Minimum years of experience in the current and past roles and companies.
+yearsOfCurrentPastExperienceTo	number	Maximum years of experience in the current and past roles and companies.
+openToWork	boolean	Search by open to work status.
+excludeRevealed	boolean	Exclude profiles for which the user has already requested contact details.
+excludeWatched	boolean	Exclude profiles the user has already viewed in the web app or browser extension.
+excludeInLists	boolean	Exclude profiles the user has already added to a list.
+excludeInProgress	boolean	Exclude profiles the user has already added to a job.
+excludeEmailed	boolean	Exclude profiles the user has already emailed.
+size	number	Number of records to return in the response (default: 10; must be between 1 and 100).
+Important: Exclude filters can only be used in combination with at least one non-exclude filter (for example, currentTitle or industry). They cannot be used as the sole filters in a search request.
+
+Allowed Industry Values
+Click to expand
+Boolean Query Explanation
+The title, company and keywords parameters support Boolean search operators to refine the query more effectively. Supported operators:
+
+AND – Ensures that both terms appear (e.g., "PHP AND HTML")
+OR – Includes results that match at least one of the terms (e.g., "Python OR Java")
+NOT – Excludes a term (e.g., "Manager NOT Assistant")
+() – Groups terms for logical combinations (e.g., "(Java AND Spring) OR Python")
+"" – Encloses exact phrases (e.g., "Software Engineer")
+Response format
+When you make a request to the Search API, the response will include several important pieces of data that allow you to manage and paginate through search results, especially when dealing with large datasets. The main components of the response are:
+
+requestId:
+This identifier is provided with each response to ensure that you can track your requests. It is crucial for making subsequent scrollSearch requests. When using pagination, this requestId allows you to continue the search process from where you left off.
+It should be included in any future requests to retrieve the next batch of results.
+total:
+This field represents the total number of matching results across all batches of data. It tells you how many profiles in total meet your search criteria. This number can be larger than the current batch of results, indicating that there are additional profiles available in subsequent requests.
+Example: If the search criteria match 500 profiles, the total value will be 500, but the response might only include a subset of them (e.g., 50 profiles per batch).
+profiles:
+This array contains the first batch of candidate profiles returned by the search. The size of this batch is controlled by the size parameter set in the request. If the number of matching profiles is larger than the batch size, the remaining profiles will be available in subsequent batches.
+Each profile in the profiles array includes information about the candidate, such as their name, contact information, skills, and other relevant data.
+scrollId:
+The scrollId is included in the response if there are more profiles to be fetched. This is especially useful when the total number of results exceeds the size parameter set in the request (i.e., the number of results per batch).
+To fetch the next batch of profiles, the scrollId must be passed in the next request as part of the query. This allows you to paginate through large result sets without needing to start from the beginning each time.
+By using requestId and scrollId, you can efficiently handle large result sets, fetching additional batches of profiles without starting over each time. This is particularly useful when dealing with a large number of matching records and allows for smooth pagination through the results.
+
+Request and response example
+Example request
+curl -X POST --include -H 'apikey: your_secret_api_key' \
+   https://www.signalhire.com/api/v1/candidate/searchByQuery \
+   --data '{"currentTitle":"(Software AND Engineer) OR Developer","location":"New York, New York, United States","keywords": "PHP AND JavaScript"}'
+This example searches for profiles in New York, who have PHP and JavaScript in their skillset or description and have job titles containing Software Engineer or Developer.
+
+Example response
+{
+  "requestId": 3,
+  "total": 12,
+  "scrollId": "abc123", // Only included if total > size
+  "profiles": [
+    {
+      "uid": "10000000000000000000000000001006",
+      "fullName": "Aaron Smith",
+      "location": "London, United Kingdom",
+      "experience": [
+        {
+          "company": "Saward Dawson",
+          "title": "Accountant"
+        }
+      ],
+      "skills": [
+        "Accounting",
+        "Analysis"
+      ],
+      "contactsFetched": null, // date of the last contacts fetch or null
+      "openToWork": false
+    }
+  ]
+}
+Scroll Search
+API Endpoint:
+POST https://www.signalhire.com/api/v1/candidate/scrollSearch/{requestId}
+
+This endpoint is used to fetch subsequent batches of results based on the scrollId returned from a previous searchByQuery request. The requestId from the initial search response must also be used as part of the URL.
+
+Request Parameters:
+Parameter	Type	Required	Description
+requestId	number	Yes	Id of the initial searchByQuery request
+scrollId	string	Yes	The scrollId from the previous search query
+Example request
+curl -X POST --include -H 'apikey: your_secret_api_key' \
+   https://www.signalhire.com/api/v1/candidate/scrollSearch/3 --data '{"scrollId":"abc123"}'
+Example of successful response (HTTP code 200)
+ {
+  "requestId": 3,
+  "total": 12,
+  "scrollId": "xyz456",
+  "profiles": [
+    {
+      "uid": "10000000000000000000000000001001",
+      "fullName": "John Smith",
+      "location": "Brisbane Area, Australia",
+      "experience": [
+        {
+          "company": "Super company",
+          "title": "PHP Developer"
+        }
+      ],
+      "skills": ["PHP", "HTML", "Management"],
+      "openToWork": true
+    }
+  ]
+}
+            
+Response Status Codes
+Status Code	Description
+200	Successful request. Results are returned.
+402	Daily search quota exceeded.
+404	Invalid or expired scrollId. Example response: {"error": "Invalid scroll"}
+429	Only three requests are allowed at the same time.
+Key Notes
+Timeout:
+The scrollId expires after 15 seconds. Make sure subsequent requests are sent within this timeframe.
+Pagination:
+Use the scrollId field to fetch additional results batch by batch.
+Required Fields for Scroll Search:
+Both requestId from the initial searchByQuery response and scrollId are mandatory.
+First Batch in Search by Query:
+The initial searchByQuery response includes the first batch of profiles alongside the scrollId and requestId.
+Total Field:
+The total field always represents the total number of matching results across all batches, not the size of the current batch.

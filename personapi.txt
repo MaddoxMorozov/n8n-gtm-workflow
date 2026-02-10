@@ -1,0 +1,342 @@
+Person API
+The Person API from SignalHire allows you to retrieve detailed information about individuals, including their email addresses, phone numbers, and social media profiles. This API is especially useful for recruiters, marketers, and businesses looking to enrich their databases with contact information.
+
+Retrieving Person Data with a Callback URL
+API Endpoint:
+POST https://www.signalhire.com/api/v1/candidate/search
+
+You can make a request to retrieve data about a person by providing a callbackUrl. Each element in the items array corresponds to one individual, and SignalHire will return the data for each person in the response.
+
+The items array can contain different types of identifiers for the person, such as:
+
+Parameter	Place	Type	Description	Example
+apikey	Request header	String, required	Your secret API key to authenticate request	
+apikey: testapikey
+items	Request body	Json string, required	Array of LinkedIn urls, emails, phones or profile's 32-character uids	
+"items":[
+"https://www.linkedin.com/in/url1",
+"test@email.com",
+"+44 0 808 189 3171",
+"10000000000000000000000000001001"
+]
+callbackUrl	Request body	String, required	Callback url on your domain will be POST requested by SignalHire once search requests are processed.	
+"callbackUrl":
+"https://www.yourdomain.com/yourUrl"
+After processing the request, SignalHire will send the results to the provided callbackUrl.
+
+Request and response example
+Request example
+curl -X POST --include \
+   -H 'apikey: your_secret_api_key' \
+   https://www.signalhire.com/api/v1/candidate/search \
+   --data '{"items":["https://www.linkedin.com/in/profile1","email@example.com","+44 0 123 456 789","10000000000000000000000000000001"],"callbackUrl":"https://www.yourdomain.com/yourCallbackUrl"}'
+Successful response example (HTTP Status Code 201)
+{
+   "requestId": 1
+}
+Callback format example (sent to callbackUrl https://www.yourdomain.com/yourCallbackUrl)
+[
+   {
+      "item":"https:\/\/www.linkedin.com\/in\/url1",
+      "status":"success",
+      "candidate":{"fullName":"Profile1",...}
+   },
+   {
+      "item":"email@email.com",
+      "status":"failed"
+   },
+   {
+      "item":"+44 0 808 189 3171",
+      "status":"success",
+      "candidate":{"fullName":"Profile2",...}
+   },
+   {
+      "item":"10000000000000000000000000000001",
+      "status":"credits_are_over"
+   }
+]
+Callback URL
+When making a request to the SignalHire API, the process is always concluded by a callback to the callbackUrl that you specify in your request. This means that after the API completes its work, the results are sent to the URL you provided, so you can process or store them as needed. It is essential that you set up a server to listen for these callbacks and respond to them accordingly.
+
+Successful Data Posting
+The data posting is considered successful if the callback URL responds with a 200 HTTP status code. This indicates that the callback was successfully received and processed on your server. If your callback server fails to respond upon the initial contact, or if a connection cannot be established within a 10-second timeout period, the SignalHire system will make three sequential attempts to reconnect.
+
+If the callback URL fails to return a 200 HTTP status code during all retry attempts, the request will be considered a failure, and the callback will be discarded for further attempts. It is important to ensure that your callback endpoint is available and can handle incoming requests in a timely manner to avoid any disruptions in your workflow.
+
+Tracking and Debugging
+For tracking and debugging purposes, each request’s unique Request ID is returned in the response header Request-Id of the callback. This ID allows you to correlate the response with the initial request, making it easier to troubleshoot or contact support if issues arise.
+
+You should store this Request-Id and use it to reference the specific request when communicating with support or analyzing logs.
+
+Important Considerations:
+Setting up a server for callback: It is crucial to have your own server ready to listen for the callback requests. You need to provide SignalHire with a valid endpoint (callback URL), and ensure it can accept incoming requests from the SignalHire API.
+Response Time: Ensure your callback server is responsive, with a quick connection time (under the 10-second timeout) to avoid retries. This helps in ensuring successful data reception.
+By properly configuring and monitoring your callback URL, you will be able to efficiently process the data returned from the SignalHire API.
+
+Callback Format
+When the SignalHire API completes processing your request, the results are returned via a callback to the URL you provided. The response format for the callback is structured as follows:
+
+Headers:
+The unique Request ID for the request is passed in the Request-Id header of the callback response. This allows you to track the specific request for debugging or support purposes.
+Body Format:
+The body of the callback contains an array of objects. Each object corresponds to an individual item from the items array provided in your request. These objects contain various fields, which are described below:
+status
+The status field indicates the result of processing the item. The possible values are:
+success - The request was successfully processed, and the data for the item was found.
+failed - The item was not processed successfully, and the reason for the failure is provided in the error field, for example the item not being found in the database
+credits_are_over - The request failed due to running out of credits.
+timeout_exceeded - The request timed out while processing (10-second timeout).
+duplicate_query - This status indicates that the exact same request was made within a short period, and it was identified as a duplicate.
+item
+The item field contains the value of the item from the request, such as a LinkedIn URL, email address, phone number, or unique ID. This is the item for which the data was requested.
+candidate
+If the request was successful, the candidate field contains detailed information about the individual. This field will be populated only when the status is 'success'.
+Example of candidate data:
+[
+    "status": "success",
+    "item": "https://www.linkedin.com/in/john-doe-12345678",
+    "candidate": {
+        "uid": "abc123def456gh789ijk012lmn345op6",
+        "fullName": "John Doe",
+        "gender": null,
+        "photo": {
+            "url": "https://media.cdn.com/image/C4A03AQH-wVPhNTP7cw/0/1577297087305"
+        },
+        "locations": [
+            {
+            "name": "New York, New York, United States"
+            }
+        ],
+        "skills": [
+            "Civil Litigation", "Corporate Law", "Litigation", "Mediation",
+            "Negotiation", "Legal Research", "Legal Writing"
+        ],
+        "education": [
+            {
+                "faculty": "Law",
+                "university": "New York University School of Law",
+                "url": "https://www.linkedin.com/school/new-york-university-school-of-law/",
+                "startedYear": 2005,
+                "endedYear": 2008,
+                "degree": ["JD"]
+            },
+            {
+                "faculty": "Political Science",
+                "university": "Harvard University",
+                "url": "https://www.linkedin.com/school/harvard-university/",
+                "startedYear": 2000,
+                "endedYear": 2004,
+                "degree": ["Bachelor of Arts"]
+            }
+        ],
+        "experience": [
+            {
+                "position": "Owner / Managing Attorney",
+                "location": null,
+                "current": true,
+                "started": "2015-01-01T00:00:00+00:00",
+                "ended": null,
+                "company": "Doe Law Offices LLC",
+                "summary": "Helping clients navigate family law and criminal defense cases.",
+                "companyUrl": "https://www.linkedin.com/company/doe-law-offices",
+                "companyId": null,
+                "companySize": "1-10",
+                "staffCount": 5,
+                "industry": "Law Practice",
+                "website": "http://www.doe-law.com"
+            },
+            {
+                "position": "Member",
+                "location": "Greater New York Area",
+                "current": true,
+                "started": "2020-06-01T00:00:00+00:00",
+                "ended": null,
+                "company": "Legal Professionals Network",
+                "summary": "A network of attorneys and legal experts who help with professional
+                                development and networking.",
+                "companyUrl": "https://www.linkedin.com/company/legal-professionals-network",
+                "companyId": null,
+                "companySize": "50-100",
+                "staffCount": 75,
+                "industry": "Professional Networking",
+                "website": "http://www.legalnetwork.org"
+            }
+        ],
+        "headLine": "Founder / Owner Doe Law Offices",
+        "summary": "John Doe, an experienced lawyer with expertise in family law and criminal defense.
+                    Passionate about providing legal assistance to individuals and families in need.",
+        "language": [
+            {
+                "name": "English",
+                "proficiency": "Native or bilingual"
+            },
+            {
+                "name": "Portuguese",
+                "proficiency": "Professional working"
+            }
+        ],
+        "organization": [
+            {
+                "name": "New York Bar Association",
+                "position": null,
+                "startDate": "January 2015",
+                "endDate": null
+            }
+        ],
+        "contacts": [
+            {
+                "type": "phone",
+                "value": "+1 555-123-4567",
+                "rating": "100",
+                "subType": "work_phone",
+                "info": "This phone number also belongs to https://www.linkedin.com/in/jane-doe"
+            },
+            {
+                "type": "email",
+                "value": "john.doe@doelaw.com",
+                "rating": "100",
+                "subType": "work"
+            },
+            {
+                "type": "email",
+                "value": "john.doe@gmail.com",
+                "rating": "100",
+                "subType": "personal"
+            }
+        ],
+        "social": [
+            {
+                "type": "li",
+                "link": "https://www.linkedin.com/in/john-doe-12345678",
+                "rating": "100"
+            },
+            {
+                "type": "fb",
+                "link": "https://www.facebook.com/johndoe",
+                "rating": "100"
+            }
+        ],
+        "course": [
+            {
+                "name": "Administração Estratégica [FGV]"
+            },
+            {
+                "name": "Distribuição e Monetização de Conteúdo [Facebook Blueprint]"
+            },
+            {
+                "name": "Especialistas RBS [Perestroika]"
+            }
+        ],
+        "project": [
+            {
+                "name": "Central Vingadores",
+                "description": null,
+                "url": "url",
+                "startDate": "July 2017",
+                "endDate": null
+            }
+        ],
+        "certification": [
+            {
+                "name": "Exame da certificação em otimização de conversão",
+                "license": "119199161",
+                "authority": "United Latino Students Association"
+            },
+            {
+                "name": "Responsible AI: Applying AI Principles with Google Cloud",
+                "license": "10748511",
+                "authority": "Google"
+            }
+        ],
+        "patent": [
+            {
+                "name": "Secure geolocation-based data access control in a distributed computing environment",
+                "issue": "US12147159",
+                "patentNumber": null,
+                "date": "November 2024"
+            },
+            {
+                "name": "Systems and methods for source code error reoccurrence prevention",
+                "issue": "U.S.",
+                "patentNumber": "patent number 11,413,205",
+                "date": "August 2022"
+            }
+        ],
+        "publication": [
+            {
+                "name": "TRIAL Magazine",
+                "description": "description",
+                "issue": "American Association for Justice",
+                "url": null,
+                "date": "July 2006"
+            },
+            {
+                "name": "name",
+                "description": "description",
+                "issue": null,
+                "url": "url",
+                "date": null
+            }
+        ],
+        "honorAward": [
+            {
+                "name": "redacted",
+                "description": "redacted",
+                "issue": "Great British Entrepreneur Awards",
+                "date": "June 2024"
+            },
+            {
+                "name": "redacted",
+                "description": "redacted",
+                "issue": "Rural Business Awards",
+                "date": null
+            }
+        ]
+    }
+]
+Rate Limits & Usage Restrictions
+To ensure optimal performance and fair usage of the SignalHire Person API, the following limits apply to the requests:
+
+Maximum Parallel Requests
+There is no strict limit on the number of parallel requests that can be made simultaneously. However, excessive concurrency may result in temporary rate-limiting or throttling by our system to maintain service stability.
+Maximum Inputs per Request
+Each request can contain up to 100 input elements. This includes LinkedIn urls, emails, phones or profile's 32-character uids.
+Rate Limits
+The maximum number of elements processed per minute is 600. This means you can make multiple requests as long as the total number of elements processed does not exceed this limit.
+Example Scenarios:
+You can send 6 requests per minute with 100 elements each (6 × 100 = 600 elements per minute).
+Alternatively, you can send 600 requests per minute with one element each.
+
+Exceeding Rate Limits
+If the limit is exceeded, the request will be rejected with HTTP status code 429 Too Many Requests. To avoid disruptions, implement retry mechanisms with exponential backoff.
+Get Remaining Credits Method
+This API endpoint allows you to check how many credits you have remaining in your account. The number of credits will be returned in the response, along with a status code.
+
+API Endpoint:
+GET https://www.signalhire.com/api/v1/credits
+
+Parameter	Place	Type	Description	Example
+apikey	Request header	String, required	Your secret API key to authenticate request	
+apikey: testapikey
+Request example
+curl -X GET -H 'apikey: testapikey' https://www.signalhire.com/api/v1/credits
+Response example (HTTP Status Code 200)
+{
+   "credits": 27
+}
+Getting Profiles Without Contacts
+In addition to retrieving a full profile with contact details, the Person API also allows you to retrieve the profile without contact information by adding the parameter withoutContacts: true in the request body. This method is useful when you only need the public profile data, such as the person's name, location, work experience, education, and skills, but do not require contact details like email, phone, or other personal identifiers. The LinkedIn profile link remains available in this case.
+
+Request example
+curl -X POST --include \
+   -H 'apikey: your_secret_api_key' \
+   https://www.signalhire.com/api/v1/candidate/search \
+   --data '{"items":["https://www.linkedin.com/in/profile1","email@example.com","+44 0 123 456 789","10000000000000000000000000000001"],"withoutContacts":true,"callbackUrl":"https://www.yourdomain.com/yourCallbackUrl"}'
+Response
+The response for this request will follow the same format as the full profile /search method, but it will exclude any contact-related data such as phone numbers, email addresses, and other personal identifiers, while keeping the LinkedIn profile link.
+
+Credits and Remaining Credits
+To use the Profile Without Contacts method, you will need a separate type of credits. Please contact support@signalhire.com to purchase these credits.
+To check the remaining credits for profiles without contacts, you can refer to the X-Credits-Left header in the response, just like all other methods.
+Alternatively, you can use the /credits method with the parameter withoutContacts=true to check the remaining credits.
+curl -X GET -H 'apikey: testapikey' https://www.signalhire.com/api/v1/credits?withoutContacts=true
