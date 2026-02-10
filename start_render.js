@@ -109,8 +109,15 @@ setTimeout(() => {
       // Redirect URL (Google sends user back here after login)
       '--redirect-url=' + RENDER_URL + '/oauth2/callback',
 
-      // Skip auth for these routes (SignalHire callback + AJAX endpoints)
+      // Skip auth for n8n internal routes (AJAX, WebSocket, telemetry)
+      // These are called by the browser AFTER the page loads, so they need to pass through
+      '--skip-auth-route=^/rest/',
+      '--skip-auth-route=^/api/',
+      '--skip-auth-route=^/healthz',
+      '--skip-auth-route=^/webhook-test/',
+      // Skip auth for SignalHire callback (external API posts here)
       '--skip-auth-route=^/webhook/signalhire-callback',
+      // Skip auth for AJAX data endpoints (called by the UI pages after they load)
       '--skip-auth-route=^/webhook/jobs-ui-data',
       '--skip-auth-route=^/webhook/jobs-ui-submit',
       '--skip-auth-route=^/webhook/enrich-submit',
